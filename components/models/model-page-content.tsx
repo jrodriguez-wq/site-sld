@@ -517,7 +517,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </div>
                 {(() => {
                   // Prioridad: 1) Imagen del JSON, 2) Plano optimizado del mapeo, 3) Mensaje de "próximamente"
-                  const floorplanImage = sections.floorplan?.image || MODEL_FLOORPLANS[modelData.key.toLowerCase()];
+                  const floorplanImage = sections?.floorplan?.image || MODEL_FLOORPLANS[modelData.key.toLowerCase()];
                   
                   if (floorplanImage) {
                     return (
@@ -674,25 +674,28 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Standard Features</h3>
                   <p className="text-base md:text-lg text-gray-600 mb-8">Explore the standard features included with this home</p>
                 </div>
-                {sections.standardFeatures?.categories && (
+                {sections?.standardFeatures?.categories && (
                   <div className="grid gap-4 md:grid-cols-2">
-                    {Object.entries(sections.standardFeatures.categories).map(([key, category]) => (
-                      <Card key={key} className="bg-white border-2 border-gray-200 hover:border-[#471396]/50 transition-all duration-300">
-                        <CardHeader className="pb-3">
-                          <CardTitle className="text-xl font-bold text-gray-900">{category.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <ul className="space-y-2">
-                            {category.items.map((item, index) => (
-                              <li key={index} className="flex items-start gap-2 text-gray-700">
-                                <span className="text-[#471396] mt-1.5">•</span>
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </CardContent>
-                      </Card>
-                    ))}
+                    {Object.entries(sections.standardFeatures.categories).map(([key, category]) => {
+                      if (!category) return null;
+                      return (
+                        <Card key={key} className="bg-white border-2 border-gray-200 hover:border-[#471396]/50 transition-all duration-300">
+                          <CardHeader className="pb-3">
+                            <CardTitle className="text-xl font-bold text-gray-900">{category.title}</CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <ul className="space-y-2">
+                              {category.items.map((item, index) => (
+                                <li key={index} className="flex items-start gap-2 text-gray-700">
+                                  <span className="text-[#471396] mt-1.5">•</span>
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
                   </div>
                 )}
               </TabsContent>
