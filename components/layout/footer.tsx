@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
+import { CONTACT_INFO } from "@/config/contact";
 import { 
   FaFacebook, 
   FaLinkedin, 
@@ -155,26 +156,33 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <FaMapMarkerAlt className="h-5 w-5 text-[#D4AF37] mt-0.5 flex-shrink-0" />
                 <div>
-                  <div className="font-semibold">2721 Vista Parkway</div>
-                  <div className="text-white/70">West Palm Beach, FL 33411</div>
+                  <Link
+                    href={CONTACT_INFO.address.googleMaps}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#D4AF37] transition-colors duration-300"
+                  >
+                    <div className="font-semibold">{CONTACT_INFO.address.street}</div>
+                    <div className="text-white/70">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.zip}</div>
+                  </Link>
                 </div>
               </li>
               <li className="flex items-center gap-3">
                 <FaPhone className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <Link
-                  href="tel:+1234567890"
+                  href={CONTACT_INFO.phone.href}
                   className="hover:text-[#D4AF37] transition-colors duration-300"
                 >
-                  (123) 456-7890
+                  {CONTACT_INFO.phone.display}
                 </Link>
               </li>
               <li className="flex items-center gap-3">
                 <FaEnvelope className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <Link
-                  href="mailto:info@sld.com"
-                  className="hover:text-[#D4AF37] transition-colors duration-300"
+                  href={CONTACT_INFO.email.href}
+                  className="hover:text-[#D4AF37] transition-colors duration-300 break-all"
                 >
-                  info@sld.com
+                  {CONTACT_INFO.email.display}
                 </Link>
               </li>
             </ul>

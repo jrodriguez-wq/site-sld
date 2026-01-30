@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane } from "react-icons/fa";
+import { CONTACT_INFO } from "@/config/contact";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle } from "react-icons/fa";
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+  message?: string;
+}
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -12,52 +20,133 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleChange = (
+  const validateForm = useCallback((): boolean => {
+    const newErrors: FormErrors = {};
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (formData.name.trim().length < 2) {
+      newErrors.name = "Name must be at least 2 characters";
+    }
+
+    // Email validation
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        newErrors.email = "Please enter a valid email address";
+      }
+    }
+
+    // Phone validation (optional but if provided, should be valid)
+    if (formData.phone.trim()) {
+      const phoneRegex = /^[\d\s\-\(\)\+]+$/;
+      if (!phoneRegex.test(formData.phone)) {
+        newErrors.phone = "Please enter a valid phone number";
+      }
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  }, [formData]);
+
+  const handleChange = useCallback((
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+    // Clear submit error
+    if (submitError) {
+      setSubmitError(null);
+    }
+  }, [errors, submitError]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    if (!validateForm()) {
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    console.log("Form submitted:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", phone: "", message: "" });
-    
-    setTimeout(() => setIsSubmitted(false), 5000);
+
+    try {
+      // TODO: Replace with actual API endpoint or HubSpot integration
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message. Please try again.");
+      }
+
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", phone: "", message: "" });
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitError(
+        error instanceof Error 
+          ? error.message 
+          : "An error occurred. Please try again or contact us directly."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: FaMapMarkerAlt,
       title: "Location",
-      content: "2721 Vista Parkway",
-      subContent: "West Palm Beach, FL 33411",
-      href: "#",
+      content: CONTACT_INFO.address.street,
+      subContent: `${CONTACT_INFO.address.city}, ${CONTACT_INFO.address.state} ${CONTACT_INFO.address.zip}`,
+      href: CONTACT_INFO.address.googleMaps,
     },
     {
       icon: FaPhone,
       title: "Phone",
-      content: "(123) 456-7890",
-      href: "tel:+1234567890",
+      content: CONTACT_INFO.phone.display,
+      href: CONTACT_INFO.phone.href,
     },
     {
       icon: FaEnvelope,
       title: "Email",
-      content: "info@sld.com",
-      href: "mailto:info@sld.com",
+      content: CONTACT_INFO.email.display,
+      href: CONTACT_INFO.email.href,
     },
   ];
 
@@ -104,21 +193,30 @@ const Contact = () => {
                         <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-1">
                           {info.title}
                         </h4>
-                        {info.href !== "#" ? (
+                        {info.href ? (
                           <a
                             href={info.href}
+                            target={info.title === "Location" ? "_blank" : undefined}
+                            rel={info.title === "Location" ? "noopener noreferrer" : undefined}
                             className="text-gray-600 hover:text-[#471396] transition-colors duration-300 text-base sm:text-lg block"
                           >
                             {info.content}
+                            {info.subContent && (
+                              <span className="block text-gray-500 text-sm sm:text-base mt-1">
+                                {info.subContent}
+                              </span>
+                            )}
                           </a>
                         ) : (
                           <div>
                             <p className="text-gray-600 text-base sm:text-lg">
                               {info.content}
                             </p>
-                            <p className="text-gray-500 text-sm sm:text-base">
-                              {info.subContent}
-                            </p>
+                            {info.subContent && (
+                              <p className="text-gray-500 text-sm sm:text-base">
+                                {info.subContent}
+                              </p>
+                            )}
                           </div>
                         )}
                       </div>
@@ -139,17 +237,36 @@ const Contact = () => {
             </p>
             
             {isSubmitted ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B]">
+              <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in-0 zoom-in-95 duration-500">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] shadow-lg">
                   <FaCheckCircle className="h-8 w-8 text-white" />
                 </div>
                 <h4 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h4>
-                <p className="text-gray-600 text-lg">
+                <p className="text-gray-600 text-lg mb-4">
                   We&apos;ll get back to you soon.
+                </p>
+                <p className="text-sm text-gray-500">
+                  You can also reach us directly at{" "}
+                  <a
+                    href={CONTACT_INFO.phone.href}
+                    className="text-[#471396] hover:underline font-semibold"
+                  >
+                    {CONTACT_INFO.phone.display}
+                  </a>
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6" noValidate>
+                {submitError && (
+                  <div className="rounded-xl bg-red-50 border-2 border-red-200 p-4 flex items-start gap-3 animate-in fade-in-0 slide-in-from-top-2 duration-300">
+                    <FaExclamationCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-red-900 mb-1">Error</p>
+                      <p className="text-sm text-red-700">{submitError}</p>
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label
                     htmlFor="name"
@@ -164,10 +281,23 @@ const Contact = () => {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-[#471396] focus:outline-none focus:ring-2 focus:ring-[#471396]/20 transition-all duration-300"
+                    aria-invalid={errors.name ? "true" : "false"}
+                    aria-describedby={errors.name ? "name-error" : undefined}
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                      errors.name
+                        ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
+                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                    }`}
                     placeholder="Your full name"
                   />
+                  {errors.name && (
+                    <p id="name-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
+                      <FaExclamationCircle className="h-3.5 w-3.5" />
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label
                     htmlFor="email"
@@ -182,16 +312,29 @@ const Contact = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-[#471396] focus:outline-none focus:ring-2 focus:ring-[#471396]/20 transition-all duration-300"
+                    aria-invalid={errors.email ? "true" : "false"}
+                    aria-describedby={errors.email ? "email-error" : undefined}
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                      errors.email
+                        ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
+                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                    }`}
                     placeholder="your.email@example.com"
                   />
+                  {errors.email && (
+                    <p id="email-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
+                      <FaExclamationCircle className="h-3.5 w-3.5" />
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label
                     htmlFor="phone"
                     className="block text-sm sm:text-base font-semibold mb-2 text-gray-900"
                   >
-                    Phone
+                    Phone <span className="text-gray-500 font-normal text-xs">(optional)</span>
                   </label>
                   <input
                     type="tel"
@@ -199,10 +342,23 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-[#471396] focus:outline-none focus:ring-2 focus:ring-[#471396]/20 transition-all duration-300"
-                    placeholder="(123) 456-7890"
+                    aria-invalid={errors.phone ? "true" : "false"}
+                    aria-describedby={errors.phone ? "phone-error" : undefined}
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                      errors.phone
+                        ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
+                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                    }`}
+                    placeholder={CONTACT_INFO.phone.display}
                   />
+                  {errors.phone && (
+                    <p id="phone-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
+                      <FaExclamationCircle className="h-3.5 w-3.5" />
+                      {errors.phone}
+                    </p>
+                  )}
                 </div>
+
                 <div>
                   <label
                     htmlFor="message"
@@ -217,17 +373,33 @@ const Contact = () => {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:border-[#471396] focus:outline-none focus:ring-2 focus:ring-[#471396]/20 transition-all duration-300 resize-none"
+                    aria-invalid={errors.message ? "true" : "false"}
+                    aria-describedby={errors.message ? "message-error" : undefined}
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none ${
+                      errors.message
+                        ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
+                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                    }`}
                     placeholder="Tell us about your project or inquiry..."
                   />
+                  {errors.message && (
+                    <p id="message-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
+                      <FaExclamationCircle className="h-3.5 w-3.5" />
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
+
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#D4AF37] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 py-6 sm:py-7 text-base sm:text-lg rounded-xl"
+                  className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#D4AF37] disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 disabled:hover:scale-100 transition-all duration-300 py-6 sm:py-7 text-base sm:text-lg rounded-xl"
                 >
                   {isSubmitting ? (
-                    "Sending..."
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Sending...
+                    </span>
                   ) : (
                     <>
                       Send Message
