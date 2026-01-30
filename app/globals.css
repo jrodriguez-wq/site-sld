@@ -1,26 +1,134 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  /* Base Colors - Deep Navy to Purple Spectrum */
+  --color-background: 0 0% 100%;
+  --color-foreground: 250 35% 20%;
+  
+  /* Card Colors */
+  --color-card: 0 0% 100%;
+  --color-card-foreground: 250 35% 20%;
+  
+  /* Popover */
+  --color-popover: 0 0% 100%;
+  --color-popover-foreground: 250 35% 20%;
+  
+  /* Primary - Deep Purple (#471396 / rgb(71, 19, 150)) */
+  --color-primary: 270 78% 33%;
+  --color-primary-foreground: 0 0% 100%;
+  
+  /* Secondary - Deep Sea Base (#2d2c55) */
+  --color-secondary: 241 32% 24%;
+  --color-secondary-foreground: 0 0% 100%;
+  
+  /* Muted - Blue Rose (#2f2c79) */
+  --color-muted: 245 47% 24%;
+  --color-muted-foreground: 250 20% 60%;
+  
+  /* Accent - Vibrant Purple (#B13BFF / rgb(177, 59, 255)) */
+  --color-accent: 275 100% 62%;
+  --color-accent-foreground: 0 0% 100%;
+  
+  /* Highlight - Gold (#FFCC00 / rgb(255, 204, 0)) */
+  --color-highlight: 48 100% 50%;
+  --color-highlight-foreground: 250 35% 20%;
+  
+  /* Destructive */
+  --color-destructive: 0 84% 60%;
+  --color-destructive-foreground: 0 0% 100%;
+  
+  /* Borders - Subtle Blue */
+  --color-border: 245 30% 85%;
+  --color-input: 245 30% 85%;
+  
+  /* Ring - Accent Purple */
+  --color-ring: 275 100% 62%;
+  
+  /* Border Radius */
+  --radius: 1rem;
+  
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Custom Color Palette */
+  --color-deep-navy: 250 50% 13%;
+  --color-deep-sea: 241 32% 24%;
+  --color-blue-rose: 245 47% 24%;
+  --color-bluebell: 248 57% 39%;
+  --color-sapphire: 247 70% 44%;
+  --color-purple-base: 270 78% 33%;
+  --color-purple-vibrant: 275 100% 62%;
+  --color-gold: 48 100% 50%;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @theme {
+    --color-background: 250 50% 13%;
+    --color-foreground: 0 0% 98%;
+    --color-card: 241 32% 20%;
+    --color-card-foreground: 0 0% 98%;
+    --color-popover: 241 32% 20%;
+    --color-popover-foreground: 0 0% 98%;
+    --color-primary: 275 100% 62%;
+    --color-primary-foreground: 250 50% 13%;
+    --color-secondary: 245 47% 24%;
+    --color-secondary-foreground: 0 0% 98%;
+    --color-muted: 245 47% 20%;
+    --color-muted-foreground: 250 20% 70%;
+    --color-accent: 275 100% 62%;
+    --color-accent-foreground: 0 0% 100%;
+    --color-highlight: 48 100% 50%;
+    --color-highlight-foreground: 250 50% 13%;
+    --color-destructive: 0 62% 50%;
+    --color-destructive-foreground: 0 0% 100%;
+    --color-border: 245 30% 25%;
+    --color-input: 245 30% 25%;
+    --color-ring: 275 100% 62%;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--color-muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-primary));
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-accent));
+}
+
+/* Mobile Menu Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

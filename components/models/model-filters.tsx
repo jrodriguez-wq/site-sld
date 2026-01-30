@@ -1,0 +1,389 @@
+"use client";
+
+import { useState, memo, useCallback } from "react";
+import { Button } from "@/components/ui/button";
+import { Slider } from "@/components/ui/slider";
+import { Filter, DollarSign, Bed, Bath, Square, RotateCcw, ChevronDown } from "lucide-react";
+import { useTranslation } from "@/hooks/use-translation";
+import { cn } from "@/lib/utils";
+
+export interface FilterState {
+  priceRange: [number, number];
+  bedrooms: number[];
+  bathrooms: number[];
+  sqftRange: [number, number];
+}
+
+interface ModelFiltersProps {
+  filters: FilterState;
+  onFiltersChange: (filters: FilterState) => void;
+  maxPrice: number;
+  maxSqft: number;
+}
+
+const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: ModelFiltersProps) => {
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handlePriceChange = useCallback((value: number[]) => {
+    onFiltersChange({
+      ...filters,
+      priceRange: [value[0], value[1]] as [number, number],
+    });
+  }, [filters, onFiltersChange]);
+
+  const handleSqftChange = useCallback((value: number[]) => {
+    onFiltersChange({
+      ...filters,
+      sqftRange: [value[0], value[1]] as [number, number],
+    });
+  }, [filters, onFiltersChange]);
+
+  const toggleBedroom = useCallback((bedrooms: number) => {
+    const newBedrooms = filters.bedrooms.includes(bedrooms)
+      ? filters.bedrooms.filter((b) => b !== bedrooms)
+      : [...filters.bedrooms, bedrooms];
+    onFiltersChange({
+      ...filters,
+      bedrooms: newBedrooms,
+    });
+  }, [filters, onFiltersChange]);
+
+  const toggleBathroom = useCallback((bathrooms: number) => {
+    const newBathrooms = filters.bathrooms.includes(bathrooms)
+      ? filters.bathrooms.filter((b) => b !== bathrooms)
+      : [...filters.bathrooms, bathrooms];
+    onFiltersChange({
+      ...filters,
+      bathrooms: newBathrooms,
+    });
+  }, [filters, onFiltersChange]);
+
+  const resetFilters = useCallback(() => {
+    onFiltersChange({
+      priceRange: [0, maxPrice],
+      bedrooms: [],
+      bathrooms: [],
+      sqftRange: [0, maxSqft],
+    });
+  }, [maxPrice, maxSqft, onFiltersChange]);
+
+  const activeFiltersCount =
+    (filters.priceRange[0] > 0 || filters.priceRange[1] < maxPrice ? 1 : 0) +
+    (filters.bedrooms.length > 0 ? 1 : 0) +
+    (filters.bathrooms.length > 0 ? 1 : 0) +
+    (filters.sqftRange[0] > 0 || filters.sqftRange[1] < maxSqft ? 1 : 0);
+
+  return (
+    <>
+      {/* Mobile Filter Button */}
+      <Button
+        onClick={() => setIsOpen(!isOpen)}
+        variant="outline"
+        className={cn(
+          "lg:hidden w-full justify-between h-10 sm:h-11 mb-3 sm:mb-4",
+          "border border-gray-200 hover:border-[#471396]",
+          "bg-white hover:bg-gray-50 transition-all",
+          "text-sm sm:text-base text-gray-900"
+        )}
+      >
+        <span className="flex items-center gap-2">
+          <Filter className="h-4 w-4 text-[#471396]" />
+          <span className="font-medium text-gray-900">
+            Filters
+          </span>
+          {activeFiltersCount > 0 && (
+            <span className="bg-[#471396] text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+              {activeFiltersCount}
+            </span>
+          )}
+        </span>
+        <ChevronDown className={cn("h-4 w-4 text-gray-600 transition-transform", isOpen && "rotate-180")} />
+      </Button>
+
+      {/* Mobile Filter Panel */}
+      <div className={cn(
+        "lg:hidden mt-3 sm:mt-4 p-4 sm:p-5 rounded-xl border border-gray-200 bg-white shadow-lg space-y-4 sm:space-y-5 md:space-y-6",
+        isOpen ? "block animate-in fade-in-0 slide-in-from-top-2" : "hidden"
+      )}>
+        <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+          <h3 className="font-semibold text-lg text-gray-900">
+            Filters
+          </h3>
+          {activeFiltersCount > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={resetFilters}
+              className="text-xs h-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+            >
+              <RotateCcw className="h-3 w-3 mr-1.5" />
+              Reset
+            </Button>
+          )}
+        </div>
+
+        {/* Price Range */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-4 w-4 text-[#471396]" />
+            <span className="text-sm font-semibold text-gray-900">
+              Price Range
+            </span>
+          </div>
+          <Slider
+            value={filters.priceRange}
+            onValueChange={handlePriceChange}
+            min={0}
+            max={maxPrice}
+            step={10000}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs font-medium text-gray-600">
+            <span>${(filters.priceRange[0] / 1000).toFixed(0)}k</span>
+            <span>${(filters.priceRange[1] / 1000).toFixed(0)}k</span>
+          </div>
+        </div>
+
+        {/* Bedrooms */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Bed className="h-4 w-4 text-[#471396]" />
+            <span className="text-sm font-semibold text-gray-900">
+              Bedrooms
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {[2, 3, 4].map((bedrooms) => {
+              const isActive = filters.bedrooms.includes(bedrooms);
+              return (
+                <button
+                  key={bedrooms}
+                  onClick={() => toggleBedroom(bedrooms)}
+                  className={cn(
+                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all",
+                    isActive
+                      ? "bg-[#471396] text-white shadow-sm"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                  )}
+                >
+                  {bedrooms}+
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Bathrooms */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Bath className="h-4 w-4 text-[#471396]" />
+            <span className="text-sm font-semibold text-gray-900">
+              Bathrooms
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {[1, 2, 3, 4].map((bathrooms) => {
+              const isActive = filters.bathrooms.includes(bathrooms);
+              return (
+                <button
+                  key={bathrooms}
+                  onClick={() => toggleBathroom(bathrooms)}
+                  className={cn(
+                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all",
+                    isActive
+                      ? "bg-[#471396] text-white shadow-sm"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                  )}
+                >
+                  {bathrooms}+
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Square Feet */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Square className="h-4 w-4 text-[#471396]" />
+            <span className="text-sm font-semibold text-gray-900">
+              Square Feet
+            </span>
+          </div>
+          <Slider
+            value={filters.sqftRange}
+            onValueChange={handleSqftChange}
+            min={0}
+            max={maxSqft}
+            step={100}
+            className="w-full"
+          />
+          <div className="flex justify-between text-xs font-medium text-gray-600">
+            <span>{(filters.sqftRange[0] / 1000).toFixed(1)}k</span>
+            <span>{(filters.sqftRange[1] / 1000).toFixed(1)}k</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Sidebar - Fixed Left */}
+      <aside className="hidden lg:block w-80 xl:w-96 shrink-0">
+        <div className="sticky top-32 xl:top-36 p-6 rounded-2xl border border-gray-200 bg-white shadow-lg space-y-8">
+          {/* Header */}
+          <div className="flex items-center justify-between pb-4 border-b border-gray-200">
+            <div className="flex items-center gap-2">
+              <Filter className="h-5 w-5 text-[#471396]" />
+              <h3 className="font-bold text-lg text-gray-900">
+                Filters
+              </h3>
+            </div>
+            {activeFiltersCount > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={resetFilters}
+                className="text-xs h-8 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              >
+                <RotateCcw className="h-3.5 w-3.5 mr-1.5" />
+                Reset
+              </Button>
+            )}
+          </div>
+
+          {/* Price Range */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-lg bg-[#471396]/10">
+                <DollarSign className="h-4 w-4 text-[#471396]" />
+              </div>
+              <label className="text-sm font-semibold text-gray-900 cursor-pointer">
+                Price Range
+              </label>
+            </div>
+            <Slider
+              value={filters.priceRange}
+              onValueChange={handlePriceChange}
+              min={0}
+              max={maxPrice}
+              step={10000}
+              className="w-full"
+            />
+            <div className="flex justify-between items-center">
+              <div className="px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200">
+                <span className="text-sm font-semibold text-gray-900">
+                  ${(filters.priceRange[0] / 1000).toFixed(0)}k
+                </span>
+              </div>
+              <div className="h-px w-6 bg-gray-300" />
+              <div className="px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200">
+                <span className="text-sm font-semibold text-gray-900">
+                  ${(filters.priceRange[1] / 1000).toFixed(0)}k
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bedrooms */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-lg bg-[#471396]/10">
+                <Bed className="h-4 w-4 text-[#471396]" />
+              </div>
+              <label className="text-sm font-semibold text-gray-900 cursor-pointer">
+                Bedrooms
+              </label>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[2, 3, 4].map((bedrooms) => {
+                const isActive = filters.bedrooms.includes(bedrooms);
+                return (
+                  <button
+                    key={bedrooms}
+                    onClick={() => toggleBedroom(bedrooms)}
+                    className={cn(
+                      "flex-1 min-w-[70px] px-4 py-2.5 text-sm font-semibold rounded-lg transition-all",
+                      "hover:scale-105 active:scale-95",
+                      isActive
+                        ? "bg-[#471396] text-white shadow-md shadow-[#471396]/20"
+                        : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                    )}
+                  >
+                    {bedrooms}+
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Bathrooms */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-lg bg-[#471396]/10">
+                <Bath className="h-4 w-4 text-[#471396]" />
+              </div>
+              <label className="text-sm font-semibold text-gray-900 cursor-pointer">
+                Bathrooms
+              </label>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[1, 2, 3, 4].map((bathrooms) => {
+                const isActive = filters.bathrooms.includes(bathrooms);
+                return (
+                  <button
+                    key={bathrooms}
+                    onClick={() => toggleBathroom(bathrooms)}
+                    className={cn(
+                      "flex-1 min-w-[70px] px-4 py-2.5 text-sm font-semibold rounded-lg transition-all",
+                      "hover:scale-105 active:scale-95",
+                      isActive
+                        ? "bg-[#471396] text-white shadow-md shadow-[#471396]/20"
+                        : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                    )}
+                  >
+                    {bathrooms}+
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Square Feet */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2 rounded-lg bg-[#471396]/10">
+                <Square className="h-4 w-4 text-[#471396]" />
+              </div>
+              <label className="text-sm font-semibold text-gray-900 cursor-pointer">
+                Square Feet
+              </label>
+            </div>
+            <Slider
+              value={filters.sqftRange}
+              onValueChange={handleSqftChange}
+              min={0}
+              max={maxSqft}
+              step={100}
+              className="w-full"
+            />
+            <div className="flex justify-between items-center">
+              <div className="px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200">
+                <span className="text-sm font-semibold text-gray-900">
+                  {(filters.sqftRange[0] / 1000).toFixed(1)}k
+                </span>
+              </div>
+              <div className="h-px w-6 bg-gray-300" />
+              <div className="px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200">
+                <span className="text-sm font-semibold text-gray-900">
+                  {(filters.sqftRange[1] / 1000).toFixed(1)}k
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </>
+  );
+};
+
+// Memoize component to prevent unnecessary re-renders
+export const ModelFilters = memo(ModelFiltersComponent);

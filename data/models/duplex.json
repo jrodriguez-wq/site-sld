@@ -1,0 +1,121 @@
+{
+  "key": "duplex",
+  "name": "DUPLEX",
+  "sqft": "2,898",
+  "bedrooms": "6",
+  "bathrooms": "4",
+  "garage": "2-Car Garage",
+  "price": "$510,000",
+  "description": "The Duplex model offers exceptional flexibility and profitability. Comprised of two independent units, each with 3 bedrooms, 2 bathrooms, and a dedicated garage, this 2,898 sq. ft. property is perfect for families, investors, or those seeking rental income. Each unit features 1,150 sq. ft. of living area with modern finishes and thoughtful design. The modern floor plan features bright open spaces, upgraded finishes, and thoughtful design throughout. Buy the entire duplex or choose to rent one or both units. With comfort, durability, and strong earning potential, this model is a compelling choice for smart buyers.",
+  "youtubeUrl": "",
+  "imagesFolder": "duplex",
+  "sections": {
+    "inside": {
+      "title": "Inside",
+      "description": "Explore the beautiful interior spaces of the Duplex model."
+    },
+    "exterior": {
+      "title": "Exterior",
+      "description": "See the stunning exterior design and architecture."
+    },
+    "virtualTour": {
+      "title": "Virtual tour",
+      "description": "Take a virtual walkthrough of this beautiful property."
+    },
+    "floorplan": {
+      "title": "Floorplan",
+      "description": "View the detailed floor plan layout.",
+      "image": "/modelos-optimized/duplex/interior/duplex-plano.webp",
+      "measures": {
+        "unit1": {
+          "livingArea": "1,150 SQ. FT.",
+          "entry": "54 SQ. FT.",
+          "garage": "245 SQ. FT.",
+          "total": "1,449 SQ. FT."
+        },
+        "unit2": {
+          "livingArea": "1,150 SQ. FT.",
+          "entry": "54 SQ. FT.",
+          "garage": "245 SQ. FT.",
+          "total": "1,449 SQ. FT."
+        },
+        "totalArea": "2,898 SQ. FT."
+      }
+    },
+    "standardFeatures": {
+      "title": "Standard Features",
+      "description": "All the standard features included in this model.",
+      "categories": {
+        "structural": {
+          "title": "Structural & Construction Materials",
+          "items": [
+            "Concrete block construction",
+            "Reinforced concrete foundation",
+            "Impact-resistant windows",
+            "Hurricane-rated doors",
+            "Energy-efficient insulation"
+          ]
+        },
+        "kitchen": {
+          "title": "Kitchen Components",
+          "items": [
+            "Stone countertops",
+            "Soft-close cabinetry",
+            "Stainless steel appliances",
+            "Modern range hood",
+            "Spacious pantry"
+          ]
+        },
+        "bathroom": {
+          "title": "Bathroom Items",
+          "items": [
+            "Premium fixtures",
+            "Modern vanities",
+            "Tile flooring",
+            "Water-efficient toilets",
+            "Shower/tub combinations"
+          ]
+        },
+        "warranty": {
+          "title": "Warranty",
+          "items": [
+            "Standard Features"
+          ]
+        },
+        "windows": {
+          "title": "Windows, Trim & Doors",
+          "items": [
+            "Impact-resistant windows",
+            "Energy-efficient glass",
+            "Premium door hardware",
+            "Crown molding",
+            "Baseboards throughout"
+          ]
+        },
+        "electrical": {
+          "title": "Electrical Items",
+          "items": [
+            "200-amp electrical service",
+            "GFCI outlets in bathrooms and kitchen",
+            "Ceiling fans pre-wired",
+            "LED lighting throughout",
+            "Smart home ready"
+          ]
+        },
+        "other": {
+          "title": "Other Features",
+          "items": [
+            "Two independent units (6 bedrooms, 4 bathrooms total)",
+            "Perfect for living and renting",
+            "Investment opportunity",
+            "Each unit: 3 bedrooms, 2 bathrooms",
+            "Modern design",
+            "Bright open spaces",
+            "High-end finishes"
+          ]
+        }
+      }
+    }
+  }
+}
+

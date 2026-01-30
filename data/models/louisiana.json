@@ -1,0 +1,110 @@
+{
+  "key": "louisiana",
+  "name": "LOUISIANA",
+  "sqft": "3,277",
+  "bedrooms": "4",
+  "bathrooms": "3",
+  "garage": "3-Car Garage",
+  "price": "$469,900",
+  "description": "Experience grandeur at its finest in the Louisiana our largest and most prestigious model. Featuring 4 spacious bedrooms, 3 full bathrooms, a 3-car garage, and 2 versatile dens, this 3,277 sq. ft. residence is crafted for those who demand excellence. High ceilings and intentionally placed lighting create an airy, elegant atmosphere while maximizing energy efficiency. The gourmet kitchen is a showpiece featuring soft-close cabinetry, premium countertops, and sleek stainless-steel appliances. The Louisiana isn't just a home it's a statement of luxury, comfort, and superior craftsmanship.",
+  "youtubeUrl": "https://www.youtube.com/watch?v=ekTwRFHRRs4",
+  "imagesFolder": "louisiana",
+  "sections": {
+    "inside": {
+      "title": "Inside",
+      "description": "Explore the beautiful interior spaces of the Louisiana model."
+    },
+    "exterior": {
+      "title": "Exterior",
+      "description": "See the stunning exterior design and architecture."
+    },
+    "virtualTour": {
+      "title": "Virtual tour",
+      "description": "Take a virtual walkthrough of this beautiful home."
+    },
+    "floorplan": {
+      "title": "Floorplan",
+      "description": "View the detailed floor plan layout.",
+      "measures": {
+        "livingArea": "2,316 SQ. FT.",
+        "entry": "113 SQ. FT.",
+        "garage": "689 SQ. FT.",
+        "lanai": "159 SQ. FT.",
+        "totalArea": "3,277 SQ. FT."
+      }
+    },
+    "standardFeatures": {
+      "title": "Standard Features",
+      "description": "All the standard features included in this model.",
+      "categories": {
+        "structural": {
+          "title": "Structural & Construction Materials",
+          "items": [
+            "Concrete block construction",
+            "Reinforced concrete foundation",
+            "Impact-resistant windows",
+            "Hurricane-rated doors",
+            "Energy-efficient insulation"
+          ]
+        },
+        "kitchen": {
+          "title": "Kitchen Components",
+          "items": [
+            "Stone countertops",
+            "Soft-close cabinetry",
+            "Stainless steel appliances",
+            "Modern range hood",
+            "Spacious pantry"
+          ]
+        },
+        "bathroom": {
+          "title": "Bathroom Items",
+          "items": [
+            "Premium fixtures",
+            "Modern vanities",
+            "Tile flooring",
+            "Water-efficient toilets",
+            "Shower/tub combinations"
+          ]
+        },
+        "warranty": {
+          "title": "Warranty",
+          "items": [
+            "Standard Features"
+          ]
+        },
+        "windows": {
+          "title": "Windows, Trim & Doors",
+          "items": [
+            "Impact-resistant windows",
+            "Energy-efficient glass",
+            "Premium door hardware",
+            "Crown molding",
+            "Baseboards throughout"
+          ]
+        },
+        "electrical": {
+          "title": "Electrical Items",
+          "items": [
+            "200-amp electrical service",
+            "GFCI outlets in bathrooms and kitchen",
+            "Ceiling fans pre-wired",
+            "LED lighting throughout",
+            "Smart home ready"
+          ]
+        },
+        "other": {
+          "title": "Other Features",
+          "items": [
+            "Vaulted ceilings",
+            "Open floor plan",
+            "Laundry room",
+            "Walk-in closets",
+            "Energy-efficient HVAC system"
+          ]
+        }
+      }
+    }
+  }
+}
+
