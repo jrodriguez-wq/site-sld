@@ -339,7 +339,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             <div className="mb-8 md:mb-12">
               <TabsList className="inline-flex h-auto p-2 bg-gradient-to-r from-gray-50 via-white to-gray-50 rounded-2xl border-2 border-gray-200/50 shadow-lg backdrop-blur-sm w-full md:w-auto">
                 <div className="flex flex-wrap gap-2 w-full md:w-auto">
-                  {sections.inside && (
+                  {sections?.inside && (
                     <TabsTrigger 
                       value="inside"
                       className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
@@ -347,7 +347,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                       Inside
                     </TabsTrigger>
                   )}
-                  {sections.exterior && (
+                  {sections?.exterior && (
                     <TabsTrigger 
                       value="exterior"
                       className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
@@ -363,7 +363,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                       Furnished
                     </TabsTrigger>
                   )}
-                  {sections.virtualTour && (
+                  {sections?.virtualTour && (
                     <TabsTrigger 
                       value="virtualTour"
                       className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
@@ -371,7 +371,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                       Virtual Tour
                     </TabsTrigger>
                   )}
-                  {sections.floorplan && (
+                  {sections?.floorplan && (
                     <TabsTrigger 
                       value="floorplan"
                       className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
@@ -379,7 +379,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                       Floorplan
                     </TabsTrigger>
                   )}
-                  {sections.standardFeatures && (
+                  {sections?.standardFeatures && (
                     <TabsTrigger 
                       value="standardFeatures"
                       className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
@@ -392,7 +392,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             </div>
 
             {/* Inside Tab */}
-            {sections.inside && (
+            {sections?.inside && (
               <TabsContent value="inside" className="space-y-8 mt-8">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Inside</h3>
@@ -425,7 +425,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             )}
 
             {/* Exterior Tab */}
-            {sections.exterior && (
+            {sections?.exterior && (
               <TabsContent value="exterior" className="space-y-8 mt-8">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Exterior</h3>
@@ -494,7 +494,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             )}
 
             {/* Virtual Tour Tab */}
-            {sections.virtualTour && youtubeUrl && (
+            {sections?.virtualTour && youtubeUrl && (
               <TabsContent value="virtualTour" className="space-y-8 mt-8">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Virtual Tour</h3>
@@ -509,7 +509,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             )}
 
             {/* Floorplan Tab */}
-            {sections.floorplan && (
+            {sections?.floorplan && (
               <TabsContent value="floorplan" className="space-y-8 mt-8">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Floorplan</h3>
@@ -517,7 +517,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </div>
                 {(() => {
                   // Prioridad: 1) Imagen del JSON, 2) Plano optimizado del mapeo, 3) Mensaje de "próximamente"
-                  const floorplanImage = sections.floorplan.image || MODEL_FLOORPLANS[modelData.key.toLowerCase()];
+                  const floorplanImage = sections.floorplan?.image || MODEL_FLOORPLANS[modelData.key.toLowerCase()];
                   
                   if (floorplanImage) {
                     return (
@@ -540,15 +540,15 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                                   />
                                   
                                   {/* Floorplan Measures Component - Desktop: absolute, Mobile: hidden (shown below) */}
-                                  {sections.floorplan.measures && (
+                                  {sections.floorplan?.measures && (
                                     <div className="hidden md:block">
                                       <FloorplanMeasures
-                                        livingArea={sections.floorplan.measures.livingArea}
-                                        entry={sections.floorplan.measures.entry}
-                                        garage={sections.floorplan.measures.garage}
+                                        livingArea={sections.floorplan.measures?.livingArea}
+                                        entry={sections.floorplan.measures?.entry}
+                                        garage={sections.floorplan.measures?.garage}
                                         garageLabel={garage}
-                                        lanai={sections.floorplan.measures.lanai}
-                                        totalArea={sections.floorplan.measures.totalArea}
+                                        lanai={sections.floorplan.measures?.lanai}
+                                        totalArea={sections.floorplan.measures?.totalArea}
                                       />
                                     </div>
                                   )}
@@ -556,15 +556,15 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                               </div>
                               
                               {/* Floorplan Measures Component - Mobile: shown below floorplan */}
-                              {sections.floorplan.measures && (
+                              {sections.floorplan?.measures && (
                                 <div className="md:hidden mt-4">
                                   <FloorplanMeasures
-                                    livingArea={sections.floorplan.measures.livingArea}
-                                    entry={sections.floorplan.measures.entry}
-                                    garage={sections.floorplan.measures.garage}
+                                    livingArea={sections.floorplan.measures?.livingArea}
+                                    entry={sections.floorplan.measures?.entry}
+                                    garage={sections.floorplan.measures?.garage}
                                     garageLabel={garage}
-                                    lanai={sections.floorplan.measures.lanai}
-                                    totalArea={sections.floorplan.measures.totalArea}
+                                    lanai={sections.floorplan.measures?.lanai}
+                                    totalArea={sections.floorplan.measures?.totalArea}
                                     className="relative bottom-0 right-0 w-full"
                                   />
                                 </div>
@@ -627,22 +627,22 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                               </div>
 
                               {/* Floorplan Measures Component - Fixed at bottom (subido para evitar chat) */}
-                              {sections.floorplan.measures && (
+                              {sections.floorplan?.measures && (
                                 <div className="absolute bottom-20 left-0 right-0 z-[115] p-3 bg-white/95 backdrop-blur-md border-t-2 border-gray-200 rounded-t-xl">
                                   <FloorplanMeasures
-                                    livingArea={sections.floorplan.measures.livingArea}
-                                    entry={sections.floorplan.measures.entry}
-                                    garage={sections.floorplan.measures.garage}
+                                    livingArea={sections.floorplan.measures?.livingArea}
+                                    entry={sections.floorplan.measures?.entry}
+                                    garage={sections.floorplan.measures?.garage}
                                     garageLabel={garage}
-                                    lanai={sections.floorplan.measures.lanai}
-                                    totalArea={sections.floorplan.measures.totalArea}
+                                    lanai={sections.floorplan.measures?.lanai}
+                                    totalArea={sections.floorplan.measures?.totalArea}
                                     className="relative bottom-0 right-0 w-full"
                                   />
                                 </div>
                               )}
 
                               {/* Helper text */}
-                              {!sections.floorplan.measures && (
+                              {!sections.floorplan?.measures && (
                                 <div className="absolute bottom-4 left-4 right-4 text-center z-[115]">
                                   <p className="text-xs text-gray-600 bg-white/80 backdrop-blur-sm px-3 py-2 rounded-lg inline-block">
                                     Scroll to view the complete floorplan
@@ -668,13 +668,13 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             )}
 
             {/* Standard Features Tab */}
-            {sections.standardFeatures && (
+            {sections?.standardFeatures && (
               <TabsContent value="standardFeatures" className="space-y-8 mt-8">
                 <div>
                   <h3 className="text-3xl md:text-4xl font-bold mb-3 text-gray-900">Standard Features</h3>
                   <p className="text-base md:text-lg text-gray-600 mb-8">Explore the standard features included with this home</p>
                 </div>
-                {sections.standardFeatures.categories && (
+                {sections.standardFeatures?.categories && (
                   <div className="grid gap-4 md:grid-cols-2">
                     {Object.entries(sections.standardFeatures.categories).map(([key, category]) => (
                       <Card key={key} className="bg-white border-2 border-gray-200 hover:border-[#471396]/50 transition-all duration-300">

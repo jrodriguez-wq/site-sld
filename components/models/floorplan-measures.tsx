@@ -8,7 +8,7 @@ interface FloorplanMeasuresProps {
   garage?: string; // Ejemplo: "689 SQ. FT." (solo el valor, no el label)
   garageLabel?: string; // Ejemplo: "3 Car Garage" (para el label)
   lanai?: string; // Ejemplo: "159 SQ. FT."
-  totalArea: string; // Ejemplo: "3,277 SQ. FT."
+  totalArea?: string; // Ejemplo: "3,277 SQ. FT."
   className?: string;
 }
 
@@ -75,16 +75,18 @@ export const FloorplanMeasures = ({
         ))}
 
         {/* Total Area - Destacado */}
-        <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-muted/60 border-t-2 border-primary/40">
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-xs sm:text-sm font-bold text-foreground">
-              TOTAL AREA:
-            </span>
-            <span className="text-xs sm:text-sm md:text-base font-black text-primary whitespace-nowrap">
-              {totalArea}
-            </span>
+        {totalArea && (
+          <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-muted/60 border-t-2 border-primary/40">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs sm:text-sm font-bold text-foreground">
+                TOTAL AREA:
+              </span>
+              <span className="text-xs sm:text-sm md:text-base font-black text-primary whitespace-nowrap">
+                {totalArea}
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

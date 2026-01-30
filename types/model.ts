@@ -54,6 +54,7 @@ export interface ModelData {
         garage?: string;
         lanai?: string;
         coveredPatio?: string;
+        totalArea?: string;
       };
     };
     standardFeatures?: {
