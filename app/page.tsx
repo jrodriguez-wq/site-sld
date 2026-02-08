@@ -1,5 +1,8 @@
 import { Hero } from "@/components/sections/hero";
 import { Statistics } from "@/components/sections/statistics";
+import { CashProgram } from "@/components/sections/cash-program";
+import { CommercialGallery } from "@/components/sections/commercial-gallery";
+import { CharityNews } from "@/components/sections/charity-news";
 import { LogosSlider } from "@/components/sections/logos-slider";
 import { ModelsShowcase } from "@/components/sections/models-showcase";
 import { PremiumHouses } from "@/components/sections/premium-houses";
@@ -16,12 +19,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Statistics />
       <LogosSlider />
+      <Statistics />
+      <CharityNews />
+      <CashProgram showCta />
+      <CommercialGallery variant="home" />
       <ModelsShowcase />
       <PremiumHouses />
-      <TeamSection />
       <GalleryPremium />
+      <TeamSection />
       <Videos />
     </>
   );

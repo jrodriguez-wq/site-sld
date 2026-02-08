@@ -2,158 +2,213 @@
 
 import { Container } from "@/components/ui/container";
 import { useState } from "react";
-import { Clock, Wallet, FileText, CheckCircle2, Building2, Home, FileCheck, Briefcase, Landmark, DollarSign } from "lucide-react";
+import Link from "next/link";
+import {
+  Clock,
+  Wallet,
+  FileText,
+  Building2,
+  Briefcase,
+  Landmark,
+  DollarSign,
+  ChevronRight,
+  ChevronDown,
+  ArrowRight,
+} from "lucide-react";
 
-const CashProgram = () => {
+const steps = [
+  {
+    number: "1",
+    title: "Funds Deposited",
+    description: "Lenders funds deposited into Escrow Account",
+    duration: "Week 1",
+    icon: Wallet,
+  },
+  {
+    number: "2",
+    title: "First Draw & Permit",
+    description: "First draw to Construction. Permit application, lot clear, pad prep. Permit approved.",
+    duration: "Week 1 - Month 2",
+    icon: FileText,
+  },
+  {
+    number: "3",
+    title: "Vertical Construction",
+    description: "2nd and 3rd draws at Block and Drywall/Stucco. Construction completed.",
+    duration: "80 days",
+    icon: Building2,
+  },
+  {
+    number: "4",
+    title: "CO & Finance",
+    description: "Certificate of Occupancy. Finance Department takes over refinancing.",
+    duration: "Month 5",
+    icon: Briefcase,
+  },
+  {
+    number: "5",
+    title: "Title Refinancing",
+    description: "Property refinanced by same title company.",
+    duration: "End month 6",
+    icon: Landmark,
+  },
+  {
+    number: "6",
+    title: "Lender Paid",
+    description: "Lender receives $220k principal + $24.2k interest.",
+    duration: "Month 6",
+    icon: DollarSign,
+  },
+];
+
+interface CashProgramProps {
+  showCta?: boolean;
+}
+
+const CashProgram = ({ showCta = false }: CashProgramProps) => {
   const [activeStep, setActiveStep] = useState<number | null>(null);
 
-  const steps = [
-    {
-      number: "1",
-      title: "Lenders Funds Deposited",
-      description: "Lenders funds are deposited into Escrow Account",
-      duration: "Week 1",
-      icon: Wallet,
-    },
-    {
-      number: "2",
-      title: "First Draw Dispersed",
-      description:
-        "First draw is dispersed to Construction account (Week 1). First draw funds new start - Permit application, Lot Clear, Pad Dirt Fill, pre-order Trusses, Windows, etc.",
-      duration: "Week 1",
-      icon: FileText,
-    },
-    {
-      number: "3",
-      title: "Permit Received",
-      description: "Permit received and approved",
-      duration: "Months 2-5",
-      icon: CheckCircle2,
-    },
-    {
-      number: "4",
-      title: "Vertical Construction Starts",
-      description:
-        "Vertical construction begins. During this period 2nd and 3rd draws are released at 'Block' and 'Drywall/Stucco' stages.",
-      duration: "80 days",
-      icon: Building2,
-    },
-    {
-      number: "5",
-      title: "Construction Finished",
-      description: "Construction completed and ready for final inspection",
-      duration: "Months 4-5",
-      icon: Home,
-    },
-    {
-      number: "6",
-      title: "CO Process",
-      description: "Certificate of Occupancy process begins",
-      duration: "Month 5",
-      icon: FileCheck,
-    },
-    {
-      number: "7",
-      title: "Finance Department Takes Over",
-      description:
-        "Finance Department takes over the project with the refinancing process.",
-      duration: "End of month 5",
-      icon: Briefcase,
-    },
-    {
-      number: "8",
-      title: "Title Company Refinancing",
-      description:
-        "Property is refinanced by the same title company who did the construction draws",
-      duration: "End of month 6",
-      icon: Landmark,
-    },
-    {
-      number: "9",
-      title: "Lender Paid",
-      description: "Lender is paid $200k plus $22k for the interest.",
-      duration: "Month 6",
-      icon: DollarSign,
-    },
-  ];
-
   return (
-    <section id="cash-program" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white text-gray-900 relative overflow-hidden scroll-mt-28">
+    <section
+      id={showCta ? undefined : "cash-program"}
+      className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-b from-slate-50 via-white to-slate-50 text-gray-900 relative scroll-mt-28"
+    >
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #471396 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
         />
       </div>
 
       <Container className="relative z-10">
-        {/* Intro Text */}
-        <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16 md:mb-20">
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto">
+        {/* Intro */}
+        <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16 md:mb-20">
+          <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-[#090040] mb-4">
+            The Journey
+          </span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">
             A streamlined construction financing process from start to finish
+          </h2>
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto">
+            6 steps. 6 months. From funding to full repayment. Clear, transparent, proven.
           </p>
         </div>
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Connection Line */}
-          <div className="absolute left-8 sm:left-12 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#471396] via-[#471396]/50 to-[#471396] hidden md:block" />
-          
-          <div className="space-y-6 sm:space-y-8">
-            {steps.map((step, index) => {
+        {/* Journey - 3 steps top, 3 steps bottom */}
+        <div className="relative max-w-6xl mx-auto">
+          {/* Row 1: Steps 1-3 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-10">
+            {steps.slice(0, 3).map((step, index) => {
               const Icon = step.icon;
+              const isActive = activeStep === index || (activeStep === null && index === 0);
               return (
                 <div
                   key={step.number}
-                  className="relative flex gap-6 sm:gap-8 items-start group"
+                  className="relative group"
                   onMouseEnter={() => setActiveStep(index)}
                   onMouseLeave={() => setActiveStep(null)}
                 >
-                  {/* Step Number Circle */}
-                  <div className="relative z-10 flex-shrink-0">
-                    <div
-                      className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full border-4 transition-all duration-300 ${
-                        activeStep === index || (activeStep === null && index === 0)
-                          ? "border-[#471396] bg-[#471396] text-white scale-110 shadow-lg shadow-[#471396]/50"
-                          : "border-gray-300 bg-gray-100 text-gray-600"
-                      }`}
-                    >
-                      <span className="text-lg sm:text-xl font-bold">{step.number}</span>
-                    </div>
-                  </div>
-                  
-                  {/* Content Card */}
                   <div
-                    className={`flex-1 bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border transition-all duration-300 ${
-                      activeStep === index
-                        ? "border-[#471396] shadow-2xl shadow-[#471396]/30 scale-[1.02]"
-                        : "border-gray-200 hover:border-gray-300"
+                    className={`relative h-full bg-white rounded-2xl p-5 sm:p-6 border-2 transition-all duration-300 hover:-translate-y-1 ${
+                      isActive
+                        ? "border-[#090040] shadow-xl shadow-[#090040]/20"
+                        : "border-slate-200 hover:border-[#090040]/40"
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#471396] to-[#B13BFF] text-white shadow-lg">
-                            <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                          </div>
-                          <h3 className="text-xl sm:text-2xl font-bold text-gray-900">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                          {step.description}
-                        </p>
+                    <div
+                      className={`absolute -top-3 -left-2 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
+                        isActive ? "bg-[#090040] text-white" : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {step.number}
+                    </div>
+                    <div className="pt-2">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#090040]/10 to-[#090040]/5 mb-4">
+                        <Icon className="h-6 w-6 text-[#090040]" aria-hidden="true" />
                       </div>
-                      <div className="flex items-center gap-2 text-[#471396] font-semibold text-sm sm:text-base whitespace-nowrap">
-                        <Clock className="h-4 w-4" />
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 line-clamp-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                        {step.description}
+                      </p>
+                      <div className="flex items-center gap-1.5 text-[#090040] font-semibold text-xs">
+                        <Clock className="h-3.5 w-3.5" aria-hidden="true" />
                         {step.duration}
                       </div>
                     </div>
                   </div>
+                  {index < 2 && (
+                    <div className="hidden sm:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 text-slate-300">
+                      <ChevronRight className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Connector: Step 3 → Step 4 */}
+          <div className="hidden sm:flex justify-center my-6">
+            <div className="flex flex-col items-center gap-1">
+              <div className="h-4 w-px bg-gradient-to-b from-[#090040]/60 to-transparent" />
+              <ChevronDown className="h-6 w-6 text-[#090040]/60 shrink-0" aria-hidden="true" />
+              <div className="h-4 w-px bg-gradient-to-b from-transparent to-[#090040]/60" />
+            </div>
+          </div>
+
+          {/* Row 2: Steps 4-6 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+            {steps.slice(3, 6).map((step, index) => {
+              const actualIndex = index + 3;
+              const Icon = step.icon;
+              const isActive = activeStep === actualIndex;
+              return (
+                <div
+                  key={step.number}
+                  className="relative group"
+                  onMouseEnter={() => setActiveStep(actualIndex)}
+                  onMouseLeave={() => setActiveStep(null)}
+                >
+                  <div
+                    className={`relative h-full bg-white rounded-2xl p-5 sm:p-6 border-2 transition-all duration-300 hover:-translate-y-1 ${
+                      isActive
+                        ? "border-[#090040] shadow-xl shadow-[#090040]/20"
+                        : "border-slate-200 hover:border-[#090040]/40"
+                    }`}
+                  >
+                    <div
+                      className={`absolute -top-3 -left-2 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
+                        isActive ? "bg-[#090040] text-white" : "bg-slate-200 text-slate-600"
+                      }`}
+                    >
+                      {step.number}
+                    </div>
+                    <div className="pt-2">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#090040]/10 to-[#090040]/5 mb-4">
+                        <Icon className="h-6 w-6 text-[#090040]" aria-hidden="true" />
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 line-clamp-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                        {step.description}
+                      </p>
+                      <div className="flex items-center gap-1.5 text-[#090040] font-semibold text-xs">
+                        <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                        {step.duration}
+                      </div>
+                    </div>
+                  </div>
+                  {index < 2 && (
+                    <div className="hidden sm:flex absolute top-1/2 -right-6 -translate-y-1/2 z-10 text-slate-300">
+                      <ChevronRight className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -161,43 +216,55 @@ const CashProgram = () => {
         </div>
 
         {/* Summary Cards */}
-        <div className="mt-12 sm:mt-16 md:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-          <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 text-center hover:border-[#471396]/50 transition-all duration-300 hover:scale-105 shadow-lg">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#471396] mb-2">
+        <div className="mt-16 sm:mt-20 md:mt-24 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-slate-100 text-center hover:border-[#090040]/30 transition-all duration-300 hover:-translate-y-1 shadow-lg">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#090040] to-[#2d2c55] bg-clip-text text-transparent mb-2">
               6 Months
             </div>
-            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+            <div className="text-slate-900 font-semibold text-sm sm:text-base">
               Total Timeline
             </div>
-            <div className="text-gray-600 text-xs sm:text-sm mt-1">
+            <div className="text-slate-600 text-xs sm:text-sm mt-1">
               From funding to repayment
             </div>
           </div>
-          
-          <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 text-center hover:border-[#471396]/50 transition-all duration-300 hover:scale-105 shadow-lg">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#471396] mb-2">
-              $200k
+
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-slate-100 text-center hover:border-[#090040]/30 transition-all duration-300 hover:-translate-y-1 shadow-lg">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#090040] to-[#2d2c55] bg-clip-text text-transparent mb-2">
+              $220k
             </div>
-            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+            <div className="text-slate-900 font-semibold text-sm sm:text-base">
               Principal Return
             </div>
-            <div className="text-gray-600 text-xs sm:text-sm mt-1">
+            <div className="text-slate-600 text-xs sm:text-sm mt-1">
               Principal amount returned
             </div>
           </div>
-          
-          <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 text-center hover:border-[#471396]/50 transition-all duration-300 hover:scale-105 shadow-lg">
-            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#471396] mb-2">
-              $22k
+
+          <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-slate-100 text-center hover:border-[#090040]/30 transition-all duration-300 hover:-translate-y-1 shadow-lg">
+            <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#090040] to-[#2d2c55] bg-clip-text text-transparent mb-2">
+              $24.2k
             </div>
-            <div className="text-gray-900 font-semibold text-sm sm:text-base">
+            <div className="text-slate-900 font-semibold text-sm sm:text-base">
               Interest Payment
             </div>
-            <div className="text-gray-600 text-xs sm:text-sm mt-1">
+            <div className="text-slate-600 text-xs sm:text-sm mt-1">
               Interest for 6 months
             </div>
           </div>
         </div>
+
+        {showCta && (
+          <div className="mt-12 sm:mt-16 flex justify-center">
+            <Link
+              href="/investment"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#090040] text-white font-semibold text-base hover:bg-[#0a0044] transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+            >
+              Learn More About Our Investment Program
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </Link>
+          </div>
+        )}
       </Container>
     </section>
   );

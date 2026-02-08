@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Base Colors - Deep Navy to Purple Spectrum */
+  /* Base Colors - Deep Navy Blue Spectrum */
   --color-background: 0 0% 100%;
   --color-foreground: 250 35% 20%;
   
@@ -13,20 +13,20 @@
   --color-popover: 0 0% 100%;
   --color-popover-foreground: 250 35% 20%;
   
-  /* Primary - Deep Purple (#471396 / rgb(71, 19, 150)) */
-  --color-primary: 270 78% 33%;
+  /* Primary - Deep Navy (#090040) - same as navbar, professional */
+  --color-primary: 240 100% 13%;
   --color-primary-foreground: 0 0% 100%;
   
   /* Secondary - Deep Sea Base (#2d2c55) */
   --color-secondary: 241 32% 24%;
   --color-secondary-foreground: 0 0% 100%;
   
-  /* Muted - Blue Rose (#2f2c79) */
-  --color-muted: 245 47% 24%;
-  --color-muted-foreground: 250 20% 60%;
+  /* Muted - Slate Blue */
+  --color-muted: 220 30% 25%;
+  --color-muted-foreground: 220 15% 55%;
   
-  /* Accent - Vibrant Purple (#B13BFF / rgb(177, 59, 255)) */
-  --color-accent: 275 100% 62%;
+  /* Accent - Deep Sea (#2d2c55) - complements navbar */
+  --color-accent: 241 32% 24%;
   --color-accent-foreground: 0 0% 100%;
   
   /* Highlight - Gold (#FFCC00 / rgb(255, 204, 0)) */
@@ -41,8 +41,8 @@
   --color-border: 245 30% 85%;
   --color-input: 245 30% 85%;
   
-  /* Ring - Accent Purple */
-  --color-ring: 275 100% 62%;
+  /* Ring - Accent */
+  --color-ring: 241 32% 24%;
   
   /* Border Radius */
   --radius: 1rem;
@@ -76,7 +76,7 @@
     --color-secondary-foreground: 0 0% 98%;
     --color-muted: 245 47% 20%;
     --color-muted-foreground: 250 20% 70%;
-    --color-accent: 275 100% 62%;
+    --color-accent: 241 32% 24%;
     --color-accent-foreground: 0 0% 100%;
     --color-highlight: 48 100% 50%;
     --color-highlight-foreground: 250 50% 13%;
@@ -88,30 +88,101 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   background-color: hsl(var(--color-background));
   color: hsl(var(--color-foreground));
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
-/* Custom Scrollbar */
+/* Global cursor pointer for clickable elements */
+button,
+a,
+[role="button"],
+[onclick],
+[tabindex="0"] {
+  cursor: pointer;
+}
+
+/* Elegant hover effects */
+button:hover,
+a:hover,
+[role="button"]:hover {
+  transition: all 0.3s ease;
+}
+
+/* Minimalist Elegant Scrollbar - neutral, professional */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(var(--color-muted));
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--color-primary));
-  border-radius: 5px;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--color-accent));
+  background: #94a3b8;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #64748b;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+}
+
+/* Custom Thin Scrollbar for Thumbnails - overscroll prevents scroll chaining */
+.custom-scrollbar {
+  overscroll-behavior-x: contain;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+  background-clip: padding-box;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* Mobile Menu Animations */
@@ -131,4 +202,82 @@ body {
   to {
     transform: translateX(0);
   }
+}
+
+/* Infinite scroll animation for logos carousel */
+@keyframes logos-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+.logos-scroll {
+  animation: logos-scroll 20s linear infinite;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.logos-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Blog post content - explicit dark text for readability */
+.blog-content p {
+  color: #475569;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content h2 {
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content h3 {
+  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  color: #475569;
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content a {
+  color: #090040;
+  text-decoration: none;
+}
+
+.blog-content a:hover {
+  text-decoration: underline;
+}
+
+.blog-content strong {
+  color: #0f172a;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #090040;
+  background: #f8fafc;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #475569;
+  font-style: italic;
 }

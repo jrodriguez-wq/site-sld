@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { Bed, Bath, Square, Car, ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -27,6 +27,8 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
   const [activeTab, setActiveTab] = useState("inside");
   const [isFloorplanExpanded, setIsFloorplanExpanded] = useState(false);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const thumbnailContainerRef = useRef<HTMLDivElement | null>(null);
 
   const { name, sqft, bedrooms, bathrooms, garage, price, rtoPrice, description, youtubeUrl, images, sections } = modelData;
   
@@ -83,6 +85,20 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isGalleryOpen, changeGalleryImage, closeGallery]);
 
+  // Auto-scroll thumbnails when galleryImageIndex changes
+  useEffect(() => {
+    if (!isGalleryOpen) return;
+    
+    const activeThumbnail = thumbnailRefs.current[galleryImageIndex];
+    if (activeThumbnail && thumbnailContainerRef.current) {
+      activeThumbnail.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [galleryImageIndex, isGalleryOpen]);
+
   const handleKeyDown = (e: React.KeyboardEvent, callback: () => void) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -137,7 +153,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                     <button
                       onClick={handlePreviousImage}
                       onKeyDown={(e) => handleKeyDown(e, handlePreviousImage)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all hover:scale-110 shadow-lg z-20"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all hover:scale-110 shadow-lg z-20 cursor-pointer"
                       aria-label="Previous image"
                       type="button"
                     >
@@ -146,7 +162,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                     <button
                       onClick={handleNextImage}
                       onKeyDown={(e) => handleKeyDown(e, handleNextImage)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all hover:scale-110 shadow-lg z-20"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all hover:scale-110 shadow-lg z-20 cursor-pointer"
                       aria-label="Next image"
                       type="button"
                     >
@@ -169,7 +185,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   <button
                     onClick={() => openGallery(currentImageIndex)}
                     onKeyDown={(e) => handleKeyDown(e, () => openGallery(currentImageIndex))}
-                    className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white transition-all hover:scale-105 shadow-lg z-20"
+                    className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full flex items-center gap-2 hover:bg-white transition-all hover:scale-105 shadow-lg z-20 cursor-pointer"
                     aria-label="View Gallery"
                     type="button"
                   >
@@ -215,15 +231,15 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
           <section className="mt-6 sm:mt-8 md:mt-10 lg:mt-12">
           <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
             {/* Price Card - Featured */}
-            <Card className="lg:col-span-1 bg-gradient-to-br from-[#090040]/5 via-[#471396]/5 to-white border-2 border-[#471396]/20 shadow-lg hover:shadow-xl transition-all duration-200">
+            <Card className="lg:col-span-1 bg-gradient-to-br from-[#090040]/5 via-[#090040]/5 to-white border-2 border-[#090040]/20 shadow-lg hover:shadow-xl transition-all duration-200">
               <CardHeader className="p-6">
                 <CardDescription className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                   Starting Price
                 </CardDescription>
-                <CardTitle className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#090040] to-[#471396] bg-clip-text text-transparent">
+                <CardTitle className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                   {price}
                 </CardTitle>
-                <p className="text-base md:text-lg font-semibold text-[#471396] mt-2">
+                <p className="text-base md:text-lg font-semibold text-[#090040] mt-2">
                   $0 Down
                 </p>
               </CardHeader>
@@ -234,7 +250,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                     <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
                       Rent to Own Program
                     </p>
-                    <p className="text-2xl md:text-3xl font-bold text-[#471396]">
+                    <p className="text-2xl md:text-3xl font-bold text-[#090040]">
                       {rtoPrice}
                     </p>
                   </div>
@@ -247,11 +263,11 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
 
             {/* Features Grid - Modern Design */}
             <div className="lg:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Card className="group hover:border-[#471396]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
+              <Card className="group hover:border-[#090040]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
                 <CardContent className="p-6 flex-1 flex flex-col items-center justify-center min-h-[200px]">
                   <div className="flex flex-col items-center justify-center text-center space-y-4 w-full h-full">
-                    <div className="shrink-0 p-4 bg-[#471396]/10 rounded-xl group-hover:bg-[#471396]/20 group-hover:scale-110 transition-all duration-200">
-                      <Square className="w-8 h-8 text-[#471396]" />
+                    <div className="shrink-0 p-4 bg-[#090040]/10 rounded-xl group-hover:bg-[#090040]/20 group-hover:scale-110 transition-all duration-200">
+                      <Square className="w-8 h-8 text-[#090040]" />
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center w-full">
                       <p className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-1">{sqft}</p>
@@ -263,11 +279,11 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:border-[#471396]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
+              <Card className="group hover:border-[#090040]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
                 <CardContent className="p-6 flex-1 flex flex-col items-center justify-center min-h-[200px]">
                   <div className="flex flex-col items-center justify-center text-center space-y-4 w-full h-full">
-                    <div className="shrink-0 p-4 bg-[#471396]/10 rounded-xl group-hover:bg-[#471396]/20 group-hover:scale-110 transition-all duration-200">
-                      <Bed className="w-8 h-8 text-[#471396]" />
+                    <div className="shrink-0 p-4 bg-[#090040]/10 rounded-xl group-hover:bg-[#090040]/20 group-hover:scale-110 transition-all duration-200">
+                      <Bed className="w-8 h-8 text-[#090040]" />
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center w-full">
                       <p className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-1">{bedrooms}</p>
@@ -279,11 +295,11 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:border-[#471396]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
+              <Card className="group hover:border-[#090040]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
                 <CardContent className="p-6 flex-1 flex flex-col items-center justify-center min-h-[200px]">
                   <div className="flex flex-col items-center justify-center text-center space-y-4 w-full h-full">
-                    <div className="shrink-0 p-4 bg-[#471396]/10 rounded-xl group-hover:bg-[#471396]/20 group-hover:scale-110 transition-all duration-200">
-                      <Bath className="w-8 h-8 text-[#471396]" />
+                    <div className="shrink-0 p-4 bg-[#090040]/10 rounded-xl group-hover:bg-[#090040]/20 group-hover:scale-110 transition-all duration-200">
+                      <Bath className="w-8 h-8 text-[#090040]" />
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center w-full">
                       <p className="text-3xl md:text-4xl font-black text-gray-900 leading-tight mb-1">{bathrooms}</p>
@@ -295,11 +311,11 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:border-[#471396]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
+              <Card className="group hover:border-[#090040]/50 transition-all duration-200 hover:shadow-lg h-full flex flex-col bg-white">
                 <CardContent className="p-6 flex-1 flex flex-col items-center justify-center min-h-[200px]">
                   <div className="flex flex-col items-center justify-center text-center space-y-4 w-full h-full">
-                    <div className="shrink-0 p-4 bg-[#471396]/10 rounded-xl group-hover:bg-[#471396]/20 group-hover:scale-110 transition-all duration-200">
-                      <Car className="w-8 h-8 text-[#471396]" />
+                    <div className="shrink-0 p-4 bg-[#090040]/10 rounded-xl group-hover:bg-[#090040]/20 group-hover:scale-110 transition-all duration-200">
+                      <Car className="w-8 h-8 text-[#090040]" />
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center w-full">
                       <p className="text-xl md:text-2xl font-black text-gray-900 leading-tight mb-1">{garage}</p>
@@ -321,7 +337,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
           <div className="space-y-6">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900">About This Model</h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-[#090040] to-[#471396] rounded-full"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-[#090040] to-[#090040] rounded-full"></div>
             </div>
             <Card className="border-2 border-gray-200 bg-white">
               <CardContent className="pt-6 p-6">
@@ -342,7 +358,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {sections?.inside && (
                     <TabsTrigger 
                       value="inside"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Inside
                     </TabsTrigger>
@@ -350,7 +366,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {sections?.exterior && (
                     <TabsTrigger 
                       value="exterior"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Exterior
                     </TabsTrigger>
@@ -358,7 +374,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {amoImages.length > 0 && (
                     <TabsTrigger 
                       value="furnished"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Furnished
                     </TabsTrigger>
@@ -366,7 +382,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {sections?.virtualTour && (
                     <TabsTrigger 
                       value="virtualTour"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Virtual Tour
                     </TabsTrigger>
@@ -374,7 +390,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {sections?.floorplan && (
                     <TabsTrigger 
                       value="floorplan"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Floorplan
                     </TabsTrigger>
@@ -382,7 +398,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                   {sections?.standardFeatures && (
                     <TabsTrigger 
                       value="standardFeatures"
-                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#471396] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#471396]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#471396] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#471396]/20 flex-1 sm:flex-none"
+                      className="px-5 md:px-7 py-3 md:py-3.5 text-sm md:text-base font-bold rounded-xl transition-all duration-300 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#090040] data-[state=active]:to-[#090040] data-[state=active]:text-white data-[state=active]:shadow-xl data-[state=active]:shadow-[#090040]/30 data-[state=active]:scale-105 data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#090040] data-[state=inactive]:hover:bg-gray-100 border-2 border-transparent data-[state=active]:border-[#090040]/20 flex-1 sm:flex-none"
                     >
                       Standard Features
                     </TabsTrigger>
@@ -406,7 +422,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                         key={index}
                         onClick={() => openGallery(realIndex, images)}
                         onKeyDown={(e) => handleKeyDown(e, () => openGallery(realIndex, images))}
-                        className="relative aspect-video rounded-2xl overflow-hidden group transition-all duration-300 hover:opacity-90 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                        className="relative aspect-video rounded-2xl overflow-hidden group transition-all duration-300 hover:opacity-90 hover:scale-[1.02] shadow-lg hover:shadow-xl cursor-pointer"
                         aria-label={`View image ${index + 1}`}
                         type="button"
                       >
@@ -439,7 +455,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                         key={index}
                         onClick={() => openGallery(realIndex, images)}
                         onKeyDown={(e) => handleKeyDown(e, () => openGallery(realIndex, images))}
-                        className="relative aspect-video rounded-2xl overflow-hidden group transition-all duration-300 hover:opacity-90 hover:scale-[1.02] shadow-lg hover:shadow-xl"
+                        className="relative aspect-video rounded-2xl overflow-hidden group transition-all duration-300 hover:opacity-90 hover:scale-[1.02] shadow-lg hover:shadow-xl cursor-pointer"
                         aria-label={`View image ${index + 1}`}
                         type="button"
                       >
@@ -574,7 +590,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                               <div className="md:hidden mt-3 flex items-center justify-center gap-2">
                                 <button
                                   onClick={() => setIsFloorplanExpanded(true)}
-                                  className="flex items-center gap-2 px-4 py-2 bg-[#471396] text-white rounded-lg text-sm font-semibold hover:bg-[#090040] transition-colors"
+                                  className="flex items-center gap-2 px-4 py-2 bg-[#090040] text-white rounded-lg text-sm font-semibold hover:bg-[#090040] transition-colors"
                                   type="button"
                                 >
                                   <Maximize2 className="w-4 h-4" />
@@ -679,7 +695,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                     {Object.entries(sections.standardFeatures.categories).map(([key, category]) => {
                       if (!category) return null;
                       return (
-                        <Card key={key} className="bg-white border-2 border-gray-200 hover:border-[#471396]/50 transition-all duration-300">
+                        <Card key={key} className="bg-white border-2 border-gray-200 hover:border-[#090040]/50 transition-all duration-300">
                           <CardHeader className="pb-3">
                             <CardTitle className="text-xl font-bold text-gray-900">{category.title}</CardTitle>
                           </CardHeader>
@@ -687,7 +703,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                             <ul className="space-y-2">
                               {category.items.map((item, index) => (
                                 <li key={index} className="flex items-start gap-2 text-gray-700">
-                                  <span className="text-[#471396] mt-1.5">•</span>
+                                  <span className="text-[#090040] mt-1.5">•</span>
                                   <span>{item}</span>
                                 </li>
                               ))}
@@ -707,7 +723,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
         {/* Contact CTA Section - Professional Design */}
         <AnimatedSection delay={0.2}>
           <section className="py-16 md:py-20 mt-16 lg:mt-20">
-            <div className="bg-gradient-to-br from-[#090040] via-[#471396] to-[#090040] rounded-3xl p-8 md:p-12 lg:p-16 text-center shadow-2xl">
+            <div className="bg-gradient-to-br from-[#090040] via-[#090040] to-[#090040] rounded-3xl p-8 md:p-12 lg:p-16 text-center shadow-2xl">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
                 Interested in This Model?
               </h2>
@@ -771,7 +787,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             </div>
             <button
               onClick={closeGallery}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-300 cursor-pointer hover:scale-110"
               aria-label="Close Gallery"
               type="button"
             >
@@ -796,7 +812,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 <button
                   onClick={() => changeGalleryImage(-1)}
                   onKeyDown={(e) => handleKeyDown(e, () => changeGalleryImage(-1))}
-                  className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-colors border border-gray-200 shadow-lg z-20"
+                  className="absolute left-6 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 shadow-lg hover:scale-110 z-20 cursor-pointer"
                   aria-label="Previous image"
                   type="button"
                 >
@@ -805,7 +821,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 <button
                   onClick={() => changeGalleryImage(1)}
                   onKeyDown={(e) => handleKeyDown(e, () => changeGalleryImage(1))}
-                  className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-colors border border-gray-200 shadow-lg z-20"
+                  className="absolute right-6 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 shadow-lg hover:scale-110 z-20 cursor-pointer"
                   aria-label="Next image"
                   type="button"
                 >
@@ -818,17 +834,23 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
           {/* Thumbnail Strip */}
           {(galleryImages.length > 0 ? galleryImages.length : images.length) > 1 && (
             <div className="absolute bottom-0 left-0 right-0 z-20 p-5 bg-white/95 backdrop-blur-sm border-t border-gray-200">
-              <div className="flex gap-3 sm:gap-4 justify-center overflow-x-auto scrollbar-hide px-4 sm:px-6 scroll-smooth">
+              <div 
+                ref={thumbnailContainerRef}
+                className="flex gap-3 sm:gap-4 justify-center overflow-x-auto scrollbar-hide px-4 sm:px-6 scroll-smooth"
+              >
                 {(galleryImages.length > 0 ? galleryImages : images).map((img, index) => (
                   <button
                     key={index}
+                    ref={(el) => {
+                      thumbnailRefs.current[index] = el;
+                    }}
                     onClick={() => setGalleryImageIndex(index)}
                     onKeyDown={(e) => handleKeyDown(e, () => setGalleryImageIndex(index))}
                     className={cn(
-                      "relative w-20 h-14 rounded-lg overflow-hidden border-2 transition-opacity shrink-0",
+                      "relative w-20 h-14 rounded-lg overflow-hidden border-2 transition-all duration-300 shrink-0 cursor-pointer",
                       index === galleryImageIndex
-                        ? "border-[#471396] opacity-100"
-                        : "border-transparent opacity-50 hover:opacity-75"
+                        ? "border-[#090040] opacity-100 scale-105"
+                        : "border-transparent opacity-50 hover:opacity-75 hover:scale-105"
                     )}
                     aria-label={`View image ${index + 1}`}
                     aria-current={index === galleryImageIndex ? "true" : "false"}

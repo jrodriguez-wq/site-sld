@@ -8,15 +8,15 @@ const Statistics = () => {
       number: "1,500+",
       label: "Homes Built",
       description: "Quality homes delivered to families",
-      gradient: "from-[#2d2c55] to-[#2f2c79]",
-      accent: "#471396",
+      gradient: "from-[#2d2c55] to-[#090040]",
+      accent: "#090040",
     },
     {
       icon: FaUsers,
       number: "1,500+",
       label: "Happy Families",
       description: "Families living their American dream",
-      gradient: "from-[#2f2c79] to-[#302c9b]",
+      gradient: "from-[#090040] to-[#302c9b]",
       accent: "#2823bc",
     },
     {
@@ -24,25 +24,25 @@ const Statistics = () => {
       number: "Pioneers",
       label: "Rent to Own",
       description: "Pioneers in the Rent to Own program",
-      gradient: "from-[#302c9b] to-[#471396]",
-      accent: "#B13BFF",
+      gradient: "from-[#302c9b] to-[#090040]",
+      accent: "#2d2c55",
     },
     {
       icon: FaDollarSign,
       number: "$0",
       label: "Down Payment",
       description: "Homeownership with $0 down payment",
-      gradient: "from-[#471396] to-[#B13BFF]",
+      gradient: "from-[#090040] to-[#2d2c55]",
       accent: "#FFCC00",
     },
   ];
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative">
       {/* Elegant Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #471396 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
       </div>
@@ -53,18 +53,14 @@ const Statistics = () => {
       
       <Container className="relative z-10">
         {/* Header Section */}
-        <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="inline-block mb-4 sm:mb-6">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#471396] bg-[#471396]/10 px-4 py-2 rounded-full">
-              Our Impact
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6">
-            <span className="bg-gradient-to-r from-[#090040] via-[#471396] to-[#090040] bg-clip-text text-transparent">
-              Building Dreams, One Home at a Time
-            </span>
+        <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16 md:mb-20">
+          <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+            Our Impact
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+            Building Dreams, One Home at a Time
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 font-medium max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto">
             Our numbers speak for themselves
           </p>
         </div>
@@ -76,7 +72,7 @@ const Statistics = () => {
             return (
               <div
                 key={stat.label}
-                className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-gray-100 hover:border-[#471396]/30 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 style={{
                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
                 }}
@@ -89,8 +85,8 @@ const Statistics = () => {
                 
                 {/* Icon Container */}
                 <div className="mb-4 sm:mb-6 flex justify-center">
-                  <div 
-                    className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl transition-all duration-300 group-hover:scale-110"
+                <div 
+                  className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl transition-all duration-300 group-hover:shadow-lg"
                     style={{
                       background: `linear-gradient(135deg, ${stat.accent}15, ${stat.accent}05)`,
                     }}

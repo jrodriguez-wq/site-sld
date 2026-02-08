@@ -98,6 +98,8 @@ const ModelCardComponent = (props: ModelCardProps) => {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const copyTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const thumbnailContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Intersection Observer para lazy loading
   const { ref, inView } = useInView({
@@ -233,16 +235,30 @@ const ModelCardComponent = (props: ModelCardProps) => {
     };
   }, []);
 
+  // Auto-scroll thumbnails when galleryImageIndex changes
+  useEffect(() => {
+    if (!isGalleryOpen) return;
+    
+    const activeThumbnail = thumbnailRefs.current[galleryImageIndex];
+    if (activeThumbnail && thumbnailContainerRef.current) {
+      activeThumbnail.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [galleryImageIndex, isGalleryOpen]);
+
   return (
     <>
       {/* Main Card Container */}
       <AnimatedCard index={initialDelay / 100} className="relative w-full">
         <div ref={ref} className="relative w-full group">
           <motion.div 
-            className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            className="relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 h-full flex flex-col"
           >
           {/* Image Carousel */}
-          <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden bg-gray-100">
+          <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[420px] overflow-hidden bg-gray-100">
             <div
               className={cn(
                 "flex transition-transform duration-300 ease-out h-full",
@@ -288,15 +304,15 @@ const ModelCardComponent = (props: ModelCardProps) => {
                   className={cn(
                     "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm shadow-md",
                     community === "labelle"
-                      ? "bg-white/95 text-[#471396]"
-                      : "bg-white/95 text-[#471396]"
+                      ? "bg-white/95 text-[#090040]"
+                      : "bg-white/95 text-[#090040]"
                   )}
                 >
                   <MapPin className={cn(
                     "w-4 h-4 shrink-0",
                     community === "labelle" 
-                      ? "text-[#471396]"
-                      : "text-[#471396]"
+                      ? "text-[#090040]"
+                      : "text-[#090040]"
                   )} />
                   <span className="whitespace-nowrap">{communityLabel}</span>
                 </div>
@@ -337,7 +353,7 @@ const ModelCardComponent = (props: ModelCardProps) => {
                 onKeyDown={(e) => handleKeyDown(e, handleShare)}
                 className={cn(
                   "bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all shadow-md relative",
-                  isLinkCopied && "bg-[#D4AF37]/20"
+                  isLinkCopied && "bg-slate-900/20"
                 )}
                 aria-label={isLinkCopied ? "Link copied!" : "Share"}
                 type="button"
@@ -396,7 +412,7 @@ const ModelCardComponent = (props: ModelCardProps) => {
               <button
                 onClick={openGallery}
                 onKeyDown={(e) => handleKeyDown(e, openGallery)}
-                className="hidden sm:flex absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full items-center gap-2 hover:bg-white transition-all shadow-md z-20"
+                className="hidden sm:flex absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-full items-center gap-2 hover:bg-white transition-all shadow-md hover:scale-105 z-20 cursor-pointer"
                 aria-label={`View ${displayImages.length} photos`}
                 type="button"
               >
@@ -409,17 +425,17 @@ const ModelCardComponent = (props: ModelCardProps) => {
           </div>
 
           {/* Property Info - Modern Design */}
-          <div className="p-6 sm:p-8 space-y-4 sm:space-y-5">
+          <div className="p-8 sm:p-10 md:p-12 space-y-6 sm:space-y-7 md:space-y-8 flex-1 flex flex-col">
             {/* Title */}
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 group-hover:text-[#090040] transition-colors">
+            <div className="space-y-3 sm:space-y-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 group-hover:text-[#090040] transition-colors">
                 {name}
               </h2>
-              <p className="text-sm sm:text-base text-gray-600 line-clamp-2 leading-relaxed">{description}</p>
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 line-clamp-2 leading-relaxed">{description}</p>
             </div>
 
             {/* Quick Features - Modern Grid */}
-            <div className="grid grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
               {[
                 { icon: Bed, value: beds, label: "Beds" },
                 { icon: Bath, value: baths, label: "Baths" },
@@ -430,34 +446,34 @@ const ModelCardComponent = (props: ModelCardProps) => {
                 return (
                   <div
                     key={index}
-                    className="bg-gradient-to-br from-[#090040]/5 to-[#471396]/5 rounded-xl p-3 sm:p-4 text-center hover:from-[#090040]/10 hover:to-[#471396]/10 transition-all duration-300 group-hover:scale-105"
+                    className="bg-gradient-to-br from-[#090040]/5 to-[#090040]/5 rounded-xl p-4 sm:p-5 md:p-6 text-center hover:from-[#090040]/10 hover:to-[#090040]/10 transition-all duration-300 group-hover:scale-105"
                   >
-                    <div className="flex justify-center mb-2">
-                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#471396]" />
+                    <div className="flex justify-center mb-3">
+                      <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-[#090040]" />
                     </div>
-                    <div className="font-bold text-gray-900 text-sm sm:text-base mb-1">{feature.value}</div>
-                    <div className="text-xs text-gray-600 font-medium">{feature.label}</div>
+                    <div className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-1.5">{feature.value}</div>
+                    <div className="text-xs sm:text-sm text-gray-600 font-medium">{feature.label}</div>
                   </div>
                 );
               })}
             </div>
 
             {/* Price and CTA */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-gray-100">
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Starting From</p>
-                <p className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#090040] to-[#471396] bg-clip-text text-transparent">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8 pt-6 sm:pt-8 mt-auto border-t border-gray-200">
+              <div className="flex-1 min-w-0">
+                <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wider font-semibold mb-2">Starting From</p>
+                <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                   {price}
                 </p>
                 {rtoPrice && (
-                  <p className="text-sm text-gray-600 mt-2 font-medium">
-                    RTO: <span className="text-[#471396] font-bold">{rtoPrice}</span>
+                  <p className="text-sm sm:text-base text-gray-600 mt-3 font-medium">
+                    RTO: <span className="text-[#090040] font-bold">{rtoPrice}</span>
                   </p>
                 )}
               </div>
               <Button
                 asChild
-                className="bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#D4AF37] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:shadow-xl hover:scale-105 transition-all duration-300"
+                className="bg-slate-900 hover:bg-slate-800 text-white px-8 sm:px-10 md:px-12 py-4 sm:py-5 rounded-xl font-semibold text-sm sm:text-base md:text-lg hover:shadow-md transition-all duration-200 whitespace-nowrap flex-shrink-0"
               >
                 <Link 
                   href={modelLink}
@@ -476,7 +492,7 @@ const ModelCardComponent = (props: ModelCardProps) => {
       {/* Gallery Modal - Simplified for mobile, full for desktop */}
       {isGalleryOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
           onClick={closeGallery}
         >
           {/* Mobile: Simple Image Viewer */}
@@ -485,28 +501,28 @@ const ModelCardComponent = (props: ModelCardProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             {/* Mobile Header */}
-            <div className="flex items-center justify-between p-4 bg-background/95 backdrop-blur-md border-b border-border">
+            <div className="flex items-center justify-between p-4 bg-white/95 backdrop-blur-md border-b border-gray-200">
               <div className="flex-1 min-w-0">
-                <h3 className="text-base font-bold text-foreground truncate">{name}</h3>
+                <h3 className="text-base font-bold text-gray-900 truncate">{name}</h3>
                 {hasMultipleImages && (
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                  <p className="text-xs text-gray-600 mt-0.5">
                     {galleryImageIndex + 1} / {displayImages.length}
                   </p>
                 )}
               </div>
               <button
                 onClick={closeGallery}
-                className="ml-4 bg-background/80 backdrop-blur-sm p-2 rounded-full hover:bg-background transition-colors border border-border shrink-0"
+                className="ml-4 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors border border-gray-200 shrink-0 cursor-pointer"
                 aria-label={closeGalleryLabel}
                 type="button"
                 suppressHydrationWarning
               >
-                <X className="w-5 h-5 text-foreground" />
+                <X className="w-5 h-5 text-gray-900" />
               </button>
             </div>
 
             {/* Mobile Image Container */}
-            <div className="relative flex-1 bg-muted overflow-hidden">
+            <div className="relative flex-1 bg-gray-100 overflow-hidden">
               <div className="relative w-full h-full">
                 <Image
                   src={displayImages[galleryImageIndex]}
@@ -528,41 +544,47 @@ const ModelCardComponent = (props: ModelCardProps) => {
                       e.stopPropagation();
                       changeGalleryImage(-1);
                     }}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-md p-2.5 rounded-full hover:bg-background transition-colors border border-border z-10 shadow-lg"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md p-2.5 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 z-10 shadow-lg hover:scale-110 cursor-pointer"
                     aria-label={previousImageLabel}
                     type="button"
                     suppressHydrationWarning
                   >
-                    <ChevronLeft className="w-5 h-5 text-foreground" />
+                    <ChevronLeft className="w-5 h-5 text-gray-900" />
                   </button>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       changeGalleryImage(1);
                     }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/90 backdrop-blur-md p-2.5 rounded-full hover:bg-background transition-colors border border-border z-10 shadow-lg"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-md p-2.5 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 z-10 shadow-lg hover:scale-110 cursor-pointer"
                     aria-label={nextImageLabel}
                     type="button"
                     suppressHydrationWarning
                   >
-                    <ChevronRight className="w-5 h-5 text-foreground" />
+                    <ChevronRight className="w-5 h-5 text-gray-900" />
                   </button>
 
                   {/* Mobile Thumbnail Strip */}
-                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-background/95 backdrop-blur-md border-t border-border">
-                    <div className="flex gap-2 justify-center overflow-x-auto pb-1">
+                  <div className="absolute bottom-0 left-0 right-0 p-3 bg-white/95 backdrop-blur-md border-t border-gray-200">
+                    <div 
+                      ref={thumbnailContainerRef}
+                      className="flex gap-2 justify-center overflow-x-auto pb-1 scroll-smooth"
+                    >
                       {displayImages.map((img, index) => (
                         <button
                           key={index}
+                          ref={(el) => {
+                            thumbnailRefs.current[index] = el;
+                          }}
                           onClick={(e) => {
                             e.stopPropagation();
                             setGalleryImageIndex(index);
                           }}
                           className={cn(
-                            "w-12 h-9 rounded-md overflow-hidden border-2 transition-all flex-shrink-0",
+                            "w-12 h-9 rounded-md overflow-hidden border-2 transition-all duration-300 flex-shrink-0 cursor-pointer",
                             index === galleryImageIndex
                               ? "border-primary scale-105"
-                              : "border-transparent opacity-60 hover:opacity-100"
+                              : "border-transparent opacity-60 hover:opacity-100 hover:scale-105"
                           )}
                           aria-label={`View image ${index + 1}`}
                           type="button"
@@ -589,12 +611,12 @@ const ModelCardComponent = (props: ModelCardProps) => {
 
           {/* Desktop: Full Gallery with Details */}
           <div
-            className="hidden lg:flex bg-card rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl border-2 border-border"
+            className="hidden lg:flex bg-white rounded-3xl max-w-6xl w-full max-h-[90vh] overflow-hidden shadow-2xl border-2 border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="grid lg:grid-cols-2 h-full w-full">
               {/* Left: Image Gallery */}
-              <div className="relative bg-muted h-full min-h-[500px]">
+              <div className="relative bg-gray-100 h-full min-h-[500px]">
                 <div className="relative w-full h-full">
                   <Image
                     src={displayImages[galleryImageIndex]}
@@ -613,37 +635,43 @@ const ModelCardComponent = (props: ModelCardProps) => {
                   <>
                     <button
                       onClick={() => changeGalleryImage(-1)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm p-3 rounded-full hover:bg-background transition-colors border border-border z-10"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 z-10 hover:scale-110 cursor-pointer shadow-lg"
                       aria-label={previousImageLabel}
                       type="button"
                       suppressHydrationWarning
                     >
-                      <ChevronLeft className="w-6 h-6 text-foreground" />
+                      <ChevronLeft className="w-6 h-6 text-gray-900" />
                     </button>
                     <button
                       onClick={() => changeGalleryImage(1)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm p-3 rounded-full hover:bg-background transition-colors border border-border z-10"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm p-3 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 z-10 hover:scale-110 cursor-pointer shadow-lg"
                       aria-label={nextImageLabel}
                       type="button"
                       suppressHydrationWarning
                     >
-                      <ChevronRight className="w-6 h-6 text-foreground" />
+                      <ChevronRight className="w-6 h-6 text-gray-900" />
                     </button>
                   </>
                 )}
 
                 {/* Desktop Thumbnail Strip */}
                 {hasMultipleImages && (
-                  <div className="absolute bottom-4 left-4 right-4 flex gap-2 justify-center z-10 overflow-x-auto pb-2">
+                  <div 
+                    ref={thumbnailContainerRef}
+                    className="absolute bottom-4 left-4 right-4 flex gap-2 justify-center z-10 overflow-x-auto pb-2 scroll-smooth"
+                  >
                     {displayImages.map((img, index) => (
                       <button
                         key={index}
+                        ref={(el) => {
+                          thumbnailRefs.current[index] = el;
+                        }}
                         onClick={() => setGalleryImageIndex(index)}
                         className={cn(
-                          "w-16 h-12 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0",
+                          "w-16 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 flex-shrink-0 cursor-pointer",
                           index === galleryImageIndex
                             ? "border-primary scale-105"
-                            : "border-transparent opacity-70 hover:opacity-100"
+                            : "border-transparent opacity-70 hover:opacity-100 hover:scale-105"
                         )}
                         aria-label={`View image ${index + 1}`}
                         type="button"
@@ -666,8 +694,8 @@ const ModelCardComponent = (props: ModelCardProps) => {
 
                 {/* Desktop Image Counter */}
                 {hasMultipleImages && (
-                  <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1 rounded-full border border-border">
-                    <span className="text-foreground text-sm font-medium">
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-gray-200 shadow-lg">
+                    <span className="text-gray-900 text-sm font-medium">
                       {galleryImageIndex + 1} / {displayImages.length}
                     </span>
                   </div>
@@ -676,12 +704,12 @@ const ModelCardComponent = (props: ModelCardProps) => {
                 {/* Desktop Close Button */}
                 <button
                   onClick={closeGallery}
-                  className="absolute top-4 right-4 bg-background/80 backdrop-blur-sm p-2 rounded-full hover:bg-background transition-colors border border-border z-10"
+                  className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all duration-300 border border-gray-200 z-10 hover:scale-110 cursor-pointer shadow-lg"
                   aria-label={closeGalleryLabel}
                   type="button"
                   suppressHydrationWarning
                 >
-                  <X className="w-5 h-5 text-foreground" />
+                  <X className="w-5 h-5 text-gray-900" />
                 </button>
               </div>
 
@@ -701,18 +729,18 @@ const ModelCardComponent = (props: ModelCardProps) => {
                       ))}
                     </div>
                   )}
-                  <h1 className="text-4xl font-bold text-foreground mb-2">{name}</h1>
-                  <p className="text-muted-foreground font-medium mb-4">{description}</p>
+                  <h1 className="text-4xl font-bold text-gray-900 mb-2">{name}</h1>
+                  <p className="text-gray-600 font-medium mb-4">{description}</p>
                   <div className="mt-6">
-                    <p className="text-sm text-muted-foreground uppercase tracking-wider" suppressHydrationWarning>
+                    <p className="text-sm text-gray-500 uppercase tracking-wider" suppressHydrationWarning>
                       {displayPriceFromLabel}
                     </p>
-                    <p className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+                    <p className="text-5xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                       {price}
                     </p>
                     {rtoPrice && (
-                      <p className="text-base text-muted-foreground mt-2 font-semibold" suppressHydrationWarning>
-                        {displayRtoLabel}: <span className="text-primary font-bold">{rtoPrice}</span>
+                      <p className="text-base text-gray-600 mt-2 font-semibold" suppressHydrationWarning>
+                        {displayRtoLabel}: <span className="text-[#090040] font-bold">{rtoPrice}</span>
                       </p>
                     )}
                   </div>
@@ -720,7 +748,7 @@ const ModelCardComponent = (props: ModelCardProps) => {
 
                 {/* Quick Features */}
                 <div className="mb-8">
-                  <h3 className="text-lg font-bold text-foreground mb-4" suppressHydrationWarning>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4" suppressHydrationWarning>
                     {displayFeaturesLabel}
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -734,14 +762,14 @@ const ModelCardComponent = (props: ModelCardProps) => {
                       return (
                         <div
                           key={index}
-                          className="flex items-center gap-3 p-3 bg-muted/50 rounded-xl hover:bg-muted transition-colors border border-border"
+                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-200"
                         >
-                          <div className="text-primary">
+                          <div className="text-[#090040]">
                             <Icon className="w-5 h-5" />
                           </div>
                           <div>
-                            <div className="text-foreground font-bold">{feature.value}</div>
-                            <div className="text-muted-foreground text-xs">{feature.label}</div>
+                            <div className="text-gray-900 font-bold">{feature.value}</div>
+                            <div className="text-gray-600 text-xs">{feature.label}</div>
                           </div>
                         </div>
                       );
@@ -750,17 +778,17 @@ const ModelCardComponent = (props: ModelCardProps) => {
                 </div>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col gap-3 pt-6 border-t border-border">
+                <div className="flex flex-col gap-3 pt-6 border-t border-gray-200">
                   <Button
                     asChild
-                    className="relative w-full bg-gradient-to-r from-primary via-primary/95 to-primary text-primary-foreground py-4 px-8 rounded-2xl font-bold text-base hover:shadow-2xl hover:shadow-primary/40 transition-all duration-200 group hover:scale-105 border-2 border-primary/20 hover:border-primary/50 overflow-hidden"
+                    className="relative w-full bg-slate-900 hover:bg-slate-800 text-white py-4 px-8 rounded-xl font-semibold text-base hover:shadow-md transition-all duration-200 group overflow-hidden"
                   >
                     <Link href={modelLink} onClick={closeGallery}>
                       <span className="relative z-10 flex items-center justify-center gap-2">
                         {viewDetailsLabel}
                         <Maximize2 className="w-5 h-5 group-hover:scale-125 group-hover:rotate-90 transition-all duration-150" />
                       </span>
-                      <span className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-300" />
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-300" />
                     </Link>
                   </Button>
                 </div>

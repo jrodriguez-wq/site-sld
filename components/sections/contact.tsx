@@ -151,14 +151,14 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white text-gray-900 relative overflow-hidden scroll-mt-28">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
+    <section id="contact" className="py-16 sm:py-20 md:py-24 lg:py-28 bg-white text-slate-900 relative scroll-mt-28">
+      {/* Subtle Background */}
+      <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #471396 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
+            backgroundImage: `radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0)`,
+            backgroundSize: "32px 32px",
           }}
         />
       </div>
@@ -174,7 +174,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
           {/* Contact Information */}
           <div className="space-y-6">
-            <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-lg">
+            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100 shadow-sm">
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
                 Contact Information
               </h3>
@@ -186,7 +186,7 @@ const Contact = () => {
                   const Icon = info.icon;
                   return (
                     <div key={info.title} className="flex items-start gap-4 group">
-                      <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#B8860B] group-hover:scale-110 transition-transform duration-300">
+                      <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-slate-900 text-white transition-colors duration-200 group-hover:bg-slate-800">
                         <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                       </div>
                       <div className="flex-1">
@@ -198,7 +198,7 @@ const Contact = () => {
                             href={info.href}
                             target={info.title === "Location" ? "_blank" : undefined}
                             rel={info.title === "Location" ? "noopener noreferrer" : undefined}
-                            className="text-gray-600 hover:text-[#471396] transition-colors duration-300 text-base sm:text-lg block"
+                            className="text-gray-600 hover:text-[#090040] transition-colors duration-300 text-base sm:text-lg block"
                           >
                             {info.content}
                             {info.subContent && (
@@ -228,7 +228,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-gray-50 rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-lg">
+          <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100 shadow-sm">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Send Us a Message
             </h3>
@@ -238,7 +238,7 @@ const Contact = () => {
             
             {isSubmitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in-0 zoom-in-95 duration-500">
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] shadow-lg">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-900 text-white">
                   <FaCheckCircle className="h-8 w-8 text-white" />
                 </div>
                 <h4 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h4>
@@ -249,7 +249,7 @@ const Contact = () => {
                   You can also reach us directly at{" "}
                   <a
                     href={CONTACT_INFO.phone.href}
-                    className="text-[#471396] hover:underline font-semibold"
+                    className="text-[#090040] hover:underline font-semibold"
                   >
                     {CONTACT_INFO.phone.display}
                   </a>
@@ -286,7 +286,7 @@ const Contact = () => {
                     className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.name
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                        : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
                     }`}
                     placeholder="Your full name"
                   />
@@ -317,7 +317,7 @@ const Contact = () => {
                     className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.email
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                        : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
                     }`}
                     placeholder="your.email@example.com"
                   />
@@ -347,7 +347,7 @@ const Contact = () => {
                     className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.phone
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                        : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
                     }`}
                     placeholder={CONTACT_INFO.phone.display}
                   />
@@ -378,7 +378,7 @@ const Contact = () => {
                     className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none ${
                       errors.message
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
-                        : "border-gray-200 focus:border-[#471396] focus:ring-[#471396]/20"
+                        : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
                     }`}
                     placeholder="Tell us about your project or inquiry..."
                   />
@@ -393,7 +393,7 @@ const Contact = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#D4AF37] disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 disabled:hover:scale-100 transition-all duration-300 py-6 sm:py-7 text-base sm:text-lg rounded-xl"
+                  className="w-full bg-slate-900 hover:bg-slate-800 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold shadow-lg hover:shadow-md transition-colors duration-200 py-6 sm:py-7 text-base sm:text-lg rounded-xl"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center gap-2">

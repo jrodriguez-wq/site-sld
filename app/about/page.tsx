@@ -1,9 +1,10 @@
 import { About } from "@/components/sections/about";
+import { AboutLocations } from "@/components/sections/about-locations";
 import { PageHero } from "@/components/ui/page-hero";
-
+import { LogosSlider } from "@/components/sections/logos-slider";
 export const metadata = {
-  title: "About Us | Standard Land Development",
-  description: "Learn about Standard Land Development, our mission, vision, and core values. Founded in 2016 by CEO Michael J. Newell.",
+  title: "About Us | Standard Land Development | Southwest Florida Home Builder",
+  description: "Meet the SLD leadership team. Founded in 2016 by Michael J. Newell, we build affordable homes for families in Southwest Florida. Mission, vision, and core values.",
 };
 
 export default function AboutPage() {
@@ -19,6 +20,9 @@ export default function AboutPage() {
       <div id="about" className="scroll-mt-28">
         <About />
       </div>
+      <AboutLocations />
+      <LogosSlider />
+
     </>
   );
 }

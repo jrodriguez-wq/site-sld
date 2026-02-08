@@ -76,13 +76,13 @@ const Videos = () => {
   }, []);
 
   return (
-    <section id="videos" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-gray-50 via-white to-gray-50 relative overflow-hidden scroll-mt-28">
+    <section id="videos" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative scroll-mt-28">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, #471396 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
         />
@@ -90,18 +90,14 @@ const Videos = () => {
 
       <Container className="relative z-10">
         {/* Header */}
-        <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16 md:mb-20">
-          <div className="inline-block mb-4 sm:mb-6">
-            <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#471396] bg-[#471396]/10 px-4 py-2 rounded-full">
-              Construction Videos
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6">
-            <span className="bg-gradient-to-r from-[#090040] via-[#471396] to-[#090040] bg-clip-text text-transparent">
-              See Our Work in Action
-            </span>
+        <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16 md:mb-20">
+          <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+            Construction Videos
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+            See Our Work in Action
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 font-medium max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto leading-relaxed">
             Watch our construction and development process, showcasing our commitment to quality and excellence
           </p>
         </div>
@@ -111,7 +107,7 @@ const Videos = () => {
           {videos.map((video) => (
             <div
               key={video.id}
-              className="group relative aspect-video rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 bg-gradient-to-br from-[#090040] to-[#2d2c55]"
+              className="group relative aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-[#090040] to-[#2d2c55] border border-slate-200/50"
             >
               {playingVideo === video.id ? (
                 <div className="relative w-full h-full bg-black">
@@ -160,18 +156,18 @@ const Videos = () => {
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#090040]/80 via-[#2d2c55]/70 to-[#471396]/80" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#090040]/80 via-[#2d2c55]/70 to-[#090040]/80" />
                   </div>
 
                   {/* Play Button Overlay */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 sm:gap-6 p-6 sm:p-8 cursor-pointer">
                     <button
                       onClick={() => handleVideoClick(video.id)}
-                      className="group/btn relative h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#B8860B] hover:from-[#B8860B] hover:to-[#D4AF37] shadow-2xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-10"
+                      className="group/btn relative h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 shadow-xl transition-all duration-200 flex items-center justify-center z-10 cursor-pointer"
                       aria-label={`Play ${video.title}`}
                     >
                       <Play className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 text-white ml-1 transition-transform group-hover/btn:scale-110" />
-                      <div className="absolute inset-0 rounded-full bg-[#D4AF37]/50 animate-ping opacity-75" />
+                      <div className="absolute inset-0 rounded-full bg-white/20 animate-pulse" aria-hidden="true" />
                     </button>
                     <div className="text-center px-4 z-10">
                       <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg">
@@ -184,7 +180,7 @@ const Videos = () => {
                   </div>
 
                   {/* Hover Effect */}
-                  <div className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/10 transition-colors duration-300" />
+                  <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-200" aria-hidden="true" />
                 </>
               )}
             </div>

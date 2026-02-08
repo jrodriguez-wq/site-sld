@@ -126,9 +126,9 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   other: {
-    "msapplication-TileColor": "#1e40af",
+    "msapplication-TileColor": "#090040",
     "msapplication-config": "/favicon/browserconfig.xml",
-    "theme-color": "#1e40af",
+    "theme-color": "#090040",
   },
 };
 
@@ -145,7 +145,7 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1">
+          <main className="flex-1 pt-20 sm:pt-24">
             {children}
           </main>
           <Footer />

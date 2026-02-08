@@ -44,7 +44,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="border-t bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#471396] text-white relative overflow-hidden">
+    <footer className="border-t bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] text-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
@@ -83,7 +83,7 @@ const Footer = () => {
                     target={social.external ? "_blank" : undefined}
                     rel={social.external ? "noopener noreferrer" : undefined}
                     aria-label={social.label}
-                    className="text-white/70 hover:text-[#D4AF37] transition-colors duration-300 hover:scale-110"
+                    className="text-white/70 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110 cursor-pointer"
                   >
                     <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
                   </Link>
@@ -101,7 +101,7 @@ const Footer = () => {
                   <Link
                     href={link.href}
                     prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
                   >
                     <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>{link.label}</span>
@@ -121,7 +121,7 @@ const Footer = () => {
                   <Link
                     href={link.href}
                     prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
                   >
                     <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>{link.label}</span>
@@ -138,7 +138,7 @@ const Footer = () => {
                   <Link
                     href={link.href}
                     prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
                   >
                     <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>{link.label}</span>
@@ -160,7 +160,7 @@ const Footer = () => {
                     href={CONTACT_INFO.address.googleMaps}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-[#D4AF37] transition-colors duration-300"
+                    className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
                   >
                     <div className="font-semibold">{CONTACT_INFO.address.street}</div>
                     <div className="text-white/70">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.zip}</div>
@@ -171,7 +171,7 @@ const Footer = () => {
                 <FaPhone className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <Link
                   href={CONTACT_INFO.phone.href}
-                  className="hover:text-[#D4AF37] transition-colors duration-300"
+                  className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
                 >
                   {CONTACT_INFO.phone.display}
                 </Link>
@@ -180,7 +180,7 @@ const Footer = () => {
                 <FaEnvelope className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <Link
                   href={CONTACT_INFO.email.href}
-                  className="hover:text-[#D4AF37] transition-colors duration-300 break-all"
+                  className="hover:text-[#D4AF37] transition-all duration-300 break-all cursor-pointer"
                 >
                   {CONTACT_INFO.email.display}
                 </Link>
@@ -217,14 +217,14 @@ const Footer = () => {
               <Link 
                 href="/privacy"
                 prefetch={true}
-                className="hover:text-[#D4AF37] transition-colors duration-300"
+                className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
               >
                 Privacy
               </Link>
               <Link 
                 href="/terms"
                 prefetch={true}
-                className="hover:text-[#D4AF37] transition-colors duration-300"
+                className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
               >
                 Terms
               </Link>

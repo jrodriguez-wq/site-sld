@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useMemo, Suspense, lazy, useCallback } from "react";
-import { useTranslation } from "@/hooks/use-translation";
 import { Button } from "@/components/ui/button";
 import { getModelImages, getModelMainImage } from "@/lib/models/model-images";
 import { getModelData } from "@/lib/models/model-data";
@@ -9,7 +8,8 @@ import { extractPrice } from "@/lib/models/model-utils";
 import { ModelData, Community } from "@/types/model";
 import { FilterState } from "@/components/models/model-filters";
 import { getModelsForCommunity } from "@/lib/models/model-pricing";
-import { FurnishedHomesSlider } from "@/components/models/furnished-homes-slider";
+import { PageHero } from "@/components/ui/page-hero";
+import { Container } from "@/components/ui/container";
 
 // Lazy load heavy components
 const ModelCard = lazy(() => 
@@ -88,7 +88,6 @@ const extractSqft = (sqftString: string): number => {
 };
 
 export default function ModelsPage() {
-  const { t } = useTranslation();
   const [models, setModels] = useState<ModelDisplayData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filters, setFilters] = useState<FilterState>({
@@ -195,14 +194,29 @@ export default function ModelsPage() {
 
       if (!isMounted) return;
 
-      // Sort by price (cheapest first)
-      const sortedModels = allModelsWithData.sort((a, b) => a.priceNumber - b.priceNumber);
+      // Group models by base key (without community suffix) and keep only the most expensive one
+      const modelsMap = new Map<string, ModelDisplayData>();
+      
+      for (const model of allModelsWithData) {
+        const baseKey = model.key.split("-")[0]; // Remove community suffix
+        const existing = modelsMap.get(baseKey);
+        
+        if (!existing || model.priceNumber > existing.priceNumber) {
+          modelsMap.set(baseKey, {
+            ...model,
+            key: baseKey, // Use base key without community suffix
+          });
+        }
+      }
+      
+      // Convert map to array and sort by price (cheapest first)
+      const uniqueModels = Array.from(modelsMap.values()).sort((a, b) => a.priceNumber - b.priceNumber);
       
       // Set max values for filters
-      const maxPrice = Math.max(...sortedModels.map((m) => m.priceNumber), 600000);
-      const maxSqft = Math.max(...sortedModels.map((m) => m.sqftNumber), 4000);
+      const maxPrice = Math.max(...uniqueModels.map((m) => m.priceNumber), 600000);
+      const maxSqft = Math.max(...uniqueModels.map((m) => m.sqftNumber), 4000);
       
-      setModels(sortedModels);
+      setModels(uniqueModels);
       setFilters((prev) => ({
         ...prev,
         priceRange: [0, maxPrice],
@@ -271,29 +285,22 @@ export default function ModelsPage() {
 
   return (
     <>
-      <div className="pt-16 sm:pt-20 md:pt-24 lg:pt-28 xl:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20 xl:pb-24 min-h-screen bg-white">
-      <div className="container mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 2xl:px-10 max-w-[1800px]">
-        {/* Furnished Homes Slider - Before Header */}
-        <FurnishedHomesSlider />
+      {/* Hero Section */}
+      <PageHero
+        title="Home Models"
+        subtitle="Find Your Dream Home"
+        description="Browse our complete collection of new construction home models. From cozy starter homes to spacious family residences, discover the perfect home for you."
+        backgroundImage="/hero/aurora.webp"
+        badge="New Construction"
+      />
 
-        {/* Header Section - All Screens */}
-        <div className="mb-4 sm:mb-6 md:mb-8 lg:mb-10">
-          <div className="text-center space-y-1.5 sm:space-y-2 md:space-y-3 mb-4 sm:mb-6 md:mb-8">
-            <h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 leading-tight sm:leading-normal"
-            >
-              All Home Models
-            </h1>
-            <p
-              className="mx-auto max-w-2xl text-gray-600 text-sm sm:text-base md:text-lg leading-relaxed px-2 sm:px-4"
-            >
-              Browse our complete collection of new construction home models
-            </p>
-          </div>
+      {/* Main Content */}
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+        <Container className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 max-w-[1920px]">
 
           {/* Mobile Filters - Only visible on mobile/tablet */}
           {!isLoading && (
-            <div className="lg:hidden">
+            <div className="lg:hidden mb-8">
               <Suspense fallback={<div className="h-20 bg-muted/50 rounded-xl animate-pulse" />}>
                 <ModelFilters
                   filters={filters}
@@ -304,38 +311,37 @@ export default function ModelsPage() {
               </Suspense>
             </div>
           )}
-        </div>
 
-        {/* Main Layout - Desktop: Sidebar Left + Content Right | Mobile: Stacked */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 xl:gap-12">
-          {/* Desktop Sidebar Filters - Left Side */}
-          {!isLoading && (
-            <aside className="hidden lg:block w-80 xl:w-96 shrink-0">
-              <Suspense fallback={<div className="h-96 bg-muted/50 rounded-2xl animate-pulse" />}>
-                <ModelFilters
-                  filters={filters}
-                  onFiltersChange={handleFiltersChange}
-                  maxPrice={maxPrice}
-                  maxSqft={maxSqft}
-                />
-              </Suspense>
-            </aside>
-          )}
-
-          {/* Main Content Area - Right Side (Desktop) */}
-          <div className="flex-1 min-w-0 w-full">
-            {/* Results count and info - All Screens */}
+          {/* Main Layout - Desktop: Sidebar Left + Content Right | Mobile: Stacked */}
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 xl:gap-12">
+            {/* Desktop Sidebar Filters - Left Side */}
             {!isLoading && (
-              <div className="mb-4 sm:mb-6 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 md:gap-4 text-xs sm:text-sm pb-3 sm:pb-4 border-b border-border/30">
-                         <span className="text-gray-600 font-medium">
-                           <span className="font-semibold text-gray-900">{filteredModels.length}</span>{" "}
-                           {filteredModels.length === 1 ? "model" : "models"} found
-                         </span>
-                         <span className="text-gray-500 text-xs sm:text-sm">
-                           Sorted by price: Low to High
-                         </span>
-              </div>
+              <aside className="hidden lg:block w-72 xl:w-80 2xl:w-96 shrink-0">
+                <Suspense fallback={<div className="h-96 bg-muted/50 rounded-2xl animate-pulse" />}>
+                  <ModelFilters
+                    filters={filters}
+                    onFiltersChange={handleFiltersChange}
+                    maxPrice={maxPrice}
+                    maxSqft={maxSqft}
+                  />
+                </Suspense>
+              </aside>
             )}
+
+            {/* Main Content Area - Right Side (Desktop) */}
+            <div className="flex-1 min-w-0 w-full max-w-full">
+              {/* Results count and info - All Screens */}
+              {!isLoading && (
+                <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-5 border-b border-gray-200">
+                  <span className="text-gray-600 font-medium text-sm sm:text-base">
+                    <span className="font-bold text-gray-900 text-lg sm:text-xl">{filteredModels.length}</span>{" "}
+                    {filteredModels.length === 1 ? "model" : "models"} found
+                  </span>
+                  <span className="text-gray-500 text-xs sm:text-sm">
+                    Sorted by price: Low to High
+                  </span>
+                </div>
+              )}
 
             {/* Models Grid - Fully Responsive */}
                      {isLoading ? (
@@ -364,12 +370,12 @@ export default function ModelsPage() {
                        </div>
             ) : (
               <div 
-                className="grid gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 grid-cols-1 md:grid-cols-2 w-full" 
+                className="grid gap-8 sm:gap-10 lg:gap-12 xl:gap-14 grid-cols-1 md:grid-cols-2 w-full max-w-full" 
                 suppressHydrationWarning
               >
                 {filteredModels.map((model, index) => {
-                  // Extraer el key base del modelo (sin el sufijo de comunidad)
-                  const baseKey = model.key.split("-")[0] as keyof typeof MODEL_CONFIG;
+                  // Use base key directly (already unique, no community suffix)
+                  const baseKey = model.key as keyof typeof MODEL_CONFIG;
                   const config = MODEL_CONFIG[baseKey];
                   const modelImages = getModelImages(baseKey);
                   const mainImage = getModelMainImage(baseKey);
@@ -377,7 +383,7 @@ export default function ModelsPage() {
                   const carouselInterval = 4000; // 4 seconds
                   const initialDelay = index * 80; // Stagger delay for animations
 
-                  // Convertir badges con labelKey a badges con label en inglés
+                  // Convert badges with labelKey to badges with English labels
                   const badgeLabels: Record<string, string> = {
                     "homeModels.badges.bestseller": "Bestseller",
                     "homeModels.badges.favorite": "Favorite",
@@ -389,16 +395,9 @@ export default function ModelsPage() {
                     label: badgeLabels[badge.labelKey] || badge.labelKey,
                   }));
 
-                  // Model names in English
-                  const modelNames: Record<string, string> = {
-                    "homeModels.models.louisiana.name": "Louisiana",
-                    "homeModels.models.viana.name": "Viana",
-                    "homeModels.models.langdon.name": "Langdon",
-                    "homeModels.models.delanie.name": "Delanie",
-                    "homeModels.models.emelia.name": "Emelia",
-                    "homeModels.models.aurora.name": "Aurora",
-                    "homeModels.models.duplex.name": "Duplex",
-                  };
+                  // Get name and description directly from modelData
+                  const modelName = model.modelData?.name || baseKey.charAt(0).toUpperCase() + baseKey.slice(1);
+                  const modelDescription = model.modelData?.description || "";
 
                   return (
                     <Suspense 
@@ -409,8 +408,8 @@ export default function ModelsPage() {
                     >
                       <ModelCard
                         modelKey={baseKey}
-                        name={modelNames[model.nameKey] || model.nameKey}
-                        description={t(model.descriptionKey)}
+                        name={modelName}
+                        description={modelDescription}
                         image={mainImage}
                         images={modelImages}
                         price={model.price}
@@ -425,7 +424,7 @@ export default function ModelsPage() {
                         satisfiedFamilies={config?.satisfiedFamilies}
                         viewDetailsLabel="More Details"
                         viewPhotosLabel={`View Photos (${modelImages.length})`}
-                        galleryTitle={`Gallery ${modelNames[model.nameKey] || model.nameKey}`}
+                        galleryTitle={`Gallery ${modelName}`}
                         galleryDescription={`${modelImages.length} ${modelImages.length === 1 ? "image" : "images"} available`}
                         modelLabel="Model"
                         carouselDelay={carouselInterval}
@@ -437,10 +436,10 @@ export default function ModelsPage() {
                 })}
               </div>
             )}
+            </div>
           </div>
-        </div>
+        </Container>
       </div>
-    </div>
     </>
   );
 }

@@ -2,9 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Container } from "@/components/ui/container";
 import { Home, MapPin, Award, ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const premiumHouses = [
   {
@@ -100,44 +98,42 @@ const PremiumHouses = () => {
 
   return (
     <>
-      <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#471396] relative overflow-hidden scroll-mt-28">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
+      <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] relative scroll-mt-28">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.04]" aria-hidden="true">
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, #D4AF37 1px, transparent 0)`,
-              backgroundSize: "40px 40px",
+              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+              backgroundSize: "32px 32px",
             }}
           />
         </div>
 
-        <Container className="relative z-10">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16 md:mb-20">
-            <div className="inline-block mb-4 sm:mb-6">
-              <span className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#D4AF37] bg-[#D4AF37]/10 px-4 py-2 rounded-full border border-[#D4AF37]/20">
-                Premium Construction
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6 text-white">
-              Exclusive{" "}
-              <span className="bg-gradient-to-r from-[#D4AF37] via-[#FFD700] to-[#D4AF37] bg-clip-text text-transparent">
-                Premium Homes
-              </span>
+          <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16 md:mb-20">
+            <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-6">
+              Premium Construction
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+              Exclusive Premium Homes
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-white/80 font-medium max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-white/75 font-normal max-w-2xl mx-auto leading-relaxed">
               Discover our portfolio of luxury homes, each representing our commitment to excellence and premium craftsmanship
             </p>
           </div>
 
           {/* Houses Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 lg:gap-12">
-            {premiumHouses.map((house, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
+            {premiumHouses.map((house) => (
               <div
                 key={house.id}
-                className="group relative bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden border-2 border-white/20 hover:border-[#D4AF37]/50 transition-all duration-300 hover:scale-[1.02] shadow-2xl cursor-pointer"
-                onClick={() => openGallery(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === "Enter" && openGallery(premiumHouses.indexOf(house))}
+                className="group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 hover:shadow-xl hover:shadow-black/20 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                onClick={() => openGallery(premiumHouses.indexOf(house))}
               >
                 {/* Image */}
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -145,28 +141,25 @@ const PremiumHouses = () => {
                     src={house.principalImage}
                     alt={house.title}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#090040]/90 via-[#090040]/40 to-transparent" />
                   
                   {/* Badge */}
-                  <div className="absolute top-4 left-4 bg-[#D4AF37]/90 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg">
                     <div className="flex items-center gap-1.5">
-                      <Award className="h-4 w-4 text-white" />
-                      <span className="text-xs font-bold text-white uppercase">Premium</span>
+                      <Award className="h-4 w-4 text-[#090040]" aria-hidden="true" />
+                      <span className="text-xs font-semibold text-[#090040] uppercase">Premium</span>
                     </div>
                   </div>
 
                   {/* View Gallery Button */}
                   <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Button
-                      size="sm"
-                      className="bg-white/90 hover:bg-white text-[#090040] font-semibold rounded-full shadow-lg"
-                    >
+                    <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/95 backdrop-blur-sm text-[#090040] font-semibold rounded-lg text-sm shadow-lg">
                       View Gallery
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
+                      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </span>
                   </div>
                 </div>
 
@@ -175,16 +168,16 @@ const PremiumHouses = () => {
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
-                        <MapPin className="h-4 w-4 text-[#D4AF37]" />
+                        <MapPin className="h-4 w-4 text-white/70" aria-hidden="true" />
                         <span className="text-xs font-semibold text-white/70 uppercase tracking-wider">
                           {house.address}
                         </span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-[#D4AF37] transition-colors">
+                      <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-white/95 transition-colors">
                         {house.title}
                       </h3>
                     </div>
-                    <Home className="h-6 w-6 text-white/50 group-hover:text-[#D4AF37] transition-colors shrink-0" />
+                    <Home className="h-6 w-6 text-white/50 group-hover:text-white/80 transition-colors shrink-0" aria-hidden="true" />
                   </div>
                   
                   <p className="text-white/80 text-sm sm:text-base leading-relaxed mb-4">
@@ -206,7 +199,7 @@ const PremiumHouses = () => {
               </div>
             ))}
           </div>
-        </Container>
+        </div>
       </section>
 
       {/* Gallery Modal */}
@@ -221,7 +214,7 @@ const PremiumHouses = () => {
           >
             <button
               onClick={closeGallery}
-              className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-300"
+              className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-200 cursor-pointer"
               aria-label="Close"
             >
               <X className="h-6 w-6 text-white" />
@@ -229,7 +222,7 @@ const PremiumHouses = () => {
 
             <button
               onClick={prevImage}
-              className="absolute left-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-300"
+              className="absolute left-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-200 cursor-pointer"
               aria-label="Previous"
             >
               <ChevronLeft className="h-6 w-6 text-white" />
@@ -237,7 +230,7 @@ const PremiumHouses = () => {
 
             <button
               onClick={nextImage}
-              className="absolute right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-300"
+              className="absolute right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full p-3 transition-colors duration-200 cursor-pointer"
               aria-label="Next"
             >
               <ChevronRight className="h-6 w-6 text-white" />

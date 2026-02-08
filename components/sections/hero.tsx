@@ -22,7 +22,7 @@ const Hero = () => {
       </div>
       
       {/* Blur Overlay - Blue tint for readability */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-[#090040]/80 via-[#2d2c55]/75 to-[#471396]/80 backdrop-blur-[2px]" />
+      <div className="absolute inset-0 z-[1] bg-gradient-to-br from-[#090040]/80 via-[#2d2c55]/75 to-[#090040]/80 backdrop-blur-[2px]" />
       
       {/* Additional gradient overlay for better text contrast */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#090040]/90 via-transparent to-transparent" />
@@ -61,7 +61,7 @@ const Hero = () => {
           <div className="mt-6 sm:mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4">
             <Button 
               size="lg" 
-              className="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white hover:from-[#B8860B] hover:to-[#D4AF37] shadow-2xl hover:shadow-[#D4AF37]/50 hover:scale-105 transition-all duration-300 ease-in-out text-base sm:text-lg px-6 sm:px-8 md:px-10 py-5 sm:py-6 md:py-7 rounded-full font-bold border-2 border-[#D4AF37]/30" 
+              className="w-full sm:w-auto bg-white text-[#090040] hover:bg-white/95 shadow-xl hover:shadow-lg transition-all duration-200 text-base sm:text-lg px-6 sm:px-8 md:px-10 py-5 sm:py-6 md:py-7 rounded-xl font-bold" 
               asChild
             >
               <Link href="/contact" prefetch={true} className="flex items-center justify-center gap-2">
@@ -83,21 +83,21 @@ const Hero = () => {
 
           {/* Stats Grid */}
           <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 px-4">
-            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-[#D4AF37]/50 hover:scale-105 transition-all duration-300 ease-in-out overflow-hidden">
+            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-white/40 hover:-translate-y-1 transition-all duration-300 ease-in-out overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent mb-1 sm:mb-2">1,500+</div>
                 <div className="text-white/90 text-sm sm:text-base md:text-lg font-semibold">Homes Built</div>
               </div>
             </div>
-            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-[#D4AF37]/50 hover:scale-105 transition-all duration-300 ease-in-out overflow-hidden">
+            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-white/40 hover:-translate-y-1 transition-all duration-300 ease-in-out overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent mb-1 sm:mb-2">1,500+</div>
                 <div className="text-white/90 text-sm sm:text-base md:text-lg font-semibold">Happy Families</div>
               </div>
             </div>
-            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-[#D4AF37]/50 hover:scale-105 transition-all duration-300 ease-in-out overflow-hidden">
+            <div className="group relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 border border-white/20 shadow-2xl hover:border-white/40 hover:-translate-y-1 transition-all duration-300 ease-in-out overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#D4AF37] to-[#FFD700] bg-clip-text text-transparent mb-1 sm:mb-2">$0</div>

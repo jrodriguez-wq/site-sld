@@ -34,18 +34,14 @@ const RentToOwn = () => {
   ];
 
   return (
-    <section id="rent-to-own" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative overflow-hidden scroll-mt-28">
+    <section id="rent-to-own" className="py-16 sm:py-20 md:py-24 lg:py-28 bg-white relative scroll-mt-28">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
+      <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
+          backgroundImage: `radial-gradient(circle at 2px 2px, #1e293b 1px, transparent 0)`,
+          backgroundSize: "32px 32px"
         }} />
       </div>
-
-      {/* Subtle Gradient Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#090040]/3 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#090040]/3 via-transparent to-transparent" />
 
       <Container className="relative z-10">
         {/* Intro */}
@@ -53,8 +49,8 @@ const RentToOwn = () => {
           <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium mb-6 sm:mb-8 max-w-2xl mx-auto">
             Pioneers in the Rent to Own program - Making homeownership accessible
           </p>
-          <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#D4AF37]/10 to-[#B8860B]/10 px-6 sm:px-8 py-3 sm:py-4 border-2 border-[#D4AF37]/20 shadow-lg">
-            <FaAward className="h-5 w-5 sm:h-6 sm:w-6 text-[#D4AF37]" />
+          <div className="inline-flex items-center gap-3 rounded-full bg-slate-900/5 px-6 sm:px-8 py-3 sm:py-4 border border-slate-200">
+            <FaAward className="h-5 w-5 sm:h-6 sm:w-6 text-slate-900" aria-hidden="true" />
             <div className="text-left">
               <div className="font-bold text-[#090040] text-sm sm:text-base">Pioneers</div>
               <div className="text-xs sm:text-sm text-gray-600">in Rent to Own</div>
@@ -69,15 +65,15 @@ const RentToOwn = () => {
             return (
               <div
                 key={benefit.title}
-                className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border-2 border-gray-100 hover:border-[#D4AF37]/50 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
               >
                 {/* Accent Bar */}
-                <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${benefit.color} rounded-t-2xl sm:rounded-t-3xl`} />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-slate-900 rounded-t-2xl" />
                 
                 {/* Icon */}
                 <div className="mb-4 sm:mb-6 flex justify-center">
                   <div 
-                    className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${benefit.color} transition-all duration-300 group-hover:scale-110 shadow-lg`}
+                    className={`flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl bg-slate-900 text-white transition-colors duration-200`}
                   >
                     <Icon className="h-7 w-7 sm:h-8 sm:w-8 text-white" />
                   </div>
@@ -97,7 +93,7 @@ const RentToOwn = () => {
 
         {/* CTA Card */}
         <div className="text-center">
-          <div className="inline-block bg-gradient-to-br from-[#D4AF37] to-[#B8860B] rounded-3xl p-8 sm:p-12 shadow-2xl border-4 border-white">
+          <div className="inline-block bg-slate-900 rounded-2xl p-8 sm:p-12 shadow-xl">
             <div className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4">
               $0
             </div>

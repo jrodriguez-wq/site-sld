@@ -77,7 +77,7 @@ const Gallery = () => {
 
   return (
     <>
-      <section id="gallery" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative overflow-hidden">
+      <section id="gallery" className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute inset-0" style={{
@@ -109,7 +109,7 @@ const Gallery = () => {
             {images.map((image, index) => (
               <div
                 key={image.id}
-                className="group relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-gradient-to-br from-gray-100 to-gray-200 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]"
+                className="group relative aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-gradient-to-br from-gray-100 to-gray-200 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
                 onClick={() => handleImageClick(index)}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />

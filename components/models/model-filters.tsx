@@ -82,18 +82,18 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
         variant="outline"
         className={cn(
           "lg:hidden w-full justify-between h-10 sm:h-11 mb-3 sm:mb-4",
-          "border border-gray-200 hover:border-[#471396]",
+          "border border-gray-200 hover:border-[#090040]",
           "bg-white hover:bg-gray-50 transition-all",
           "text-sm sm:text-base text-gray-900"
         )}
       >
         <span className="flex items-center gap-2">
-          <Filter className="h-4 w-4 text-[#471396]" />
+          <Filter className="h-4 w-4 text-[#090040]" />
           <span className="font-medium text-gray-900">
             Filters
           </span>
           {activeFiltersCount > 0 && (
-            <span className="bg-[#471396] text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+            <span className="bg-[#090040] text-white text-xs font-semibold px-2 py-0.5 rounded-full">
               {activeFiltersCount}
             </span>
           )}
@@ -126,7 +126,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
         {/* Price Range */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <DollarSign className="h-4 w-4 text-[#471396]" />
+            <DollarSign className="h-4 w-4 text-[#090040]" />
             <span className="text-sm font-semibold text-gray-900">
               Price Range
             </span>
@@ -148,7 +148,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
         {/* Bedrooms */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Bed className="h-4 w-4 text-[#471396]" />
+            <Bed className="h-4 w-4 text-[#090040]" />
             <span className="text-sm font-semibold text-gray-900">
               Bedrooms
             </span>
@@ -161,10 +161,10 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
                   key={bedrooms}
                   onClick={() => toggleBedroom(bedrooms)}
                   className={cn(
-                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all",
+                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer",
                     isActive
-                      ? "bg-[#471396] text-white shadow-sm"
-                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                      ? "bg-[#090040] text-white shadow-sm scale-105"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 hover:scale-105"
                   )}
                 >
                   {bedrooms}+
@@ -177,7 +177,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
         {/* Bathrooms */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Bath className="h-4 w-4 text-[#471396]" />
+            <Bath className="h-4 w-4 text-[#090040]" />
             <span className="text-sm font-semibold text-gray-900">
               Bathrooms
             </span>
@@ -190,10 +190,10 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
                   key={bathrooms}
                   onClick={() => toggleBathroom(bathrooms)}
                   className={cn(
-                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all",
+                    "px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 cursor-pointer",
                     isActive
-                      ? "bg-[#471396] text-white shadow-sm"
-                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
+                      ? "bg-[#090040] text-white shadow-sm scale-105"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 hover:scale-105"
                   )}
                 >
                   {bathrooms}+
@@ -206,7 +206,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
         {/* Square Feet */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Square className="h-4 w-4 text-[#471396]" />
+            <Square className="h-4 w-4 text-[#090040]" />
             <span className="text-sm font-semibold text-gray-900">
               Square Feet
             </span>
@@ -232,7 +232,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-gray-200">
             <div className="flex items-center gap-2">
-              <Filter className="h-5 w-5 text-[#471396]" />
+              <Filter className="h-5 w-5 text-[#090040]" />
               <h3 className="font-bold text-lg text-gray-900">
                 Filters
               </h3>
@@ -253,8 +253,8 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
           {/* Price Range */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg bg-[#471396]/10">
-                <DollarSign className="h-4 w-4 text-[#471396]" />
+              <div className="p-2 rounded-lg bg-[#090040]/10">
+                <DollarSign className="h-4 w-4 text-[#090040]" />
               </div>
               <label className="text-sm font-semibold text-gray-900 cursor-pointer">
                 Price Range
@@ -286,8 +286,8 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
           {/* Bedrooms */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg bg-[#471396]/10">
-                <Bed className="h-4 w-4 text-[#471396]" />
+              <div className="p-2 rounded-lg bg-[#090040]/10">
+                <Bed className="h-4 w-4 text-[#090040]" />
               </div>
               <label className="text-sm font-semibold text-gray-900 cursor-pointer">
                 Bedrooms
@@ -304,7 +304,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
                       "flex-1 min-w-[70px] px-4 py-2.5 text-sm font-semibold rounded-lg transition-all",
                       "hover:scale-105 active:scale-95",
                       isActive
-                        ? "bg-[#471396] text-white shadow-md shadow-[#471396]/20"
+                        ? "bg-[#090040] text-white shadow-md shadow-[#090040]/20"
                         : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
                     )}
                   >
@@ -318,8 +318,8 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
           {/* Bathrooms */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg bg-[#471396]/10">
-                <Bath className="h-4 w-4 text-[#471396]" />
+              <div className="p-2 rounded-lg bg-[#090040]/10">
+                <Bath className="h-4 w-4 text-[#090040]" />
               </div>
               <label className="text-sm font-semibold text-gray-900 cursor-pointer">
                 Bathrooms
@@ -336,7 +336,7 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
                       "flex-1 min-w-[70px] px-4 py-2.5 text-sm font-semibold rounded-lg transition-all",
                       "hover:scale-105 active:scale-95",
                       isActive
-                        ? "bg-[#471396] text-white shadow-md shadow-[#471396]/20"
+                        ? "bg-[#090040] text-white shadow-md shadow-[#090040]/20"
                         : "bg-gray-50 text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
                     )}
                   >
@@ -350,8 +350,8 @@ const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: 
           {/* Square Feet */}
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="p-2 rounded-lg bg-[#471396]/10">
-                <Square className="h-4 w-4 text-[#471396]" />
+              <div className="p-2 rounded-lg bg-[#090040]/10">
+                <Square className="h-4 w-4 text-[#090040]" />
               </div>
               <label className="text-sm font-semibold text-gray-900 cursor-pointer">
                 Square Feet
