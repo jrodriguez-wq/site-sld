@@ -3,7 +3,7 @@ import { PageHero } from "@/components/ui/page-hero";
 
 export const metadata = {
   title: "Locations | Standard Land Development",
-  description: "Explore our development locations in Southwest Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties.",
+  description: "Explore our development locations in South Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties.",
 };
 
 export default function LocationsPage() {
@@ -11,8 +11,8 @@ export default function LocationsPage() {
     <>
       <PageHero
         title="Our Locations"
-        subtitle="Building Across Southwest Florida"
-        description="Explore our development locations in Southwest Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties."
+        subtitle="Building Across South Florida"
+        description="Explore our development locations in South Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties."
         backgroundImage="/houses/3711/principal.jpg"
         badge="Where We Build"
       />

@@ -27,7 +27,7 @@ const Footer = () => {
     company: [
       { href: "/about", label: "About Us" },
       { href: "/locations", label: "Locations" },
-      { href: "/business-model", label: "Business Model" },
+      { href: "/business-model", label: "Our Mission" },
       { href: "/investment", label: "Cash Program" },
       { href: "/programs", label: "Rent to Own" },
       { href: "/contact", label: "Contact" },
@@ -35,7 +35,6 @@ const Footer = () => {
     programs: [
       { href: "/investment", label: "1st Position Lender" },
       { href: "/programs", label: "Rent to Own Program" },
-      { href: "/programs#sales-journey", label: "Sales Process" },
     ],
     legal: [
       { href: "/privacy", label: "Privacy Policy" },

@@ -151,7 +151,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-24 lg:py-28 bg-white text-slate-900 relative scroll-mt-28">
+    <section id="contact" className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-white text-slate-900 relative scroll-mt-20 sm:scroll-mt-24">
       {/* Subtle Background */}
       <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
         <div
@@ -164,33 +164,33 @@ const Contact = () => {
       </div>
 
       <Container className="relative z-10">
-        {/* Intro Text */}
-        <div className="mx-auto max-w-4xl text-center mb-12 sm:mb-16 md:mb-20">
-          <p className="text-base sm:text-lg md:text-xl text-gray-700 font-medium max-w-2xl mx-auto">
+        {/* Intro Text - compact on mobile */}
+        <div className="mx-auto max-w-4xl text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-1">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 font-medium max-w-2xl mx-auto">
             Ready to start your real estate journey? Contact us today to learn more about our services and how we can help you.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* Contact Information */}
-          <div className="space-y-6">
-            <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100 shadow-sm">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100 shadow-sm">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
                 Contact Information
               </h3>
-              <p className="text-gray-600 mb-8 text-base sm:text-lg">
+              <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base md:text-lg">
                 Reach out to us through any of these channels
               </p>
-              <div className="space-y-6">
+              <div className="space-y-4 sm:space-y-6">
                 {contactInfo.map((info) => {
                   const Icon = info.icon;
                   return (
-                    <div key={info.title} className="flex items-start gap-4 group">
-                      <div className="flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl bg-slate-900 text-white transition-colors duration-200 group-hover:bg-slate-800">
-                        <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+                    <div key={info.title} className="flex items-start gap-3 sm:gap-4 group">
+                      <div className="flex h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white transition-colors duration-200 group-hover:bg-slate-800">
+                        <Icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-white" aria-hidden="true" />
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-gray-900 text-lg sm:text-xl mb-1">
+                          <h4 className="font-bold text-gray-900 text-base sm:text-lg md:text-xl mb-0.5 sm:mb-1">
                           {info.title}
                         </h4>
                         {info.href ? (
@@ -198,7 +198,7 @@ const Contact = () => {
                             href={info.href}
                             target={info.title === "Location" ? "_blank" : undefined}
                             rel={info.title === "Location" ? "noopener noreferrer" : undefined}
-                            className="text-gray-600 hover:text-[#090040] transition-colors duration-300 text-base sm:text-lg block"
+                            className="text-gray-600 hover:text-[#090040] transition-colors duration-300 text-sm sm:text-base md:text-lg block touch-manipulation"
                           >
                             {info.content}
                             {info.subContent && (
@@ -227,12 +227,12 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100 shadow-sm">
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+          {/* Contact Form - touch-friendly inputs on mobile */}
+          <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100 shadow-sm">
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1.5 sm:mb-2">
               Send Us a Message
             </h3>
-            <p className="text-gray-600 mb-6 sm:mb-8 text-base sm:text-lg">
+            <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 text-sm sm:text-base md:text-lg">
               Fill out the form below and we&apos;ll get back to you as soon as possible
             </p>
             
@@ -283,7 +283,7 @@ const Contact = () => {
                     onChange={handleChange}
                     aria-invalid={errors.name ? "true" : "false"}
                     aria-describedby={errors.name ? "name-error" : undefined}
-                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 min-h-[48px] sm:min-h-[44px] text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.name
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
                         : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
@@ -314,7 +314,7 @@ const Contact = () => {
                     onChange={handleChange}
                     aria-invalid={errors.email ? "true" : "false"}
                     aria-describedby={errors.email ? "email-error" : undefined}
-                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 min-h-[48px] sm:min-h-[44px] text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.email
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
                         : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
@@ -344,7 +344,7 @@ const Contact = () => {
                     onChange={handleChange}
                     aria-invalid={errors.phone ? "true" : "false"}
                     aria-describedby={errors.phone ? "phone-error" : undefined}
-                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 min-h-[48px] sm:min-h-[44px] text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 ${
                       errors.phone
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
                         : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
@@ -375,7 +375,7 @@ const Contact = () => {
                     onChange={handleChange}
                     aria-invalid={errors.message ? "true" : "false"}
                     aria-describedby={errors.message ? "message-error" : undefined}
-                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none ${
+                    className={`w-full rounded-xl border-2 bg-white px-4 py-3 min-h-[120px] text-base text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all duration-300 resize-none ${
                       errors.message
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
                         : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
@@ -393,7 +393,7 @@ const Contact = () => {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-slate-900 hover:bg-slate-800 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold shadow-lg hover:shadow-md transition-colors duration-200 py-6 sm:py-7 text-base sm:text-lg rounded-xl"
+                  className="w-full min-h-[48px] sm:min-h-[52px] bg-slate-900 hover:bg-slate-800 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-semibold shadow-lg hover:shadow-md transition-colors duration-200 py-4 sm:py-6 md:py-7 text-base sm:text-lg rounded-xl touch-manipulation"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center gap-2">

@@ -29,7 +29,7 @@ const MapBounds = ({ offices }: { offices: typeof OFFICES }) => {
     const bounds = L.latLngBounds(
       offices.map((o) => [o.lat, o.lng] as [number, number])
     );
-    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+    map.fitBounds(bounds, { padding: [48, 48], maxZoom: 12 });
   }, [map, offices]);
   return null;
 };
@@ -37,10 +37,11 @@ const MapBounds = ({ offices }: { offices: typeof OFFICES }) => {
 export const LocationsMapInner = () => {
   return (
     <MapContainer
-      center={[26.5, -80.15]}
-      zoom={9}
-      className="h-[480px] sm:h-[520px] w-full rounded-2xl z-0"
+      center={[26.65, -80.8]}
+      zoom={8}
+      className="min-h-[320px] sm:min-h-[420px] h-[520px] sm:h-[580px] lg:h-[640px] w-full rounded-xl sm:rounded-2xl z-0"
       scrollWheelZoom
+      style={{ minHeight: "320px" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://carto.com">CARTO</a>'

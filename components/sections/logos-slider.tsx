@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatedSection } from "@/components/ui/animated-section";
 
 const logos = [
   {
@@ -28,6 +29,11 @@ const logos = [
     src: "/logos/Columbia-Logo.webp",
     alt: "Columbia Logo",
   },
+  {
+    name: "DLPbank",
+    src: "/logos/dlp-bank.png",
+    alt: "DLPbank Logo",
+  },
 ];
 
 const LogosSlider = () => {
@@ -35,7 +41,7 @@ const LogosSlider = () => {
   const duplicatedLogos = [...logos, ...logos, ...logos];
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
+    <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-br from-slate-50 via-white to-slate-50 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden="true">
         <div
@@ -47,7 +53,11 @@ const LogosSlider = () => {
         />
       </div>
 
-      <div className="relative z-10 w-full">
+      <AnimatedSection
+        className="relative z-10 w-full"
+        variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5 } } }}
+        rootMargin="0px 0px -40px 0px"
+      >
         {/* Carousel - full width, NO overflow-x clipping on parent */}
         <div className="relative w-full overflow-hidden">
           {/* Gradient fade edges */}
@@ -59,9 +69,9 @@ const LogosSlider = () => {
             {duplicatedLogos.map((logo, index) => (
               <div
                 key={`${logo.name}-${index}`}
-                className="flex-shrink-0 flex items-center justify-center h-16 sm:h-20 md:h-24 lg:h-28 w-32 sm:w-40 md:w-48 lg:w-52"
+                className="flex-shrink-0 flex items-center justify-center h-16 sm:h-20 md:h-24 lg:h-28 w-32 sm:w-40 md:w-48 lg:w-52 group/logo"
               >
-                <div className="relative w-full h-full flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
+                <div className="relative w-full h-full flex items-center justify-center opacity-70 grayscale transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:grayscale-0 group-hover/logo:scale-105">
                   <Image
                     src={logo.src}
                     alt={logo.alt}
@@ -77,7 +87,7 @@ const LogosSlider = () => {
             ))}
           </div>
         </div>
-      </div>
+      </AnimatedSection>
     </section>
   );
 };

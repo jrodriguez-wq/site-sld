@@ -30,4 +30,18 @@ export const OFFICES = [
     lat: 26.1224,
     lng: -80.1373,
   },
+  {
+    name: "LaBelle",
+    address: "45 Bridge St",
+    city: "LaBelle, FL 33935",
+    lat: 26.7616,
+    lng: -81.4382,
+  },
+  {
+    name: "Lake Placid",
+    address: "Downtown",
+    city: "Lake Placid, FL 33852",
+    lat: 27.2931,
+    lng: -81.3629,
+  },
 ] as const;

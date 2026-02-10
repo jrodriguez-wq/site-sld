@@ -14,7 +14,7 @@ interface PageHeroProps {
 
 const PageHero = ({ title, subtitle, description, backgroundImage, badge }: PageHeroProps) => {
   return (
-    <section className="relative h-[60vh] min-h-[500px] max-h-[700px] flex items-center justify-center text-white overflow-hidden">
+    <section className="relative min-h-[42vh] sm:min-h-[50vh] md:h-[55vh] md:min-h-[480px] lg:h-[60vh] lg:min-h-[500px] max-h-[700px] flex items-center justify-center text-white overflow-hidden py-12 sm:py-16">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -33,31 +33,31 @@ const PageHero = ({ title, subtitle, description, backgroundImage, badge }: Page
       {/* Additional gradient overlay for better text contrast */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#090040]/95 via-transparent to-transparent" />
 
-      <Container className="relative z-10">
-        <div className="mx-auto max-w-4xl text-center px-4">
+      <Container className="relative z-10 px-4 min-[480px]:px-5 sm:px-6">
+        <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
           {badge && (
-            <div className="mb-4 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 sm:px-6 sm:py-3 shadow-xl">
-              <Sparkles className="h-4 w-4 text-white/90" aria-hidden="true" />
-              <span className="text-xs sm:text-sm font-semibold">{badge}</span>
+            <div className="mb-3 sm:mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 sm:px-6 sm:py-3 shadow-xl">
+              <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white/90" aria-hidden="true" />
+              <span className="text-[11px] sm:text-sm font-semibold">{badge}</span>
             </div>
           )}
 
           {/* Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 sm:mb-6 leading-tight text-white">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-3 sm:mb-6 leading-tight text-white break-words">
             {title}
           </h1>
 
           {/* Subtitle */}
           {subtitle && (
-            <p className="text-xl sm:text-2xl md:text-3xl font-bold text-white/95 mb-4 sm:mb-6">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white/95 mb-3 sm:mb-6 leading-snug">
               {subtitle}
             </p>
           )}
 
           {/* Description */}
           {description && (
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto font-medium">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-white/90 max-w-3xl mx-auto font-medium px-0 sm:px-2">
               {description}
             </p>
           )}

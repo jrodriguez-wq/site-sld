@@ -16,7 +16,7 @@ export default function ContactPage() {
         backgroundImage="/houses/3941/principal.jpg"
         badge="Let's Connect"
       />
-      <div id="contact" className="scroll-mt-28">
+      <div id="contact" className="scroll-mt-20 sm:scroll-mt-24">
         <Contact />
       </div>
     </>

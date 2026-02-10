@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, ArrowRight, Phone, Info, MapPin, Briefcase, TrendingUp, Home as HomeIcon, Building2, ChevronDown, Building, Store, Newspaper } from "lucide-react";
+import { Menu, ArrowRight, Phone, Info, MapPin, TrendingUp, Home as HomeIcon, Building2, ChevronDown, Building, Store, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,7 +19,8 @@ const Header = () => {
   const [scrolled, setScrolled] = React.useState(false);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null);
-  const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
+  /** Mobile: set of open submenu keys so "Our Homes" + "Residential" can both be open */
+  const [openSubmenus, setOpenSubmenus] = React.useState<Set<string>>(new Set());
   const [hoverTimeout, setHoverTimeout] = React.useState<NodeJS.Timeout | null>(null);
   const [closeTimeout, setCloseTimeout] = React.useState<NodeJS.Timeout | null>(null);
   const dropdownRefs = React.useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -123,8 +124,20 @@ const Header = () => {
       setCloseTimeout(null);
     }
     setOpenDropdown(null);
+    setOpenSubmenus(new Set());
     setIsMenuOpen(false);
   };
+
+  const toggleMobileSubmenu = (key: string) => {
+    setOpenSubmenus((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const isMobileSubmenuOpen = (key: string) => openSubmenus.has(key);
 
   // Limpiar timeouts al desmontar
   React.useEffect(() => {
@@ -156,12 +169,10 @@ const Header = () => {
           ]
         },
         {
+          href: "/commercial",
           label: "Commercial",
           icon: Store,
-          children: [
-            { href: "/commercial", label: "Commercial Spaces", description: "View commercial projects" },
-            { href: "/commercial#gallery", label: "Commercial Gallery", description: "Explore our builds" },
-          ]
+          description: "Spaces & gallery",
         },
       ]
     },
@@ -171,7 +182,7 @@ const Header = () => {
       children: [
         { href: "/programs", label: "Rent to Own", description: "Flexible ownership options" },
         { href: "/investment", label: "Cash Program", description: "1st Position Lender Program" },
-        { href: "/business-model", label: "Business Model", description: "How we work" },
+        { href: "/business-model", label: "Our Mission", description: "Our mission and how we work" },
       ]
     },
     { href: "/locations", label: "Locations", icon: MapPin },
@@ -187,30 +198,31 @@ const Header = () => {
           : "bg-transparent"
       )}
     >
-      <div className="relative w-full h-20 sm:h-24">
-        {/* Logo - Outside Container, Left Edge */}
-        <div className="absolute left-4 sm:left-6 md:left-8 lg:left-6 xl:left-8 2xl:left-12 top-1/2 -translate-y-1/2 z-10">
+      <div className="relative w-full h-14 sm:h-16 md:h-[4.25rem]">
+        {/* Logo - compact */}
+        <div className="absolute left-3 sm:left-4 md:left-6 lg:left-6 xl:left-8 top-1/2 -translate-y-1/2 z-10">
           <Link
             href="/"
-            className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-105"
+            className="flex items-center cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            aria-label="Standard Land Development - Home"
           >
             {scrolled ? (
               <Image
                 src="/logos/sld-azul.png"
-                alt="SLD Logo"
-                width={160}
-                height={64}
-                className="h-10 sm:h-12 md:h-14 w-auto"
+                alt=""
+                width={140}
+                height={56}
+                className="h-7 sm:h-8 md:h-9 w-auto"
                 priority
                 quality={100}
               />
             ) : (
               <Image
                 src="/logos/sld-blanco.png"
-                alt="SLD Logo"
-                width={160}
-                height={64}
-                className="h-10 sm:h-12 md:h-14 w-auto"
+                alt=""
+                width={140}
+                height={56}
+                className="h-7 sm:h-8 md:h-9 w-auto"
                 priority
                 quality={100}
               />
@@ -218,11 +230,11 @@ const Header = () => {
           </Link>
         </div>
 
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 h-full overflow-visible">
+        <div className="mx-auto w-full max-w-7xl px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12 h-full overflow-visible">
           <div className="flex h-full items-center justify-center lg:justify-between">
-            {/* Desktop Navigation - Center */}
-            <nav className="hidden lg:flex items-center justify-center flex-1 overflow-visible">
-              <div className="flex items-center gap-2 xl:gap-3 2xl:gap-4">
+            {/* Desktop Navigation - Center, compact */}
+            <nav className="hidden lg:flex items-center justify-center flex-1 overflow-visible" role="navigation" aria-label="Main">
+              <div className="flex items-center gap-0.5 xl:gap-1">
               {navItems.map((item) => {
                 if (item.children) {
                   const isOpen = openDropdown === item.label;
@@ -239,131 +251,109 @@ const Header = () => {
                       <button
                         onClick={() => handleClick(item.label)}
                         className={cn(
-                          "px-3 xl:px-4 py-2.5 text-sm font-semibold transition-all duration-200 relative group whitespace-nowrap rounded-lg cursor-pointer",
+                          "px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-medium transition-all duration-200 relative group whitespace-nowrap rounded-md cursor-pointer",
                           scrolled
-                            ? "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
-                            : "text-white/90 hover:text-white hover:bg-white/10",
-                          isOpen && (scrolled ? "text-slate-900 bg-slate-100" : "text-white bg-white/10")
+                            ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
+                            : "text-white/85 hover:text-white hover:bg-white/10",
+                          isOpen && (scrolled ? "text-slate-900 bg-slate-100/80" : "text-white bg-white/10")
                         )}
                         aria-expanded={isOpen}
                         aria-haspopup="true"
                         aria-label={`${item.label} menu`}
                       >
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center gap-0.5">
                           {item.label}
                           <ChevronDown
                             className={cn(
-                              "h-3.5 w-3.5 transition-transform duration-200",
+                              "h-3 w-3 xl:h-3.5 xl:w-3.5 transition-transform duration-200",
                               isOpen && "rotate-180"
                             )}
                             aria-hidden="true"
                           />
                         </span>
                         <span className={cn(
-                          "absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ease-out",
+                          "absolute bottom-0 left-0 w-0 h-px group-hover:w-full transition-all duration-200 ease-out",
                           isOpen && "w-full",
                           scrolled ? "bg-slate-900" : "bg-white"
                         )} />
                       </button>
 
-                      {/* Dropdown Menu */}
+                      {/* Dropdown Menu - Our Homes: cleaner design */}
                       {isOpen && (
                         <div
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[420px] xl:w-[480px] rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden animate-in fade-in-0 slide-in-from-top-2 duration-200 z-[9999]"
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[340px] xl:w-[380px] rounded-2xl border border-slate-200/90 bg-white shadow-xl overflow-hidden animate-in fade-in-0 slide-in-from-top-1 duration-200 z-[9999]"
                           role="menu"
                           onMouseEnter={handleDropdownMouseEnter}
                           onMouseLeave={handleDropdownMouseLeave}
                         >
-                          <div className="absolute inset-0 bg-gradient-to-br from-[#090040]/5 via-transparent to-[#090040]/5 pointer-events-none" />
-                          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#090040]/40 to-transparent" />
-                          
-                          <div className="relative p-5">
-                            <div className="space-y-3">
-                              {item.children.map((child, childIndex) => {
-                                // Type guard: verificar si tiene submenú (children)
-                                if ('children' in child && child.children) {
-                                  const ChildIcon = 'icon' in child ? child.icon : null;
-                                  return (
-                                    <div key={child.label} className="space-y-2">
-                                      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#090040]/10 to-[#090040]/5 border border-[#090040]/20">
-                                        {ChildIcon && (
-                                          <ChildIcon className="h-4 w-4 text-[#090040] shrink-0" />
-                                        )}
-                                        <h4 className="text-sm font-bold text-[#090040] uppercase tracking-wide">
-                                          {child.label}
-                                        </h4>
-                                      </div>
-                                      <div className="grid grid-cols-2 gap-2 pl-3">
-                                        {child.children.map((subChild: any) => (
-                                          <Link
-                                            key={subChild.href || subChild.label}
-                                            href={subChild.href || "#"}
-                                            onClick={handleLinkClick}
-                                            className="group/item relative block rounded-lg p-3 transition-all duration-300 border border-transparent hover:border-[#090040]/30 bg-gray-50/50 hover:bg-gradient-to-br hover:from-[#090040]/5 hover:via-[#090040]/3 hover:to-transparent cursor-pointer hover:shadow-sm"
-                                            role="menuitem"
-                                          >
-                                            <div className="relative">
-                                              <div className="flex items-start gap-2">
-                                                <div className="h-1 w-1 rounded-full bg-[#090040]/0 group-hover/item:bg-[#090040] transition-all duration-300 group-hover/item:scale-150 shrink-0 mt-2" />
-                                                <div className="flex-1 min-w-0">
-                                                  <h5 className="text-xs font-semibold leading-tight text-gray-900 group-hover/item:text-[#090040] transition-colors duration-300">
-                                                    {subChild.label}
-                                                  </h5>
-                                                  {subChild.description && (
-                                                    <p className="text-[10px] leading-snug text-gray-500 group-hover/item:text-gray-600 transition-colors duration-300 mt-0.5 line-clamp-1">
-                                                      {subChild.description}
-                                                    </p>
-                                                  )}
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </Link>
-                                        ))}
-                                      </div>
-                                      {childIndex < item.children.length - 1 && (
-                                        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent my-3" />
+                          <div className="relative p-4 space-y-4">
+                            {item.children.map((child, childIndex) => {
+                              if ("children" in child && child.children) {
+                                const ChildIcon = "icon" in child ? child.icon : null;
+                                return (
+                                  <div key={child.label} className="space-y-2">
+                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#090040]/8">
+                                      {ChildIcon && (
+                                        <ChildIcon className="h-4 w-4 text-[#090040] shrink-0" aria-hidden />
+                                      )}
+                                      <span className="text-xs font-bold text-[#090040] uppercase tracking-wider">
+                                        {child.label}
+                                      </span>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2">
+                                      {child.children.map((subChild: { href?: string; label: string; description?: string }) => (
+                                        <Link
+                                          key={subChild.href ?? subChild.label}
+                                          href={subChild.href ?? "#"}
+                                          onClick={handleLinkClick}
+                                          className="rounded-lg px-3 py-2.5 bg-slate-50 hover:bg-[#090040]/5 border border-transparent hover:border-[#090040]/15 transition-all duration-200 group/item"
+                                          role="menuitem"
+                                        >
+                                          <span className="text-sm font-medium text-slate-900 group-hover/item:text-[#090040] block leading-tight">
+                                            {subChild.label}
+                                          </span>
+                                          {subChild.description && (
+                                            <span className="text-[11px] text-slate-500 mt-0.5 line-clamp-1 block">
+                                              {subChild.description}
+                                            </span>
+                                          )}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                    {childIndex < item.children.length - 1 && (
+                                      <div className="border-t border-slate-100 my-1" />
+                                    )}
+                                  </div>
+                                );
+                              }
+                              if ("href" in child) {
+                                const ChildIcon = "icon" in child ? child.icon : null;
+                                return (
+                                  <Link
+                                    key={child.href}
+                                    href={child.href}
+                                    onClick={handleLinkClick}
+                                    className="flex items-center gap-3 rounded-xl px-4 py-3 bg-slate-50 hover:bg-[#090040]/10 border border-slate-100 hover:border-[#090040]/20 transition-all duration-200 group/item"
+                                    role="menuitem"
+                                  >
+                                    {ChildIcon && (
+                                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#090040]/10 group-hover/item:bg-[#090040]/20">
+                                        <ChildIcon className="h-4 w-4 text-[#090040]" aria-hidden />
+                                      </span>
+                                    )}
+                                    <div className="min-w-0">
+                                      <span className="text-sm font-semibold text-slate-900 group-hover/item:text-[#090040] block">
+                                        {child.label}
+                                      </span>
+                                      {"description" in child && child.description && (
+                                        <span className="text-xs text-slate-500 block">{child.description}</span>
                                       )}
                                     </div>
-                                  );
-                                }
-                                
-                                // Si es un link directo
-                                if ('href' in child) {
-                                  return (
-                                    <Link
-                                      key={child.href}
-                                      href={child.href}
-                                      onClick={handleLinkClick}
-                                      className="group/item relative block rounded-xl p-4 transition-all duration-300 border-2 border-transparent hover:border-[#090040]/20 bg-gray-50/50 hover:bg-gradient-to-br hover:from-[#090040]/5 hover:via-[#090040]/3 hover:to-transparent cursor-pointer hover:shadow-md"
-                                      role="menuitem"
-                                    >
-                                      <div className="absolute inset-0 bg-gradient-to-br from-[#090040]/0 via-[#090040]/0 to-[#090040]/0 group-hover/item:from-[#090040]/10 group-hover/item:via-[#090040]/5 group-hover/item:to-transparent transition-all duration-200 rounded-xl opacity-0 group-hover/item:opacity-100" />
-                                      
-                                      <div className="relative flex items-start justify-between gap-3">
-                                        <div className="flex-1 space-y-1.5 min-w-0">
-                                          <div className="flex items-start gap-2">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-[#090040]/0 group-hover/item:bg-[#090040] transition-all duration-300 group-hover/item:scale-150 shrink-0 mt-1.5" />
-                                            <h3 className="text-sm font-bold leading-tight text-gray-900 group-hover/item:text-[#090040] transition-colors duration-300">
-                                              {child.label}
-                                            </h3>
-                                          </div>
-                                          {'description' in child && child.description && (
-                                            <p className="text-xs leading-snug text-gray-600 group-hover/item:text-gray-700 transition-colors duration-300 pl-3.5 line-clamp-2">
-                                              {child.description}
-                                            </p>
-                                          )}
-                                        </div>
-                                        <ChevronDown className="h-3.5 w-3.5 text-gray-400 group-hover/item:text-[#090040] transition-all duration-300 -rotate-90 opacity-0 group-hover/item:opacity-100 shrink-0 mt-0.5" />
-                                      </div>
-                                      
-                                      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#090040]/0 to-transparent group-hover/item:via-[#090040]/40 transition-all duration-500" />
-                                    </Link>
-                                  );
-                                }
-                                
-                                return null;
-                              })}
-                            </div>
+                                  </Link>
+                                );
+                              }
+                              return null;
+                            })}
                           </div>
                         </div>
                       )}
@@ -377,15 +367,15 @@ const Header = () => {
                     href={item.href || "#"}
                     prefetch={true}
                     className={cn(
-                      "px-3 xl:px-4 py-2.5 text-sm font-semibold transition-all duration-200 relative group whitespace-nowrap rounded-lg cursor-pointer",
+                      "px-2.5 xl:px-3 py-2 text-xs xl:text-sm font-medium transition-all duration-200 relative group whitespace-nowrap rounded-md cursor-pointer",
                       scrolled
-                        ? "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
-                        : "text-white/90 hover:text-white hover:bg-white/10"
+                        ? "text-slate-600 hover:text-slate-900 hover:bg-slate-100/80"
+                        : "text-white/85 hover:text-white hover:bg-white/10"
                     )}
                   >
                     {item.label}
                     <span className={cn(
-                      "absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300 ease-out",
+                      "absolute bottom-0 left-0 w-0 h-px group-hover:w-full transition-all duration-200 ease-out",
                       scrolled ? "bg-slate-900" : "bg-white"
                     )} />
                   </Link>
@@ -412,109 +402,107 @@ const Header = () => {
               </Link>
             </div>
 
-            {/* Mobile Menu Button - Right Side on Mobile */}
-            <div className="flex items-center justify-end lg:hidden absolute right-4 sm:right-6 md:right-8 lg:right-12 xl:right-16 2xl:right-20 top-1/2 -translate-y-1/2 z-10">
-            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+            {/* Mobile Menu Button */}
+            <div className="flex items-center justify-end lg:hidden absolute right-3 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-10">
+            <Sheet
+              open={isMenuOpen}
+              onOpenChange={(open) => {
+                setIsMenuOpen(open);
+                if (!open) setOpenSubmenus(new Set());
+              }}
+            >
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-10 w-10"
-                  aria-label="Toggle menu"
+                  className="h-9 w-9 rounded-lg touch-manipulation"
+                  aria-label="Open menu"
                 >
                   <Menu className={cn(
-                    "h-6 w-6 transition-colors duration-300",
-                    scrolled ? "text-gray-700" : "text-white"
-                  )} />
+                    "h-5 w-5 transition-colors duration-200",
+                    scrolled ? "text-slate-700" : "text-white"
+                  )} aria-hidden="true" />
                 </Button>
               </SheetTrigger>
-            <SheetContent side="right" className="w-full sm:max-w-sm bg-white p-0 border-0 shadow-2xl">
+            <SheetContent side="right" className="w-full max-w-[min(320px,100vw)] sm:max-w-sm bg-white p-0 border-0 shadow-xl">
               <div className="flex flex-col h-full">
-                {/* Header with Logo - Compact */}
-                <SheetHeader className="px-4 py-4 border-b border-gray-200 bg-gradient-to-r from-[#090040] to-[#2d2c55]">
+                <SheetHeader className="px-3 py-3 border-b border-white/10 bg-gradient-to-r from-[#090040] to-[#2d2c55]">
                   <div className="flex items-center justify-between">
                     <Image
                       src="/logos/sld-blanco.png"
-                      alt="SLD Logo"
-                      width={120}
-                      height={48}
-                      className="h-10 w-auto"
+                      alt=""
+                      width={100}
+                      height={40}
+                      className="h-8 w-auto"
                     />
                   </div>
-                  <SheetTitle className="text-white text-left mt-3 text-base font-bold">
-                    Navigation
-                  </SheetTitle>
-                  <SheetDescription className="text-white/90 text-left text-xs">
-                    Explore our services and programs
+                  <SheetTitle className="sr-only">Navigation</SheetTitle>
+                  <SheetDescription className="text-white/80 text-left text-[11px] mt-1.5">
+                    Menu
                   </SheetDescription>
                 </SheetHeader>
 
-                {/* Navigation Items - Compact */}
-                <nav className="flex-1 overflow-y-auto px-3 py-4 bg-white">
-                  <div className="space-y-2">
+                {/* Navigation Items - compact */}
+                <nav className="flex-1 overflow-y-auto px-2.5 py-3 bg-white" aria-label="Mobile menu">
+                  <div className="space-y-1">
                     {navItems.map((item) => {
                       const Icon = item.icon;
                       
                       if (item.children) {
+                        const isParentOpen = isMobileSubmenuOpen(item.label);
                         return (
-                          <div key={item.label} className="space-y-1.5">
+                          <div key={item.label} className="space-y-0.5">
                             <button
-                              onClick={() => setOpenSubmenu(openSubmenu === item.label ? null : item.label)}
-                              className="w-full flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200 hover:border-[#090040] text-gray-900 transition-all duration-300 group shadow-sm"
+                              type="button"
+                              onClick={() => toggleMobileSubmenu(item.label)}
+                              className="w-full flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200/80 hover:border-[#090040]/30 text-gray-900 transition-all duration-200 touch-manipulation min-h-[44px]"
+                              aria-expanded={isParentOpen}
+                              aria-controls={`submenu-${item.label.replace(/\s/g, "-")}`}
+                              aria-label={`${item.label}, ${isParentOpen ? "collapse" : "expand"} submenu`}
                             >
-                              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#090040] to-[#090040] transition-all duration-300 shadow-sm">
-                                <Icon className="h-5 w-5 text-white transition-colors duration-300" />
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#090040]">
+                                <Icon className="h-4 w-4 text-white" aria-hidden />
                               </div>
-                              <span className="font-semibold text-sm flex-1 text-left">{item.label}</span>
+                              <span className="font-medium text-sm flex-1 text-left">{item.label}</span>
                               <ChevronDown
                                 className={cn(
-                                  "h-4 w-4 text-gray-600 transition-transform duration-300",
-                                  openSubmenu === item.label && "rotate-180 text-[#090040]"
+                                  "h-3.5 w-3.5 text-slate-500 transition-transform duration-200 shrink-0",
+                                  isParentOpen && "rotate-180 text-[#090040]"
                                 )}
+                                aria-hidden
                               />
                             </button>
-                            {openSubmenu === item.label && (
-                              <div className="pl-3 space-y-2 border-l-2 border-[#090040]/30 ml-2.5 animate-in slide-in-from-top-2 fade-in-0 duration-300">
+                            {isParentOpen && (
+                              <div id={`submenu-${item.label.replace(/\s/g, "-")}`} className="pl-2 space-y-1 border-l-2 border-[#090040]/20 ml-3 animate-in slide-in-from-top-1 fade-in-0 duration-150">
                                 {item.children.map((child) => {
-                                  // Type guard: verificar si tiene submenú (children)
                                   if ('children' in child && child.children) {
                                     const ChildIcon = 'icon' in child ? child.icon : null;
                                     const submenuKey = `${item.label}-${child.label}`;
+                                    const isNestedOpen = isMobileSubmenuOpen(submenuKey);
                                     return (
-                                      <div key={child.label} className="space-y-1.5">
+                                      <div key={child.label} className="space-y-0.5">
                                         <button
-                                          onClick={() => setOpenSubmenu(openSubmenu === submenuKey ? null : submenuKey)}
-                                          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-[#090040]/10 to-[#090040]/5 border border-[#090040]/20 text-[#090040] transition-all duration-300 group/sub"
+                                          type="button"
+                                          onClick={() => toggleMobileSubmenu(submenuKey)}
+                                          className="w-full flex items-center gap-2 px-2 py-2 rounded-md bg-[#090040]/10 border border-[#090040]/15 text-[#090040] text-left touch-manipulation min-h-[40px]"
+                                          aria-expanded={isNestedOpen}
+                                          aria-label={`${child.label}, ${isNestedOpen ? "collapse" : "expand"}`}
                                         >
-                                          {ChildIcon && (
-                                            <ChildIcon className="h-4 w-4 shrink-0" />
-                                          )}
-                                          <span className="font-bold text-xs uppercase tracking-wide flex-1 text-left">
-                                            {child.label}
-                                          </span>
-                                          <ChevronDown
-                                            className={cn(
-                                              "h-3.5 w-3.5 transition-transform duration-300",
-                                              openSubmenu === submenuKey && "rotate-180"
-                                            )}
-                                          />
+                                          {ChildIcon && <ChildIcon className="h-3.5 w-3.5 shrink-0" aria-hidden />}
+                                          <span className="font-semibold text-[11px] uppercase tracking-wide flex-1">{child.label}</span>
+                                          <ChevronDown className={cn("h-3 w-3 shrink-0 transition-transform", isNestedOpen && "rotate-180")} aria-hidden />
                                         </button>
-                                        {openSubmenu === submenuKey && (
-                                          <div className="pl-2 space-y-1 border-l-2 border-[#090040]/20 ml-2 animate-in slide-in-from-top-1 fade-in-0 duration-200">
-                                            {child.children.map((subChild: any) => (
+                                        {isNestedOpen && (
+                                          <div className="pl-1.5 space-y-0.5 border-l border-slate-200 ml-2 pb-1">
+                                            {child.children.map((subChild: { href?: string; label: string }) => (
                                               <Link
-                                                key={subChild.href || subChild.label}
-                                                href={subChild.href || "#"}
+                                                key={subChild.href ?? subChild.label}
+                                                href={subChild.href ?? "#"}
                                                 prefetch={true}
                                                 onClick={handleLinkClick}
-                                                className="block px-3 py-2 rounded-md bg-gray-50/50 border border-gray-200 hover:border-[#090040]/30 hover:bg-gradient-to-r hover:from-[#090040]/5 hover:to-transparent text-gray-900 hover:text-[#090040] transition-all duration-300 group/subitem"
+                                                className="block px-2 py-2 rounded-md text-gray-700 hover:bg-[#090040]/5 hover:text-[#090040] text-xs font-medium min-h-[40px] flex items-center touch-manipulation"
                                               >
-                                                <h4 className="font-semibold text-xs mb-0.5">{subChild.label}</h4>
-                                                {subChild.description && (
-                                                  <p className="text-[10px] text-gray-500 group-hover/subitem:text-gray-600 line-clamp-1">
-                                                    {subChild.description}
-                                                  </p>
-                                                )}
+                                                {subChild.label}
                                               </Link>
                                             ))}
                                           </div>
@@ -522,27 +510,25 @@ const Header = () => {
                                       </div>
                                     );
                                   }
-                                  
-                                  // Si es un link directo
-                                  if ('href' in child) {
+                                  if ("href" in child) {
+                                    const ChildIcon = "icon" in child ? child.icon : null;
                                     return (
                                       <Link
                                         key={child.href}
                                         href={child.href}
                                         prefetch={true}
                                         onClick={handleLinkClick}
-                                        className="block px-3 py-2.5 rounded-lg bg-gray-50/50 border border-gray-200 hover:border-[#090040]/50 hover:bg-gradient-to-r hover:from-[#090040]/5 hover:to-[#090040]/5 text-gray-900 hover:text-[#090040] transition-all duration-300 group/item"
+                                        className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-slate-50/80 hover:bg-[#090040]/5 text-gray-900 hover:text-[#090040] text-sm font-medium min-h-[44px] touch-manipulation"
                                       >
-                                        <h3 className="font-bold text-sm mb-0.5">{child.label}</h3>
-                                        {'description' in child && child.description && (
-                                          <p className="text-xs text-gray-600 group-hover/item:text-gray-700 line-clamp-1">
-                                            {child.description}
-                                          </p>
+                                        {ChildIcon && (
+                                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#090040]/10">
+                                            <ChildIcon className="h-4 w-4 text-[#090040]" aria-hidden />
+                                          </span>
                                         )}
+                                        <span className="flex-1 text-left">{child.label}</span>
                                       </Link>
                                     );
                                   }
-                                  
                                   return null;
                                 })}
                               </div>
@@ -557,29 +543,30 @@ const Header = () => {
                           href={item.href || "#"}
                           prefetch={true}
                           onClick={handleLinkClick}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 border border-gray-200 hover:border-[#D4AF37] hover:bg-gradient-to-r hover:from-[#090040] hover:to-[#2d2c55] text-gray-900 hover:text-white transition-all duration-300 group shadow-sm hover:shadow-md"
+                          className="flex items-center gap-2.5 py-2.5 px-2.5 rounded-lg bg-slate-50 border border-slate-200/80 hover:border-[#090040]/30 hover:bg-[#090040]/5 text-gray-900 hover:text-[#090040] transition-all duration-200"
                         >
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#B8860B] group-hover:bg-white transition-all duration-300 shadow-sm">
-                            <Icon className="h-5 w-5 text-white group-hover:text-[#090040] transition-colors duration-300" />
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-[#D4AF37]">
+                            <Icon className="h-4 w-4 text-white" aria-hidden />
                           </div>
-                          <span className="font-semibold text-sm flex-1">{item.label}</span>
+                          <span className="font-medium text-sm flex-1 text-left">{item.label}</span>
                         </Link>
                       );
                     })}
                   </div>
                 </nav>
 
-                {/* CTA Footer */}
-                <div className="px-3 py-4 border-t border-slate-200 bg-slate-50">
+                {/* CTA Footer - compact */}
+                <div className="px-2.5 py-3 border-t border-slate-200 bg-slate-50/80">
                   <Link
                     href="/contact"
                     prefetch={true}
                     onClick={handleLinkClick}
-                    className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition-colors duration-200 text-sm"
+                    className="flex items-center justify-center gap-1.5 w-full py-2.5 px-3 bg-slate-900 text-white font-medium rounded-lg hover:bg-slate-800 transition-colors duration-200 text-xs"
+                    aria-label="Contact us"
                   >
-                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    <Phone className="h-3.5 w-3.5" aria-hidden="true" />
                     Contact Us
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
                 </div>
               </div>

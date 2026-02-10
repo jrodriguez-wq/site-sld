@@ -11,13 +11,12 @@ import {
   Building2,
   Briefcase,
 } from "lucide-react";
+import { Container } from "@/components/ui/container";
 
 const SECTION_CLASSES = {
   light: "bg-white text-slate-900",
   dark: "bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] text-white",
 };
-
-const CONTAINER_CLASS = "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
 
 const teamMembers = [
   {
@@ -81,7 +80,7 @@ const About = () => {
       {/* Section 1 - LIGHT: Our Story */}
       <section
         id="about-story"
-        className={`py-16 sm:py-20 md:py-24 lg:py-28 ${SECTION_CLASSES.light} relative scroll-mt-28`}
+        className={`py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 ${SECTION_CLASSES.light} relative scroll-mt-20 sm:scroll-mt-24`}
       >
         <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
           <div
@@ -92,16 +91,16 @@ const About = () => {
             }}
           />
         </div>
-        <div className={CONTAINER_CLASS}>
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+        <Container className="relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-center">
+            <div className="px-1">
+              <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-3 sm:mb-6">
                 Our Story
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4 sm:mb-6">
                 Building Affordable Homes Since 2016
               </h2>
-              <div className="space-y-5 text-slate-600 text-base sm:text-lg leading-relaxed">
+              <div className="space-y-4 sm:space-y-5 text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed">
                 <p>
                   Standard Land Development was founded in 2016 by CEO Michael J. Newell.
                   With over 13 years in real estate, Michael opened his business with a clear
@@ -114,7 +113,7 @@ const About = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-slate-100">
+              <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
                   src="/recurses/casas.jpg"
                   alt="SLD housing development in Southwest Florida"
@@ -126,13 +125,13 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Section 2 - DARK: Leadership Team */}
       <section
         id="about-leadership"
-        className={`py-16 sm:py-20 md:py-24 lg:py-28 ${SECTION_CLASSES.dark} relative`}
+        className={`py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 ${SECTION_CLASSES.dark} relative`}
       >
         <div className="absolute inset-0 opacity-[0.04]" aria-hidden="true">
           <div
@@ -143,24 +142,24 @@ const About = () => {
             }}
           />
         </div>
-        <div className={CONTAINER_CLASS}>
-          <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16 md:mb-20">
-            <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-6">
+        <Container className="relative z-10">
+          <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-1">
+            <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-white/60 mb-3 sm:mb-6">
               Our Leadership
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white mb-2 sm:mb-4">
               Meet the Team Behind SLD
             </h2>
-            <p className="text-base sm:text-lg text-white/75 font-normal max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-white/75 font-normal max-w-2xl mx-auto leading-relaxed">
               Experienced professionals dedicated to creating affordable homeownership opportunities
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 max-w-4xl mx-auto">
             {teamMembers.map((member) => (
                 <div
                   key={member.key}
-                  className="group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  className="group relative bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.99]"
                 >
                   <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
                     <Image
@@ -171,15 +170,15 @@ const About = () => {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090040]/90 via-transparent to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <span className="text-xs font-semibold text-white/90 uppercase tracking-wider">
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                      <span className="text-[10px] sm:text-xs font-semibold text-white/90 uppercase tracking-wider">
                         {member.role}
                       </span>
-                      <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">{member.name}</h3>
-                      <p className="text-sm text-white/80">{member.company}</p>
+                      <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mt-0.5 sm:mt-1">{member.name}</h3>
+                      <p className="text-xs sm:text-sm text-white/80">{member.company}</p>
                     </div>
                   </div>
-                  <div className="p-5">
+                  <div className="p-4 sm:p-5">
                     <p className="text-white/90 text-sm leading-relaxed mb-4">{member.bio}</p>
                     {member.quote && (
                       <blockquote className="text-sm text-white/70 italic border-l-2 border-white/30 pl-4 mb-4">
@@ -201,13 +200,13 @@ const About = () => {
                 </div>
             ))}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Section 3 - LIGHT: Mission & Vision */}
       <section
         id="about-mission"
-        className={`py-16 sm:py-20 md:py-24 lg:py-28 ${SECTION_CLASSES.light} relative`}
+        className={`py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 ${SECTION_CLASSES.light} relative`}
       >
         <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
           <div
@@ -218,45 +217,45 @@ const About = () => {
             }}
           />
         </div>
-        <div className={CONTAINER_CLASS}>
-          <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16">
-            <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+        <Container className="relative z-10">
+          <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12 md:mb-16 px-1">
+            <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-3 sm:mb-6">
               Our Purpose
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-2 sm:mb-4">
               Mission & Vision
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            <div className="space-y-6">
-              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#090040]/10 rounded-xl">
-                    <Target className="h-6 w-6 text-[#090040]" aria-hidden="true" />
+          <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
+            <div className="space-y-4 sm:space-y-6">
+              <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <div className="p-2.5 sm:p-3 bg-[#090040]/10 rounded-xl shrink-0">
+                    <Target className="h-5 w-5 sm:h-6 sm:w-6 text-[#090040]" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900">Our Mission</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">Our Mission</h3>
                 </div>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                   &quot;We want to make prime-value homes available at an economical rate to all Americans.
                   We believe that affordable housing should be no more than a quarter of their income.&quot;
                 </p>
               </div>
-              <div className="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-100">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-3 bg-[#090040]/10 rounded-xl">
-                    <TrendingUp className="h-6 w-6 text-[#090040]" aria-hidden="true" />
+              <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <div className="p-2.5 sm:p-3 bg-[#090040]/10 rounded-xl shrink-0">
+                    <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-[#090040]" aria-hidden="true" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900">Vision for 2026</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">Vision for 2026</h3>
                 </div>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
                   By 2026, M.J. Newell Homes continues to build quality homes and expand our Rent to Own
                   program, helping more families achieve their dream of homeownership.
                 </p>
               </div>
             </div>
             <div className="relative">
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-slate-100">
+              <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
                   src="/recurses/foto-aerea.png"
                   alt="Aerial view of SLD development"
@@ -267,13 +266,13 @@ const About = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* Section 4 - LIGHT: Core Values - clean cards, visible icons */}
       <section
         id="about-values"
-        className="py-16 sm:py-20 md:py-24 lg:py-28 bg-slate-50 relative"
+        className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-slate-50 relative"
       >
         <div className="absolute inset-0 opacity-[0.02]" aria-hidden="true">
           <div
@@ -284,34 +283,34 @@ const About = () => {
             }}
           />
         </div>
-        <div className={CONTAINER_CLASS}>
-          <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16">
-            <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+        <Container className="relative z-10">
+          <div className="mx-auto max-w-3xl text-center mb-8 sm:mb-12 md:mb-16 px-1">
+            <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-3 sm:mb-6">
               What Drives Us
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-2 sm:mb-4">
               Our Core Values
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {values.map((value) => {
               const Icon = value.icon;
               return (
                 <div
                   key={value.title}
-                  className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-lg hover:border-slate-300 transition-all duration-300 hover:-translate-y-1"
+                  className="group relative bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-200 shadow-sm hover:shadow-lg hover:border-slate-300 transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.99]"
                 >
-                  <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#090040]/10">
-                    <Icon className="h-7 w-7 text-[#090040]" aria-hidden="true" />
+                  <div className="mb-3 sm:mb-5 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-xl sm:rounded-2xl bg-[#090040]/10 shrink-0">
+                    <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-[#090040]" aria-hidden="true" />
                   </div>
-                  <h4 className="text-lg font-bold text-slate-900 mb-3">{value.title}</h4>
-                  <p className="text-sm text-slate-600 leading-relaxed">{value.description}</p>
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 mb-2 sm:mb-3">{value.title}</h4>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{value.description}</p>
                 </div>
               );
             })}
           </div>
-        </div>
+        </Container>
       </section>
     </>
   );

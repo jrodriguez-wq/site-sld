@@ -17,6 +17,8 @@ export const CONTACT_INFO = {
     full: "45 Bridge St, LaBelle, FL 33935",
     googleMaps: "https://maps.google.com/?q=45+Bridge+St,+LaBelle,+FL+33935",
   },
+  /** Calendar link for scheduling calls (used on investment page and in ads). Replace with your Calendly, etc. */
+  scheduleCall: process.env.NEXT_PUBLIC_SCHEDULE_CALL_URL || "https://calendly.com",
   domain: "standardlanddevelopment.com",
   siteUrl: "https://standardlanddevelopment.com",
 };

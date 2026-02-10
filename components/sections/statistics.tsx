@@ -1,128 +1,133 @@
+"use client";
+
 import { Container } from "@/components/ui/container";
+import { AnimatedSection } from "@/components/ui/animated-section";
 import { FaHome, FaUsers, FaStar, FaDollarSign } from "react-icons/fa";
 
-const Statistics = () => {
-  const stats = [
-    {
-      icon: FaHome,
-      number: "1,500+",
-      label: "Homes Built",
-      description: "Quality homes delivered to families",
-      gradient: "from-[#2d2c55] to-[#090040]",
-      accent: "#090040",
-    },
-    {
-      icon: FaUsers,
-      number: "1,500+",
-      label: "Happy Families",
-      description: "Families living their American dream",
-      gradient: "from-[#090040] to-[#302c9b]",
-      accent: "#2823bc",
-    },
-    {
-      icon: FaStar,
-      number: "Pioneers",
-      label: "Rent to Own",
-      description: "Pioneers in the Rent to Own program",
-      gradient: "from-[#302c9b] to-[#090040]",
-      accent: "#2d2c55",
-    },
-    {
-      icon: FaDollarSign,
-      number: "$0",
-      label: "Down Payment",
-      description: "Homeownership with $0 down payment",
-      gradient: "from-[#090040] to-[#2d2c55]",
-      accent: "#FFCC00",
-    },
-  ];
+const stats = [
+  {
+    icon: FaHome,
+    number: "2,875",
+    label: "Homes Built",
+    description: "Quality homes delivered to families",
+    accent: "#090040",
+  },
+  {
+    icon: FaUsers,
+    number: "2,875",
+    label: "Happy Families",
+    description: "Families living their American dream",
+    accent: "#2823bc",
+  },
+  {
+    icon: FaStar,
+    number: "Pioneers",
+    label: "Rent to Own",
+    description: "Pioneers in the Rent to Own program",
+    accent: "#2d2c55",
+  },
+  {
+    icon: FaDollarSign,
+    number: "$0",
+    label: "Down Payment",
+    description: "Homeownership with $0 down payment",
+    accent: "#FFCC00",
+  },
+];
 
+const Statistics = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-white relative">
-      {/* Elegant Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
-        }} />
+    <section
+      className="relative overflow-hidden bg-white py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
+      aria-labelledby="our-impact-heading"
+    >
+      {/* Background */}
+      <div className="absolute inset-0 opacity-[0.02]" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
+            backgroundSize: "40px 40px",
+          }}
+        />
       </div>
-      
-      {/* Subtle Gradient Overlay */}
-      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#090040]/3 via-transparent to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#090040]/3 via-transparent to-transparent" />
-      
+      <div className="absolute top-0 left-0 right-0 h-1/2 bg-gradient-to-b from-[#090040]/5 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#090040]/5 to-transparent pointer-events-none" />
+
       <Container className="relative z-10">
-        {/* Header Section */}
-        <div className="mx-auto max-w-3xl text-center mb-14 sm:mb-16 md:mb-20">
-          <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-6">
+        {/* Header - compact on mobile */}
+        <AnimatedSection className="mx-auto max-w-3xl text-center mb-8 sm:mb-10 md:mb-14 lg:mb-16">
+          <span className="inline-block text-[10px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-3 sm:mb-4">
             Our Impact
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+          <h2
+            id="our-impact-heading"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-2 sm:mb-4 px-1"
+          >
             Building Dreams, One Home at a Time
           </h2>
-          <p className="text-base sm:text-lg text-slate-600 font-normal max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-slate-600 max-w-2xl mx-auto px-1">
             Our numbers speak for themselves
           </p>
-        </div>
+        </AnimatedSection>
 
-        {/* Stats Grid - Premium Design */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-          {stats.map((stat, index) => {
+        {/* Cards - 2x2 on mobile, 2 cols sm, 4 cols lg */}
+        <AnimatedSection.Stagger
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8"
+          rootMargin="0px 0px -40px 0px"
+        >
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <div
+              <article
                 key={stat.label}
-                className="group relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-slate-100 hover:border-slate-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                style={{
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-                }}
+                className="group relative flex flex-col bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-4 sm:p-5 md:p-6 lg:p-8 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-300 hover:border-slate-200 hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.99] min-h-0"
               >
-                {/* Accent Bar */}
-                <div 
-                  className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl sm:rounded-t-3xl"
-                  style={{ background: `linear-gradient(90deg, ${stat.accent}, ${stat.accent}80)` }}
+                {/* Accent bar - top on mobile, subtle */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-0.5 sm:h-1 rounded-t-xl sm:rounded-t-2xl lg:rounded-t-3xl opacity-90"
+                  style={{
+                    background: `linear-gradient(90deg, ${stat.accent}, ${stat.accent}99)`,
+                  }}
                 />
-                
-                {/* Icon Container */}
-                <div className="mb-4 sm:mb-6 flex justify-center">
-                <div 
-                  className="relative flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-2xl transition-all duration-300 group-hover:shadow-lg"
+
+                {/* Icon - smaller on mobile */}
+                <div className="mb-3 sm:mb-4 md:mb-5 flex justify-center">
+                  <div
+                    className="flex h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 lg:h-16 lg:w-16 items-center justify-center rounded-xl sm:rounded-2xl transition-all duration-300 group-hover:shadow-md"
                     style={{
-                      background: `linear-gradient(135deg, ${stat.accent}15, ${stat.accent}05)`,
+                      background: `linear-gradient(135deg, ${stat.accent}18, ${stat.accent}08)`,
                     }}
                   >
-                    <div 
-                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{
-                        background: `radial-gradient(circle, ${stat.accent}20, transparent 70%)`,
-                      }}
-                    />
-                    <Icon 
-                      className="relative z-10 h-7 w-7 sm:h-9 sm:w-9 transition-colors duration-300"
+                    <Icon
+                      className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 lg:h-7 lg:w-7"
                       style={{ color: stat.accent }}
+                      aria-hidden
                     />
                   </div>
                 </div>
-                
-                {/* Content */}
-                <div className="text-center">
-                  <div 
-                    className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2 sm:mb-3 transition-colors duration-300"
-                    style={{ color: stat.accent }}
-                  >
-                    {stat.number}
-                  </div>
-                  <div className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
-                    {stat.label}
-                  </div>
-                  <div className="text-sm sm:text-base text-gray-600 font-medium leading-relaxed">
-                    {stat.description}
-                  </div>
+
+                {/* Number */}
+                <div
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold mb-0.5 sm:mb-1 md:mb-2 tabular-nums"
+                  style={{ color: stat.accent }}
+                >
+                  {stat.number}
                 </div>
-              </div>
+
+                {/* Label */}
+                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-slate-900 mb-1 sm:mb-2 leading-tight">
+                  {stat.label}
+                </h3>
+
+                {/* Description - compact on mobile */}
+                <p className="text-[11px] sm:text-xs md:text-sm lg:text-base text-slate-600 leading-snug line-clamp-2 sm:line-clamp-none mt-auto">
+                  {stat.description}
+                </p>
+              </article>
             );
           })}
-        </div>
+        </AnimatedSection.Stagger>
       </Container>
     </section>
   );

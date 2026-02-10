@@ -17,7 +17,7 @@ export default function AboutPage() {
         backgroundImage="/houses/4090/principal.jpg"
         badge="Our Story"
       />
-      <div id="about" className="scroll-mt-28">
+      <div id="about" className="scroll-mt-20 sm:scroll-mt-24">
         <About />
       </div>
       <AboutLocations />

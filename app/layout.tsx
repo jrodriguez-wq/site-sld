@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 const siteName = SEO_CONFIG.siteName;
 const siteUrl = SEO_CONFIG.siteUrl;
 const defaultDescription =
-  "Standard Land Development - Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. Over 1,500+ homes built. Investment opportunities with 1st Position Lender Cash Program.";
+  "Standard Land Development - Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. Over 2,875 homes built. 22% annual return to our lenders. Investment opportunities with 1st Position Lender Cash Program.";
 
 const allKeywords = [
   "real estate investment",
@@ -140,12 +140,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen touch-manipulation`}
         suppressHydrationWarning
       >
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 pt-20 sm:pt-24">
+          <main className="flex-1 pt-14 sm:pt-16 md:pt-[4.25rem] min-h-0">
             {children}
           </main>
           <Footer />

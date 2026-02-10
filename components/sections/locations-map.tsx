@@ -12,10 +12,10 @@ const LocationsMapInner = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="h-[480px] sm:h-[520px] w-full rounded-2xl bg-slate-100 animate-pulse flex items-center justify-center"
+        className="min-h-[320px] sm:min-h-[420px] h-[520px] sm:h-[580px] lg:h-[640px] w-full rounded-xl sm:rounded-2xl bg-slate-100 animate-pulse flex items-center justify-center"
         aria-label="Loading map"
       >
-        <span className="text-slate-500">Loading map...</span>
+        <span className="text-slate-500 text-sm sm:text-base">Loading map...</span>
       </div>
     ),
   }
@@ -23,7 +23,7 @@ const LocationsMapInner = dynamic(
 
 const LocationsMap = () => {
   return (
-    <div className="w-full overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+    <div className="w-full min-h-[320px] sm:min-h-[420px] h-[520px] sm:h-[580px] lg:h-[640px] overflow-hidden rounded-xl sm:rounded-2xl border-0 shadow-none">
       <LocationsMapInner />
     </div>
   );

@@ -60,7 +60,7 @@ export const BlogCard = ({ post, featured = false, darkBg = false }: BlogCardPro
             src={post.image}
             alt={post.title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
             sizes={featured ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"}
           />
           <div

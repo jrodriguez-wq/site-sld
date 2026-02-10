@@ -8,8 +8,8 @@ const resources = [
   {
     href: "/business-model",
     icon: Building2,
-    title: "Our Business Model",
-    description: "How we develop high-demand urban projects in Southwest Florida.",
+    title: "Our Mission",
+    description: "Our mission and how we develop in South Florida.",
   },
   {
     href: "/blog",
