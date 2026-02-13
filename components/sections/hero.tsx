@@ -58,7 +58,7 @@ const Hero = () => {
   return (
     <motion.section
       ref={containerRef}
-      className="relative overflow-hidden min-h-[100svh] flex flex-col bg-[#090040]"
+      className="relative overflow-hidden h-svh min-h-dvh max-h-svh flex flex-col bg-[#090040]"
       initial="visible"
       animate="visible"
       variants={containerVariants}
@@ -107,16 +107,16 @@ const Hero = () => {
         aria-hidden="true"
       />
 
-      {/* Main Content with Parallax */}
+      {/* Main Content with Parallax - fits one viewport */}
       <motion.div 
-        className="relative z-10 flex-1 flex flex-col min-h-[100svh]"
+        className="relative z-10 flex-1 flex flex-col min-h-0"
         style={{ 
           opacity: reduceMotion ? 1 : contentOpacity,
           y: reduceMotion ? 0 : contentY 
         }}
       >
         {/* Top Section - Brand Mark */}
-        <div className="pt-28 sm:pt-32 md:pt-36 flex justify-center px-6">
+        <div className="pt-12 sm:pt-20 md:pt-28 lg:pt-32 flex justify-center px-4 sm:px-6 shrink-0">
           <motion.div
             variants={fadeUpVariants}
             className="flex flex-col items-center gap-4"
@@ -126,20 +126,20 @@ const Hero = () => {
               variants={lineRevealVariants}
               className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent"
             />
-            <span className="text-[11px] sm:text-xs font-medium tracking-[0.35em] uppercase text-white/60">
+            <span className="text-[10px] sm:text-xs font-medium tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/60">
               Est. 2016 · Southwest Florida
             </span>
           </motion.div>
         </div>
 
-        {/* Center Content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6 sm:px-8 lg:px-12 py-16">
-          <div className="max-w-5xl mx-auto text-center">
+        {/* Center Content - shrinks on small viewports */}
+        <div className="flex-1 flex flex-col items-center justify-center min-h-0 px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-10 md:py-16">
+          <div className="max-w-5xl mx-auto text-center w-full">
             
             {/* Brand Name - Subtle */}
             <motion.p
               variants={fadeUpVariants}
-              className="text-[#D4AF37]/90 font-medium tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-8"
+              className="text-[#D4AF37]/90 font-medium tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-4 sm:mb-6 md:mb-8"
             >
               Standard Land Development
             </motion.p>
@@ -150,7 +150,7 @@ const Hero = () => {
               className="relative"
             >
               <span
-                className="block text-[clamp(2.5rem,8vw,6rem)] font-light text-white leading-[0.95] tracking-[-0.02em]"
+                className="block text-[clamp(2rem,6vw,5rem)] sm:text-[clamp(2.5rem,8vw,6rem)] font-light text-white leading-[0.95] tracking-[-0.02em]"
                 style={{ fontFamily: "var(--font-serif, 'Playfair Display', Georgia, serif)" }}
               >
                 Build Your Legacy
@@ -160,7 +160,7 @@ const Hero = () => {
             {/* Decorative Divider */}
             <motion.div 
               variants={fadeUpVariants}
-              className="flex items-center justify-center gap-4 my-8 sm:my-10"
+              className="flex items-center justify-center gap-3 sm:gap-4 my-4 sm:my-6 md:my-8"
             >
               <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent to-white/20" />
               <div className="w-1.5 h-1.5 rotate-45 border border-[#D4AF37]/60" />
@@ -170,22 +170,22 @@ const Hero = () => {
             {/* Supporting Copy */}
             <motion.p
               variants={fadeUpVariants}
-              className="text-base sm:text-lg md:text-xl text-white/50 max-w-xl mx-auto leading-relaxed font-light tracking-wide"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/50 max-w-xl mx-auto leading-relaxed font-light tracking-wide"
             >
               Over 2,877 families have transformed their dreams into
               <span className="text-white/70"> addresses</span>.
               Your story begins here.
             </motion.p>
 
-            {/* CTA Group */}
+            {/* CTA Group - View Models con fondo fijo (sin blur que aparezca tarde) */}
             <motion.div
               variants={fadeUpVariants}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 mt-10 sm:mt-12"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10"
             >
               {/* Primary CTA - Luxury Style */}
               <Button
                 size="lg"
-                className="group relative w-full sm:w-auto overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-[#090040] font-semibold rounded-lg px-10 py-7 text-sm tracking-wider uppercase transition-all duration-300"
+                className="group relative w-full sm:w-auto overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-[#090040] font-semibold rounded-lg px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase transition-all duration-300"
                 asChild
               >
                 <Link
@@ -198,10 +198,11 @@ const Hero = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                 </Link>
               </Button>
+              {/* Fondo sólido + blur desde el inicio para que no se vea "aparecer" */}
               <Button
                 size="lg"
                 variant="outline"
-                className="group w-full sm:w-auto border-2 border-white/25 text-white hover:border-[#D4AF37]/50 hover:bg-white/10 font-medium rounded-lg px-10 py-7 text-sm tracking-wider uppercase bg-white/5 backdrop-blur-sm transition-all duration-300"
+                className="group w-full sm:w-auto border-2 border-white/30 text-white hover:border-[#D4AF37]/60 font-medium rounded-lg px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase bg-[#090040]/70 backdrop-blur-md transition-all duration-300"
                 asChild
               >
                 <Link
@@ -218,26 +219,26 @@ const Hero = () => {
         </div>
 
         {/* Bottom Stats Bar - Refined */}
-        <div className="mt-auto">
+        <div className="mt-auto shrink-0">
           <motion.div
             variants={fadeUpVariants}
             className="border-t border-white/5"
           >
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-2 divide-x divide-white/5">
-                <div className="group px-4 sm:px-8 py-6 sm:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
+                <div className="group px-3 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
                     2,877
                   </div>
-                  <div className="mt-1 text-[10px] sm:text-xs text-white/40 tracking-[0.2em] uppercase font-medium">
+                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/40 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-medium">
                     Homes Delivered
                   </div>
                 </div>
-                <div className="group px-4 sm:px-8 py-6 sm:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
+                <div className="group px-3 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
+                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
                     100%
                   </div>
-                  <div className="mt-1 text-[10px] sm:text-xs text-white/40 tracking-[0.2em] uppercase font-medium">
+                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/40 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-medium">
                     Client Satisfaction
                   </div>
                 </div>
