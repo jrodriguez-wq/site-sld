@@ -5,22 +5,22 @@ import L from "leaflet";
 import { useEffect } from "react";
 import { OFFICES, getDirectionsUrl } from "@/data/offices";
 
-const createCustomIcon = () =>
+const createCustomIcon = (isMainOffice: boolean) =>
   L.divIcon({
     html: `
       <div style="
-        width: 24px;
-        height: 24px;
-        background: #090040;
+        width: ${isMainOffice ? "28" : "24"}px;
+        height: ${isMainOffice ? "28" : "24"}px;
+        background: ${isMainOffice ? "#D4AF37" : "#090040"};
         border: 3px solid white;
         border-radius: 50% 50% 50% 0;
         transform: rotate(-45deg);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.35);
       "></div>
     `,
     className: "custom-marker",
-    iconSize: [24, 24],
-    iconAnchor: [12, 24],
+    iconSize: [isMainOffice ? 28 : 24, isMainOffice ? 28 : 24],
+    iconAnchor: [isMainOffice ? 14 : 12, isMainOffice ? 28 : 24],
   });
 
 const MapBounds = ({ offices }: { offices: typeof OFFICES }) => {
@@ -44,15 +44,15 @@ export const LocationsMapInner = () => {
       style={{ minHeight: "320px" }}
     >
       <TileLayer
-        attribution='&copy; <a href="https://carto.com">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://carto.com">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
       />
       <MapBounds offices={OFFICES} />
-      {OFFICES.map((office) => (
+      {OFFICES.map((office, index) => (
         <Marker
           key={office.name}
           position={[office.lat, office.lng]}
-          icon={createCustomIcon()}
+          icon={createCustomIcon(index === 0)}
         >
           <Popup>
             <a

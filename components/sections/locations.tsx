@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import {
   MapPin,
@@ -93,6 +94,29 @@ const Locations = () => (
               Tap each marker for office details and directions
             </p>
           </div>
+          {/* Florida aerial illustration — LaBelle / Southwest Florida */}
+          <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200 shadow-xl ring-1 ring-slate-900/5 aspect-16/10 sm:aspect-21/9 min-h-[200px] sm:min-h-[240px]">
+            <Image
+              src="/recurses/foto-aerea.png"
+              alt="Aerial view of LaBelle and the Caloosahatchee River, Southwest Florida — where we're based"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+              priority
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-[#090040]/70 via-[#090040]/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8">
+              <p className="text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-[#D4AF37] mb-1">
+                Our Home Base
+              </p>
+              <p className="text-white font-semibold text-lg sm:text-xl md:text-2xl" style={{ fontFamily: "var(--font-serif)" }}>
+                45 Bridge St, LaBelle, FL 33935
+              </p>
+              <p className="text-white/80 text-sm sm:text-base mt-0.5">
+                Southwest Florida — River, bridge, and community
+              </p>
+            </div>
+          </div>
           <div className="rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200 shadow-xl ring-1 ring-slate-900/5 min-h-[280px] sm:min-h-[360px]">
             <LocationsMap />
           </div>
@@ -101,7 +125,7 @@ const Locations = () => (
     </section>
 
       {/* Section 2: Offices + Strategic Location - Dark */}
-      <section className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] relative">
+      <section className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-linear-to-br from-[#090040] via-[#2d2c55] to-[#090040] relative">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -138,7 +162,7 @@ const Locations = () => (
                       aria-label={`Get directions to ${office.name}`}
                     >
                       <span className="text-[10px] sm:text-xs font-semibold text-white/60 uppercase tracking-wider">
-                        Office {index + 1}
+                        {index === 0 ? "Main Office" : `Office ${index + 1}`}
                       </span>
                       <span className="font-bold text-white text-sm sm:text-base group-hover:text-white">
                         {office.name}
@@ -290,7 +314,7 @@ const Locations = () => (
       </section>
 
       {/* Section 5: Target Demographics + CTA - Dark */}
-      <section className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] relative">
+      <section className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-linear-to-br from-[#090040] via-[#2d2c55] to-[#090040] relative">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{

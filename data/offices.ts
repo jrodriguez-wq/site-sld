@@ -1,7 +1,17 @@
 export const getDirectionsUrl = (address: string, city: string) =>
   `https://www.google.com/maps/dir//${encodeURIComponent(`${address}, ${city}`)}`;
 
+/** Main office — always first (Office 1). */
+const MAIN_OFFICE = {
+  name: "LaBelle",
+  address: "45 Bridge St",
+  city: "LaBelle, FL 33935",
+  lat: 26.7616,
+  lng: -81.4382,
+} as const;
+
 export const OFFICES = [
+  MAIN_OFFICE,
   {
     name: "West Palm Beach",
     address: "2721 Vista Parkway",
@@ -29,13 +39,6 @@ export const OFFICES = [
     city: "Fort Lauderdale, FL 33316",
     lat: 26.1224,
     lng: -80.1373,
-  },
-  {
-    name: "LaBelle",
-    address: "45 Bridge St",
-    city: "LaBelle, FL 33935",
-    lat: 26.7616,
-    lng: -81.4382,
   },
   {
     name: "Lake Placid",

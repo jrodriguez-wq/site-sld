@@ -239,9 +239,6 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 <CardTitle className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                   {price}
                 </CardTitle>
-                <p className="text-base md:text-lg font-semibold text-[#090040] mt-2">
-                  $0 Down
-                </p>
               </CardHeader>
               <CardContent className="p-6 pt-0 space-y-4">
                 {/* RTO Price Section */}

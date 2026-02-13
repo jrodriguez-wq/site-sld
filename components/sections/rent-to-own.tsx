@@ -14,7 +14,7 @@ const RentToOwn = () => {
       icon: FaPiggyBank,
       title: "Build Equity",
       description:
-        "A portion of the monthly payment goes toward the down payment, allowing them to save while renting and building family wealth.",
+        "A portion of the monthly payment goes toward building equity, allowing them to save while renting and building family wealth.",
       color: "from-[#B8860B] to-[#8B6914]",
     },
     {
@@ -92,14 +92,11 @@ const RentToOwn = () => {
         {/* CTA Card - compact on mobile */}
         <div className="text-center">
           <div className="inline-block bg-slate-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-xl w-full max-w-md mx-auto">
-            <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-2 sm:mb-4">
-              $0
-            </div>
             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3">
-              Down Payment
+              Start Your Journey
             </h3>
             <p className="text-sm sm:text-base md:text-lg text-white/90 font-medium max-w-md mx-auto px-1">
-              Start your journey to homeownership with no down payment required
+              Get in touch to learn how our Rent to Own program can help you achieve homeownership
             </p>
           </div>
         </div>

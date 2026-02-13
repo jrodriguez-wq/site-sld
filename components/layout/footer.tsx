@@ -1,30 +1,27 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 import { Container } from "@/components/ui/container";
 import { CONTACT_INFO } from "@/config/contact";
-import { 
-  FaFacebook, 
-  FaLinkedin, 
-  FaTwitter, 
-  FaInstagram,
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaArrowRight
-} from "react-icons/fa";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Linkedin,
+  Twitter,
+  Instagram,
+  ArrowRight,
+  ChevronUp,
+} from "lucide-react";
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  const socialLinks = [
-    { icon: FaFacebook, href: "https://facebook.com", label: "Facebook", external: true },
-    { icon: FaLinkedin, href: "https://linkedin.com", label: "LinkedIn", external: true },
-    { icon: FaTwitter, href: "https://twitter.com", label: "Twitter", external: true },
-    { icon: FaInstagram, href: "https://instagram.com", label: "Instagram", external: true },
-  ];
-
-  const footerLinks = {
-    company: [
+const footerColumns = [
+  {
+    title: "Company",
+    links: [
       { href: "/about", label: "About Us" },
       { href: "/locations", label: "Locations" },
       { href: "/business-model", label: "Our Mission" },
@@ -32,205 +29,188 @@ const Footer = () => {
       { href: "/programs", label: "Rent to Own" },
       { href: "/contact", label: "Contact" },
     ],
-    programs: [
+  },
+  {
+    title: "Programs",
+    links: [
       { href: "/investment", label: "1st Position Lender" },
       { href: "/programs", label: "Rent to Own Program" },
     ],
-    legal: [
+  },
+  {
+    title: "Legal",
+    links: [
       { href: "/privacy", label: "Privacy Policy" },
       { href: "/terms", label: "Terms of Service" },
     ],
+  },
+];
+
+const socialLinks = [
+  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+];
+
+const Footer = () => {
+  const footerRef = useRef<HTMLElement>(null);
+  const currentYear = new Date().getFullYear();
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="border-t bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] text-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-[#D4AF37] rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#2d2c55] rounded-full blur-3xl" />
-      </div>
+    <footer
+      ref={footerRef}
+      className="relative border-t border-white/5 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] text-white overflow-hidden"
+    >
+      {/* Background texture - design system */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        }}
+      />
 
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 gap-8 sm:gap-12 py-12 sm:py-16 md:py-20 md:grid-cols-2 lg:grid-cols-5">
-          {/* Company Info */}
-          <div className="space-y-6 lg:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
-              <Image
-                src="/logos/sld-blanco.png"
-                alt="SLD Logo"
-                width={160}
-                height={64}
-                className="h-14 sm:h-16 w-auto"
-              />
-            </div>
-            <p className="text-sm sm:text-base text-white/90 leading-relaxed max-w-md">
-              Standard Land Development - Creating the opportunity of home ownership for American Families. Building affordable homes in Southwest Florida since 2016.
-            </p>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <p className="text-sm sm:text-base font-semibold italic text-[#D4AF37] mb-1">
-                &quot;We Build so American Families can OWN the American Dream, NOT rent the American Dream&quot;
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="py-14 sm:py-16 md:py-20"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
+            {/* Brand column */}
+            <div className="lg:col-span-4">
+              <Link href="/" className="inline-flex items-center gap-3 group mb-6">
+                <Image
+                  src="/logos/sld-blanco.png"
+                  alt="Standard Land Development"
+                  width={160}
+                  height={64}
+                  className="h-12 sm:h-14 w-auto transition-opacity group-hover:opacity-90"
+                />
+              </Link>
+              <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
+                Creating the opportunity of home ownership for American Families. Building affordable homes in Southwest Florida since 2016.
               </p>
-              <p className="text-xs text-white/70">— Michael J. Newell, CEO</p>
-            </div>
-            <div className="flex space-x-4 pt-2">
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <Link
-                    key={social.label}
-                    href={social.href}
-                    target={social.external ? "_blank" : undefined}
-                    rel={social.external ? "noopener noreferrer" : undefined}
-                    aria-label={social.label}
-                    className="text-white/70 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110 cursor-pointer"
-                  >
-                    <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Company Links */}
-          <div className="space-y-4">
-            <h4 className="text-base sm:text-lg font-bold text-white mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-                  >
-                    <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span>{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Programs & Legal */}
-          <div className="space-y-4">
-            <div>
-              <h4 className="text-base sm:text-lg font-bold text-white mb-4">Programs</h4>
-              <ul className="space-y-3">
-              {footerLinks.programs.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-                  >
-                    <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span>{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-              </ul>
-            </div>
-            <div className="pt-6">
-              <h4 className="text-base sm:text-lg font-bold text-white mb-4">Legal</h4>
-              <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    prefetch={true}
-                    className="text-sm sm:text-base text-white/80 hover:text-[#D4AF37] transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-                  >
-                    <FaArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <span>{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Contact & Stats */}
-          <div className="space-y-4">
-            <h4 className="text-base sm:text-lg font-bold text-white mb-4">Contact</h4>
-            <ul className="space-y-4 text-sm sm:text-base text-white/80">
-              <li className="flex items-start gap-3">
-                <FaMapMarkerAlt className="h-5 w-5 text-[#D4AF37] mt-0.5 flex-shrink-0" />
-                <div>
-                  <Link
-                    href={CONTACT_INFO.address.googleMaps}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
-                  >
-                    <div className="font-semibold">{CONTACT_INFO.address.street}</div>
-                    <div className="text-white/70">{CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.zip}</div>
-                  </Link>
-                </div>
-              </li>
-              <li className="flex items-center gap-3">
-                <FaPhone className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
-                <Link
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 mb-6">
+                <p className="text-sm font-medium italic text-[#D4AF37] mb-1">
+                  &quot;We Build so American Families can OWN the American Dream, NOT rent the American Dream&quot;
+                </p>
+                <p className="text-xs text-white/50">— Michael J. Newell, CEO</p>
+              </div>
+              <div className="space-y-3">
+                <a
                   href={CONTACT_INFO.phone.href}
-                  className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
+                  className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm"
                 >
+                  <Phone className="w-4 h-4 shrink-0" />
                   {CONTACT_INFO.phone.display}
-                </Link>
-              </li>
-              <li className="flex items-center gap-3">
-                <FaEnvelope className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
-                <Link
+                </a>
+                <a
                   href={CONTACT_INFO.email.href}
-                  className="hover:text-[#D4AF37] transition-all duration-300 break-all cursor-pointer"
+                  className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm break-all"
                 >
+                  <Mail className="w-4 h-4 shrink-0" />
                   {CONTACT_INFO.email.display}
-                </Link>
-              </li>
-            </ul>
-            
-            <div className="pt-6 border-t border-white/20">
-              <div className="text-xs sm:text-sm font-bold text-[#D4AF37] mb-3">Our Impact</div>
-              <div className="space-y-2 text-xs sm:text-sm text-white/70">
-                <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
-                  <span>1,500+ Homes Built</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
-                  <span>1,500+ Happy Families</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]" />
-                  <span>$0 Down Payment</span>
-                </div>
+                </a>
+                <a
+                  href={CONTACT_INFO.address.googleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm"
+                >
+                  <MapPin className="w-4 h-4 shrink-0" />
+                  {CONTACT_INFO.address.street}, {CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.zip}
+                </a>
+              </div>
+              <div className="flex items-center gap-3 mt-8">
+                {socialLinks.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 transition-all duration-300"
+                      aria-label={social.label}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  );
+                })}
+              </div>
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <p className="text-xs font-semibold text-[#D4AF37] mb-2 uppercase tracking-wider">Our Impact</p>
+                <ul className="space-y-1.5 text-xs text-white/50">
+                  <li>2,877 Homes Built</li>
+                  <li>2,877 Happy Families</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Link columns */}
+            <div className="lg:col-span-8">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+                {footerColumns.map((column) => (
+                  <div key={column.title}>
+                    <h4 className="text-white font-semibold text-sm tracking-wider uppercase mb-4">
+                      {column.title}
+                    </h4>
+                    <ul className="space-y-3">
+                      {column.links.map((link) => (
+                        <li key={link.href}>
+                          <Link
+                            href={link.href}
+                            prefetch
+                            className="text-white/50 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-2 group"
+                          >
+                            <ArrowRight className="w-3 h-3 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                            {link.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-white/20 py-6 sm:py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/70">
-            <p>
+        {/* Bottom bar */}
+        <div className="py-5 sm:py-6 border-t border-white/5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-white/40 text-xs text-center sm:text-left">
               © {currentYear} Standard Land Development. All rights reserved.
             </p>
-            <div className="flex items-center gap-6">
-              <Link 
-                href="/privacy"
-                prefetch={true}
-                className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
-              >
-                Privacy
+            <div className="flex items-center gap-6 text-xs">
+              <Link href="/privacy" prefetch className="text-white/40 hover:text-white/70 transition-colors">
+                Privacy Policy
               </Link>
-              <Link 
-                href="/terms"
-                prefetch={true}
-                className="hover:text-[#D4AF37] transition-all duration-300 cursor-pointer"
-              >
-                Terms
+              <Link href="/terms" prefetch className="text-white/40 hover:text-white/70 transition-colors">
+                Terms of Service
               </Link>
             </div>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="hidden sm:flex items-center gap-2 text-xs text-white/40 hover:text-[#D4AF37] transition-colors group"
+              aria-label="Back to top"
+            >
+              Back to top
+              <ChevronUp className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
+            </button>
           </div>
         </div>
       </Container>
+
+      {/* Decorative gradient line - design system */}
+      <div className="h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
     </footer>
   );
 };

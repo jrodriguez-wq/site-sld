@@ -2,8 +2,7 @@
 
 import { Users, Target, Zap, Award, CheckCircle2 } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/animated-section";
-
-const CONTAINER_CLASS = "relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8";
+import { Container } from "@/components/ui/container";
 
 const teamValues = [
   {
@@ -42,27 +41,31 @@ const processSteps = [
 
 export const TeamWorkSection = () => {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-slate-50 relative">
+    <section className="py-14 sm:py-20 md:py-24 bg-slate-50 relative" aria-labelledby="team-work-heading">
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
+          backgroundImage: "radial-gradient(circle at 2px 2px, #090040 1px, transparent 0)",
+          backgroundSize: "32px 32px",
         }}
       />
-      <div className={CONTAINER_CLASS}>
+      <Container className="relative z-10">
         <AnimatedSection>
-          <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
-            <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-4">
+          <div className="mx-auto max-w-2xl text-center mb-10 sm:mb-12">
+            <span className="inline-flex items-center gap-2 sm:gap-3 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#D4AF37] mb-3 sm:mb-4">
+              <span className="w-5 sm:w-6 h-px bg-[#D4AF37]/50" />
               Our Approach
+              <span className="w-5 sm:w-6 h-px bg-[#D4AF37]/50" />
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+            <h2
+              id="team-work-heading"
+              className="text-2xl sm:text-3xl md:text-4xl font-light tracking-tight text-slate-900 mb-2 sm:mb-4"
+              style={{ fontFamily: "var(--font-serif)" }}
+            >
               Teamwork & Efficiency
             </h2>
-            <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-              We work hard as a team, combining expertise, efficiency, and
-              dedication to build commercial spaces and homes that exceed
-              expectations.
+            <p className="text-slate-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+              We work hard as a team, combining expertise, efficiency, and dedication to build commercial spaces and homes that exceed expectations.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-6 lg:gap-8 mb-16 sm:mb-20">
@@ -124,7 +127,7 @@ export const TeamWorkSection = () => {
             </div>
           </AnimatedSection>
         </AnimatedSection>
-      </div>
+      </Container>
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -14,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 const siteName = SEO_CONFIG.siteName;
@@ -140,12 +146,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen touch-manipulation`}
+        className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation`}
         suppressHydrationWarning
       >
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 pt-14 sm:pt-16 md:pt-[4.25rem] min-h-0">
+          <main className="flex-1 pt-16 sm:pt-[4.25rem] md:pt-20 min-h-0">
             {children}
           </main>
           <Footer />

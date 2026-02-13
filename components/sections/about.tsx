@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Building2,
   Briefcase,
+  Store,
 } from "lucide-react";
 import { Container } from "@/components/ui/container";
 
@@ -27,8 +28,9 @@ const teamMembers = [
     image: "/michael-ceo.webp",
     bio: "Michael J. Newell founded Standard Land Development in 2016 with a clear mission: to build affordable homes for American families. With over 13 years of experience in real estate and construction, he leads both SLD and M.J. Newell Homes, overseeing the development of more than 1,500 homes across Southwest Florida. His vision—that housing should never exceed 25% of a family's income—guides every decision and has earned recognition in national media.",
     stats: [
-      { label: "13+ Years", icon: Building2 },
-      { label: "1,500+ Homes", icon: Home },
+      { label: "17 Years", icon: Building2 },
+      { label: "2,877 Homes", icon: Home },
+      { label: "1.3M sq/ft Commercial", icon: Store },
     ],
     quote: "The power of a team is crucial. You must recruit individuals who are both strong and trustworthy. I knew in order to be successful, I'd have to enlist first-line powerhouses.",
   },
@@ -40,8 +42,7 @@ const teamMembers = [
     image: "/recurses/coo.jpg",
     bio: "Nader Hack oversees operations and financial strategy at Standard Land Development. As COO and Director of Financial Operations, he ensures every project runs efficiently and meets the highest standards of quality. His expertise in financial planning and operational excellence has been instrumental in scaling SLD's impact while maintaining affordability for families.",
     stats: [
-      { label: "Operations", icon: Briefcase },
-      { label: "Financial Strategy", icon: Award },
+      { label: "41 years in the mortgage industry", icon: Briefcase },
     ],
     quote: "Precision in operations and integrity in numbers—that's how we deliver quality homes that families can actually afford.",
   },
