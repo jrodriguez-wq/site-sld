@@ -86,11 +86,11 @@ const Footer = () => {
             <div className="lg:col-span-4">
               <Link href="/" className="inline-flex items-center gap-3 group mb-6">
                 <Image
-                  src="/logos/sld-blanco.png"
+                  src="/logos/sld-blanco.svg"
                   alt="Standard Land Development"
-                  width={160}
-                  height={64}
-                  className="h-12 sm:h-14 w-auto transition-opacity group-hover:opacity-90"
+                  width={200}
+                  height={80}
+                  className="h-16 sm:h-20 w-auto transition-opacity group-hover:opacity-90"
                 />
               </Link>
               <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">

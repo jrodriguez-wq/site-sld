@@ -58,32 +58,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon/favicon-256x256.png", sizes: "256x256", type: "image/png" },
+      { url: "/favicon/SLD16X16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/SLD16X16.svg", type: "image/svg+xml" },
     ],
-    apple: [
-      { url: "/favicon/apple-icon-57x57.png", sizes: "57x57", type: "image/png" },
-      { url: "/favicon/apple-icon-60x60.png", sizes: "60x60", type: "image/png" },
-      { url: "/favicon/apple-icon-72x72.png", sizes: "72x72", type: "image/png" },
-      { url: "/favicon/apple-icon-76x76.png", sizes: "76x76", type: "image/png" },
-      { url: "/favicon/apple-icon-114x114.png", sizes: "114x114", type: "image/png" },
-      { url: "/favicon/apple-icon-120x120.png", sizes: "120x120", type: "image/png" },
-      { url: "/favicon/apple-icon-144x144.png", sizes: "144x144", type: "image/png" },
-      { url: "/favicon/apple-icon-152x152.png", sizes: "152x152", type: "image/png" },
-      { url: "/favicon/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
-    ],
-    other: [
-      {
-        rel: "android-chrome",
-        url: "/favicon/android-icon-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-    ],
+    apple: [{ url: "/favicon/SLD16X16.svg", type: "image/svg+xml" }],
   },
-  manifest: "/favicon/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -98,7 +77,7 @@ export const metadata: Metadata = {
     description: defaultDescription,
     images: [
       {
-        url: `${siteUrl}/logos/sld-azul.png`,
+        url: `${siteUrl}/logos/sld-azul.svg`,
         width: 1200,
         height: 630,
         alt: siteName,
@@ -109,7 +88,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Investment Opportunities in Southwest Florida`,
     description: defaultDescription,
-    images: [`${siteUrl}/logos/sld-azul.png`],
+    images: [`${siteUrl}/logos/sld-azul.svg`],
   },
   robots: {
     index: true,
@@ -133,7 +112,6 @@ export const metadata: Metadata = {
   },
   other: {
     "msapplication-TileColor": "#090040",
-    "msapplication-config": "/favicon/browserconfig.xml",
     "theme-color": "#090040",
   },
 };
@@ -151,7 +129,7 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 pt-16 sm:pt-[4.25rem] md:pt-20 min-h-0">
+          <main className="flex-1 pb-24 sm:pb-24 lg:pb-0 min-h-0">
             {children}
           </main>
           <Footer />

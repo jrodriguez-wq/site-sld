@@ -6,7 +6,7 @@ import { AnimatedSection } from "@/components/ui/animated-section";
 const logos = [
   {
     name: "SLD",
-    src: "/logos/sld-azul.png",
+    src: "/logos/sld-azul.svg",
     alt: "Standard Land Development Logo",
   },
   {

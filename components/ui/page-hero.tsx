@@ -14,7 +14,7 @@ interface PageHeroProps {
 
 const PageHero = ({ title, subtitle, description, backgroundImage, badge }: PageHeroProps) => {
   return (
-    <section className="relative min-h-[42vh] sm:min-h-[50vh] md:h-[55vh] md:min-h-[480px] lg:h-[60vh] lg:min-h-[500px] max-h-[700px] flex items-center justify-center text-white overflow-hidden py-12 sm:py-16">
+    <section className="relative min-h-[42vh] sm:min-h-[50vh] md:h-[55vh] md:min-h-[480px] lg:h-[60vh] lg:min-h-[500px] max-h-[700px] flex items-center justify-center text-white overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image

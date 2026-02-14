@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
@@ -115,42 +116,47 @@ const Hero = () => {
           y: reduceMotion ? 0 : contentY 
         }}
       >
-        {/* Top Section - Brand Mark */}
-        <div className="pt-12 sm:pt-20 md:pt-28 lg:pt-32 flex justify-center px-4 sm:px-6 shrink-0">
+        {/* Top Section - SLD Logo & Brand Mark */}
+        <div className="pt-16 sm:pt-20 md:pt-24 lg:pt-28 flex flex-col items-center justify-center px-4 sm:px-6 shrink-0">
           <motion.div
             variants={fadeUpVariants}
-            className="flex flex-col items-center gap-4"
+            className="flex flex-col items-center gap-3 sm:gap-4"
           >
-            {/* Decorative line */}
+            <Link
+              href="/"
+              className="block transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
+              aria-label="Standard Land Development - Home"
+            >
+              <Image
+                src="/logos/sld-blanco.svg"
+                alt="Standard Land Development"
+                width={240}
+                height={96}
+                className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto max-w-[85vw]"
+                priority
+              />
+            </Link>
             <motion.div
               variants={lineRevealVariants}
               className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent"
             />
-            <span className="text-[10px] sm:text-xs font-medium tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/60">
+            <span className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/90">
               Est. 2016 · Southwest Florida
             </span>
           </motion.div>
         </div>
 
-        {/* Center Content - shrinks on small viewports */}
-        <div className="flex-1 flex flex-col items-center justify-center min-h-0 px-4 sm:px-6 md:px-8 lg:px-12 py-6 sm:py-10 md:py-16">
+        {/* Center Content - mobile-friendly layout */}
+        <div className="flex-1 flex flex-col items-center justify-center min-h-0 px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10 lg:py-16">
           <div className="max-w-5xl mx-auto text-center w-full">
             
-            {/* Brand Name - Subtle */}
-            <motion.p
-              variants={fadeUpVariants}
-              className="text-[#D4AF37]/90 font-medium tracking-[0.25em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-xs mb-4 sm:mb-6 md:mb-8"
-            >
-              Standard Land Development
-            </motion.p>
-
-            {/* Main Headline - Editorial Style */}
+            {/* Main Headline - larger on mobile for impact */}
             <motion.h1
               variants={fadeUpVariants}
-              className="relative"
+              className="relative mb-3 sm:mb-4"
             >
               <span
-                className="block text-[clamp(2rem,6vw,5rem)] sm:text-[clamp(2.5rem,8vw,6rem)] font-light text-white leading-[0.95] tracking-[-0.02em]"
+                className="block text-[clamp(2rem,8vw,5rem)] sm:text-[clamp(2.5rem,9vw,6rem)] font-semibold text-white leading-[0.95] tracking-[-0.02em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                 style={{ fontFamily: "var(--font-serif, 'Playfair Display', Georgia, serif)" }}
               >
                 Build Your Legacy
@@ -167,48 +173,46 @@ const Hero = () => {
               <div className="w-12 sm:w-16 h-px bg-gradient-to-l from-transparent to-white/20" />
             </motion.div>
 
-            {/* Supporting Copy */}
+            {/* Supporting Copy - readable on mobile */}
             <motion.p
               variants={fadeUpVariants}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/50 max-w-xl mx-auto leading-relaxed font-light tracking-wide"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/85 max-w-xl mx-auto leading-relaxed font-medium tracking-wide px-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]"
             >
               Over 2,877 families have transformed their dreams into
-              <span className="text-white/70"> addresses</span>.
+              <span className="text-white font-semibold"> addresses</span>.
               Your story begins here.
             </motion.p>
 
-            {/* CTA Group - View Models con fondo fijo (sin blur que aparezca tarde) */}
+            {/* CTA Group - touch-friendly min-h 48px on mobile */}
             <motion.div
               variants={fadeUpVariants}
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 px-2 sm:px-0"
             >
-              {/* Primary CTA - Luxury Style */}
               <Button
                 size="lg"
-                className="group relative w-full sm:w-auto overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-[#090040] font-semibold rounded-lg px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase transition-all duration-300"
+                className="group relative w-full sm:w-auto overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-[#090040] font-semibold rounded-xl px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase transition-all duration-300 min-h-[52px] touch-manipulation active:scale-[0.98]"
                 asChild
               >
                 <Link
                   href="/contact"
                   prefetch
-                  className="flex items-center justify-center gap-3"
+                  className="flex items-center justify-center gap-3 min-h-[52px] touch-manipulation"
                 >
                   <span className="relative z-10">Become a Lender</span>
                   <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                 </Link>
               </Button>
-              {/* Fondo sólido + blur desde el inicio para que no se vea "aparecer" */}
               <Button
                 size="lg"
                 variant="outline"
-                className="group w-full sm:w-auto border-2 border-white/30 text-white hover:border-[#D4AF37]/60 font-medium rounded-lg px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase bg-[#090040]/70 backdrop-blur-md transition-all duration-300"
+                className="group w-full sm:w-auto border-2 border-white/30 text-white hover:border-[#D4AF37]/60 font-medium rounded-xl px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase bg-[#090040]/70 backdrop-blur-md transition-all duration-300 min-h-[52px] touch-manipulation active:scale-[0.98]"
                 asChild
               >
                 <Link
                   href="/models"
                   prefetch
-                  className="flex items-center justify-center gap-3"
+                  className="flex items-center justify-center gap-3 min-h-[52px] touch-manipulation"
                 >
                   <Play className="h-4 w-4 fill-current" />
                   <span>View Models</span>
@@ -218,7 +222,7 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Bottom Stats Bar - Refined */}
+        {/* Bottom Stats Bar - mobile-friendly */}
         <div className="mt-auto shrink-0">
           <motion.div
             variants={fadeUpVariants}
@@ -226,19 +230,19 @@ const Hero = () => {
           >
             <div className="max-w-7xl mx-auto">
               <div className="grid grid-cols-2 divide-x divide-white/5">
-                <div className="group px-3 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
+                <div className="group px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 lg:py-8 text-center transition-colors duration-300 hover:bg-white/5 active:bg-white/5 touch-manipulation min-h-[72px] sm:min-h-0 flex flex-col items-center justify-center">
                   <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
                     2,877
                   </div>
-                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/40 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-medium">
+                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/75 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold">
                     Homes Delivered
                   </div>
                 </div>
-                <div className="group px-3 sm:px-6 md:px-8 py-4 sm:py-6 md:py-8 text-center transition-colors duration-300 hover:bg-white/[0.02]">
+                <div className="group px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 lg:py-8 text-center transition-colors duration-300 hover:bg-white/5 active:bg-white/5 touch-manipulation min-h-[72px] sm:min-h-0 flex flex-col items-center justify-center">
                   <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
                     100%
                   </div>
-                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/40 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-medium">
+                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/75 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold">
                     Client Satisfaction
                   </div>
                 </div>
