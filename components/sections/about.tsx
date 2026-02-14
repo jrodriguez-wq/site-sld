@@ -167,7 +167,7 @@ const About = () => {
                       src={member.image}
                       alt={`${member.name} - ${member.role}`}
                       fill
-                      className="object-cover object-[center_25%] group-hover:scale-105 transition-transform duration-500 ease-out"
+                      className={`object-cover transition-transform duration-500 ease-out ${member.key === "nader" ? "object-cover object-[center_25%]" : "object-cover object-[center_25%] group-hover:scale-105"}`}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#090040]/90 via-transparent to-transparent" />

@@ -98,7 +98,7 @@ const TeamSection = () => {
                 src="/recurses/coo.webp"
                 alt="Nader Hack - Chief Operating Officer"
                 fill
-                className="object-cover object-[center_25%] transition-transform duration-500 ease-out group-hover:scale-105"
+                className="object-cover object-[center_25%]"
                 sizes="(max-width: 640px) 100vw, 50vw"
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#090040]/90 via-transparent to-transparent" />
