@@ -208,7 +208,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                               animate={{ height: "auto", opacity: 1 }}
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                              className="flex flex-col items-end gap-1 overflow-hidden"
+                              className="grid grid-cols-2 gap-1.5 overflow-hidden max-h-[60vh] overflow-y-auto"
                             >
                               {item.children!.map((child) => (
                                 <motion.div
@@ -216,21 +216,21 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                                   initial={{ opacity: 0, x: 8 }}
                                   animate={{ opacity: 1, x: 0 }}
                                   transition={{ delay: 0.05 }}
-                                  className="flex justify-end"
+                                  className="flex justify-end min-w-0"
                                 >
                                   <Link
                                     href={child.href ?? "#"}
                                     prefetch
                                     onClick={handleSubmenuLinkClick}
                                     className={cn(
-                                      "flex items-center gap-2 h-10 min-w-[44px] px-3 rounded-full text-xs font-medium",
+                                      "flex items-center justify-center h-10 min-w-0 w-full max-w-[130px] px-3 rounded-full text-xs font-medium",
                                       "bg-white/10 backdrop-blur-xl border border-white/15 text-white/95",
                                       "hover:bg-[#D4AF37]/80 hover:border-[#D4AF37]/50 hover:text-[#090040]",
                                       "transition-all duration-150 touch-manipulation active:scale-95"
                                     )}
                                     aria-label={child.label}
                                   >
-                                    <span className="whitespace-nowrap">{child.label}</span>
+                                    <span className="truncate">{child.label}</span>
                                   </Link>
                                 </motion.div>
                               ))}
