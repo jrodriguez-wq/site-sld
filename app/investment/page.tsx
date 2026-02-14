@@ -14,7 +14,7 @@ export default function InvestmentPage() {
         title="Investment Program"
         subtitle="Earn Up to 22% Annual Return"
         description="Real property-backed. Schedule a call to learn how."
-        backgroundImage="/houses/4090/principal.jpg"
+        backgroundImage="/houses/4090/principal.webp"
         badge="Investment Opportunity"
       />
       <InvestmentTeaser />

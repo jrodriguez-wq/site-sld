@@ -8,12 +8,12 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 /** Only images from public/constructions — less is more. */
 const COMMERCIAL_IMAGES = [
-  { src: "/constructions/ComunidadC.png", alt: "Completed community — finished homes and landscaping", title: "Completed Community" },
-  { src: "/constructions/Ca2.png", alt: "Construction in progress — SLD project", title: "In Progress" },
-  { src: "/constructions/Ca1.png", alt: "Development site — before completion", title: "Development" },
-  { src: "/constructions/Ca3.jpeg", alt: "Aerial view of neighborhood", title: "Aerial View" },
-  { src: "/constructions/Ca4.jpg", alt: "Residential construction site", title: "Construction Site" },
-  { src: "/constructions/Ca5.jpg", alt: "Commercial and residential build", title: "Build" },
+  { src: "/constructions/ComunidadC.webp", alt: "Completed community — finished homes and landscaping", title: "Completed Community" },
+  { src: "/constructions/Ca2.webp", alt: "Construction in progress — SLD project", title: "In Progress" },
+  { src: "/constructions/Ca1.webp", alt: "Development site — before completion", title: "Development" },
+  { src: "/constructions/Ca3.webp", alt: "Aerial view of neighborhood", title: "Aerial View" },
+  { src: "/constructions/Ca4.webp", alt: "Residential construction site", title: "Construction Site" },
+  { src: "/constructions/Ca5.webp", alt: "Commercial and residential build", title: "Build" },
 ];
 
 export const CommercialShowcase = () => {

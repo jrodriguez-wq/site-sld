@@ -39,7 +39,7 @@ const teamMembers = [
     name: "Nader Hack",
     role: "COO & Director of Financial Operations",
     company: "Standard Land Development",
-    image: "/recurses/coo.jpg",
+    image: "/recurses/coo.webp",
     bio: "Nader Hack oversees operations and financial strategy at Standard Land Development. As COO and Director of Financial Operations, he ensures every project runs efficiently and meets the highest standards of quality. His expertise in financial planning and operational excellence has been instrumental in scaling SLD's impact while maintaining affordability for families.",
     stats: [
       { label: "41 years in the mortgage industry", icon: Briefcase },
@@ -116,7 +116,7 @@ const About = () => {
             <div className="relative">
               <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
-                  src="/recurses/casas.jpg"
+                  src="/recurses/casas.webp"
                   alt="SLD housing development in Southwest Florida"
                   fill
                   className="object-cover"
@@ -258,7 +258,7 @@ const About = () => {
             <div className="relative">
               <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
-                  src="/recurses/foto-aerea.png"
+                  src="/recurses/foto-aerea.webp"
                   alt="Aerial view of SLD development"
                   fill
                   className="object-cover"

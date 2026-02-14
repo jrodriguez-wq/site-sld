@@ -16,7 +16,7 @@ const logos = [
   },
   {
     name: "Land Trust Partners",
-    src: "/logos/LTP.png",
+    src: "/logos/LTP.webp",
     alt: "Land Trust Partners Of Florida LLC Logo",
   },
   {
@@ -31,7 +31,7 @@ const logos = [
   },
   {
     name: "DLPbank",
-    src: "/logos/dlp-bank.png",
+    src: "/logos/dlp-bank.webp",
     alt: "DLPbank Logo",
   },
 ];

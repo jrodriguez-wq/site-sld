@@ -19,7 +19,7 @@ export default function BlogPage() {
         title="Blog & News"
         subtitle="Stories from Our Community"
         description="Stay updated with the latest news, community impact stories, and insights from Standard Land Development."
-        backgroundImage="/recurses/foto-aerea.png"
+        backgroundImage="/recurses/foto-aerea.webp"
         badge="Latest Updates"
       />
 

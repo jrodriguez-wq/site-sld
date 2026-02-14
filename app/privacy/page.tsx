@@ -12,7 +12,7 @@ export default function PrivacyPage() {
       <PageHero
         title="Privacy Policy"
         description="Learn how we protect your personal information and respect your privacy."
-        backgroundImage="/houses/713/principal.jpg"
+        backgroundImage="/houses/713/principal.webp"
         badge="Your Privacy Matters"
       />
       <div className="py-16 sm:py-20 md:py-24">

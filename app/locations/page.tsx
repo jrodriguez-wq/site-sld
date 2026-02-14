@@ -13,7 +13,7 @@ export default function LocationsPage() {
         title="Our Locations"
         subtitle="Building Across South Florida"
         description="Explore our development locations in South Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties."
-        backgroundImage="/houses/3711/principal.jpg"
+        backgroundImage="/houses/3711/principal.webp"
         badge="Where We Build"
       />
       <div id="locations" className="scroll-mt-28">

@@ -50,7 +50,7 @@ const TeamSection = () => {
           <article className="group relative flex flex-col bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-[0.99]">
             <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
               <Image
-                src="/recurses/ceo-michael.jpg"
+                src="/recurses/ceo-michael.webp"
                 alt="Michael J. Newell, CEO & Founder"
                 fill
                 className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
@@ -95,7 +95,7 @@ const TeamSection = () => {
           <article className="group relative flex flex-col bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 active:scale-[0.99]">
             <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden">
               <Image
-                src="/recurses/coo.jpg"
+                src="/recurses/coo.webp"
                 alt="Nader Hack - Chief Operating Officer"
                 fill
                 className="object-cover object-[center_25%] transition-transform duration-500 ease-out group-hover:scale-105"

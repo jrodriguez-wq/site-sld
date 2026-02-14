@@ -12,7 +12,7 @@ export default function TermsPage() {
       <PageHero
         title="Terms of Service"
         description="Read our terms and conditions to understand the terms of use for our services and website."
-        backgroundImage="/houses/3711/principal.jpg"
+        backgroundImage="/houses/3711/principal.webp"
         badge="Legal Information"
       />
       <div className="py-16 sm:py-20 md:py-24">

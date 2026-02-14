@@ -12,7 +12,7 @@ const homeVideos = [
   {
     id: "video1",
     src: "/SLD-video1.mp4",
-    poster: "/recurses/casa.jpg",
+    poster: "/recurses/casa.webp",
     title: "Construction Progress",
     subtitle:
       "Watch our construction process in action, from foundation to finish",
@@ -20,7 +20,7 @@ const homeVideos = [
   {
     id: "video2",
     src: "/SLD-video2.MP4",
-    poster: "/recurses/casas.jpg",
+    poster: "/recurses/casas.webp",
     title: "Project Development",
     subtitle:
       "See how we develop quality homes with attention to every detail",
@@ -41,12 +41,12 @@ export default function Home() {
       <Statistics />
       <BeforeAfterSlider
         beforeImage={{
-          src: "/constructions/Ca1.png",
+          src: "/constructions/Ca1.webp",
           alt: "Community during construction - development in progress",
           label: "Before",
         }}
         afterImage={{
-          src: "/constructions/ComunidadC.png",
+          src: "/constructions/ComunidadC.webp",
           alt: "Completed community - finished homes and landscaping",
           label: "After",
         }}
@@ -70,12 +70,12 @@ export default function Home() {
       />
       <ImageCompare
         leftImage={{
-          src: "/constructions/Ca2.png",
+          src: "/constructions/Ca2.webp",
           alt: "SLD construction site - house under construction with team and equipment",
           label: "In Progress",
         }}
         rightImage={{
-          src: "/constructions/ComunidadC.png",
+          src: "/constructions/ComunidadC.webp",
           alt: "Completed community - finished homes and landscaping",
           label: "Completed",
         }}

@@ -97,7 +97,7 @@ const Locations = () => (
           {/* Florida aerial illustration — LaBelle / Southwest Florida */}
           <div className="relative rounded-xl sm:rounded-2xl overflow-hidden border border-slate-200 shadow-xl ring-1 ring-slate-900/5 aspect-16/10 sm:aspect-21/9 min-h-[200px] sm:min-h-[240px]">
             <Image
-              src="/recurses/foto-aerea.png"
+              src="/recurses/foto-aerea.webp"
               alt="Aerial view of LaBelle and the Caloosahatchee River, Southwest Florida — where we're based"
               fill
               className="object-cover object-center"

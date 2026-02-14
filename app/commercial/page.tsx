@@ -18,7 +18,7 @@ export default function CommercialPage() {
         title="Commercial Spaces"
         subtitle="Our Commercial Projects"
         description="Discover our commercial construction projects. From retail spaces to business units, we deliver excellence in every build."
-        backgroundImage="/constructions/ComunidadC.png"
+        backgroundImage="/constructions/ComunidadC.webp"
         badge="Commercial Construction"
       />
       <div id="commercial-content" className="scroll-mt-28">

@@ -10,7 +10,7 @@ import { Home, Users, Star } from "lucide-react";
 const EASE_SMOOTH = [0.25, 0.46, 0.45, 0.94] as const;
 
 /** Background / side image for the section (construction, homes, etc.) */
-const STATS_IMAGE = "/recurses/casas.jpg";
+const STATS_IMAGE = "/recurses/casas.webp";
 
 const stats = [
   {

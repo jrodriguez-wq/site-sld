@@ -13,14 +13,14 @@ const videos = [
     src: "/SLD-video1.mp4",
     title: "Construction Progress",
     description: "Watch our construction process in action, from foundation to finish",
-    thumbnail: "/recurses/casa.jpg",
+    thumbnail: "/recurses/casa.webp",
   },
   {
     id: "video2",
     src: "/SLD-video2.MP4",
     title: "Project Development",
     description: "See how we develop quality homes with attention to every detail",
-    thumbnail: "/recurses/casas.jpg",
+    thumbnail: "/recurses/casas.webp",
   },
 ];
 

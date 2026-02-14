@@ -9,50 +9,13 @@ import { Button } from "@/components/ui/button";
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-  // Placeholder for construction images - replace with actual images
   const images = [
-    {
-      id: 1,
-      src: "/construction-1.jpg",
-      alt: "Completed home construction",
-      title: "Modern Family Home",
-      location: "Southwest Florida",
-    },
-    {
-      id: 2,
-      src: "/construction-2.jpg",
-      alt: "Construction in progress",
-      title: "New Development",
-      location: "Palm Beach County",
-    },
-    {
-      id: 3,
-      src: "/construction-3.jpg",
-      alt: "Finished residential project",
-      title: "Quality Construction",
-      location: "Broward County",
-    },
-    {
-      id: 4,
-      src: "/construction-4.jpg",
-      alt: "Home construction site",
-      title: "Building Dreams",
-      location: "Lee County",
-    },
-    {
-      id: 5,
-      src: "/construction-5.jpg",
-      alt: "Completed residential home",
-      title: "Family Home",
-      location: "Collier County",
-    },
-    {
-      id: 6,
-      src: "/construction-6.jpg",
-      alt: "Construction project",
-      title: "New Development",
-      location: "Hendry County",
-    },
+    { id: 1, src: "/constructions/Ca1.webp", alt: "Completed home construction", title: "Modern Family Home", location: "Southwest Florida" },
+    { id: 2, src: "/constructions/Ca2.webp", alt: "Construction in progress", title: "New Development", location: "Palm Beach County" },
+    { id: 3, src: "/constructions/Ca3.webp", alt: "Finished residential project", title: "Quality Construction", location: "Broward County" },
+    { id: 4, src: "/constructions/Ca4.webp", alt: "Home construction site", title: "Building Dreams", location: "Lee County" },
+    { id: 5, src: "/constructions/Ca5.webp", alt: "Completed residential home", title: "Family Home", location: "Collier County" },
+    { id: 6, src: "/constructions/ComunidadC.webp", alt: "Community construction project", title: "New Community", location: "Hendry County" },
   ];
 
   const handleImageClick = (index: number) => {
@@ -118,10 +81,13 @@ const Gallery = () => {
                   <p className="text-white/80 text-sm sm:text-base">{image.location}</p>
                 </div>
                 <div className="absolute inset-0 bg-[#D4AF37]/0 group-hover:bg-[#D4AF37]/10 transition-colors duration-300 z-10" />
-                {/* Placeholder - Replace with actual Image component when images are available */}
-                <div className="w-full h-full bg-gradient-to-br from-[#090040] to-[#2d2c55] flex items-center justify-center">
-                  <span className="text-white/30 text-sm">Image {image.id}</span>
-                </div>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
               </div>
             ))}
           </div>
@@ -171,12 +137,14 @@ const Gallery = () => {
               <ChevronRight className="h-6 w-6" />
             </Button>
 
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-gradient-to-br from-[#090040] to-[#2d2c55]">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-white/30 text-lg">
-                  {images[selectedImage].title}
-                </span>
-              </div>
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+              <Image
+                src={images[selectedImage].src}
+                alt={images[selectedImage].alt}
+                fill
+                className="object-contain"
+                sizes="100vw"
+              />
             </div>
             
             <div className="mt-4 text-center">

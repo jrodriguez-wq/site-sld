@@ -7,18 +7,19 @@ import { ChevronLeft, ChevronRight, Store } from "lucide-react";
 import { AnimatedSection } from "@/components/ui/animated-section";
 
 const commercialImages = [
-  "/constructions/IMG_0062.jpeg",
-  "/constructions/IMG_0561.jpeg",
-  "/constructions/IMG_0562.jpeg",
-  "/constructions/IMG_0563.jpeg",
-  "/constructions/IMG_0564.jpeg",
-  "/constructions/IMG_0565.jpeg",
-  "/constructions/IMG_0566.jpeg",
-  "/constructions/IMG_2182.jpg",
-  "/constructions/IMG_4872.jpg",
-  "/constructions/IMG_5733.jpg",
-  "/constructions/IMG_7574.jpg",
-  "/constructions/TC_05868.jpeg",
+  "/constructions/Ca1.webp",
+  "/constructions/Ca2.webp",
+  "/constructions/Ca3.webp",
+  "/constructions/Ca4.webp",
+  "/constructions/Ca5.webp",
+  "/constructions/ComunidadC.webp",
+  "/constructions/casas/Casas1.webp",
+  "/constructions/casas/Casas2.webp",
+  "/constructions/casas/Casas3.webp",
+  "/constructions/casas/Casas4.webp",
+  "/constructions/casas/Casas5.webp",
+  "/constructions/casas/Casas6.webp",
+  "/constructions/casas/Casas7.webp",
 ];
 
 export const CommercialSlider = () => {

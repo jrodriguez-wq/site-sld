@@ -13,7 +13,7 @@ export default function ContactPage() {
         title="Contact Us"
         subtitle="Get in Touch with Our Team"
         description="Contact us for investment opportunities, homeownership programs, and more. We're here to help you achieve your dream of homeownership."
-        backgroundImage="/houses/3941/principal.jpg"
+        backgroundImage="/houses/3941/principal.webp"
         badge="Let's Connect"
       />
       <div id="contact" className="scroll-mt-20 sm:scroll-mt-24">
