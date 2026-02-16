@@ -133,6 +133,7 @@ const VideoPlayer = ({
               muted
               loop={loop}
               playsInline
+              preload="none"
               className="absolute inset-0 w-full h-full object-cover scale-150 blur-3xl opacity-50"
               aria-hidden
             />
@@ -149,6 +150,7 @@ const VideoPlayer = ({
           muted={isMuted}
           loop={loop}
           playsInline
+          preload="none"
           onTimeUpdate={handleTimeUpdate}
           onEnded={() => !loop && setIsPlaying(false)}
           onClick={togglePlay}

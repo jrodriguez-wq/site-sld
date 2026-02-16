@@ -78,7 +78,8 @@ const Hero = () => {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/recurses/casa.webp"
           onLoadedData={() => setIsVideoLoaded(true)}
           onCanPlay={() => setIsVideoLoaded(true)}
           onError={() => setIsVideoLoaded(true)}
@@ -134,6 +135,7 @@ const Hero = () => {
                 height={96}
                 className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto max-w-[85vw]"
                 priority
+                fetchPriority="high"
               />
             </Link>
             <motion.div

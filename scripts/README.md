@@ -1,29 +1,26 @@
-# Image Optimization Script
+# Scripts de Optimización
 
-Convierte imágenes JPG, PNG, GIF → WebP para reducir peso y acelerar el sitio.
+## Imágenes (`optimize-images.js`)
 
-## Uso
+Convierte imágenes JPG, PNG, GIF → WebP para reducir peso.
 
 ```bash
-# 1. Simular (ver qué haría sin cambiar nada)
-npm run optimize-images:dry
-
-# 2. Convertir + actualizar referencias (mantiene originales)
-npm run optimize-images
-
-# 3. Convertir + actualizar + eliminar originales
-npm run optimize-images:delete
+npm run optimize-images:dry    # Simular
+npm run optimize-images       # Convertir (mantiene originales)
+npm run optimize-images:delete # Convertir + eliminar originales
 ```
 
-## Qué hace
+- Requiere: `sharp` (dev dependency)
 
-- Busca `.jpg`, `.jpeg`, `.png`, `.gif` en `public/`
-- Convierte cada una a `.webp` (calidad 82%, max 1920px ancho)
-- Actualiza referencias en `app/`, `components/`, `lib/`, `data/`
-- Opcionalmente elimina los originales (`--delete`)
-- Excluye `public/favicon/` (PNG requerido para favicons)
+---
 
-## Requisitos
+## Videos (`optimize-videos.js`)
 
-- `sharp` (dev dependency)
-- Node.js 18+
+Comprime MP4 con ffmpeg para reducir peso (SLD-video2: ~77MB → ~15MB).
+
+```bash
+node scripts/optimize-videos.js --dry  # Simular
+node scripts/optimize-videos.js        # Procesar (genera .optimized)
+```
+
+- Requiere: `ffmpeg` instalado
