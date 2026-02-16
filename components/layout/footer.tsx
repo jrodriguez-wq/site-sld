@@ -55,7 +55,7 @@ type SocialItem = {
   who: "SLD" | "CEO";
 };
 
-/** Redes sociales: agrupadas por SLD (empresa) y CEO (Michael J. Newell) */
+/** Social links grouped by Company (SLD) and CEO (Michael J. Newell) */
 const getSocialByWho = () => {
   const { social } = CONTACT_INFO as typeof CONTACT_INFO & {
     social?: {
@@ -187,7 +187,7 @@ const Footer = () => {
                     </div>
                   </div>
                 )}
-                {/* Redes del CEO */}
+                {/* CEO social links */}
                 {socialCEO.length > 0 && (
                   <div>
                     <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40 mb-2">CEO</p>

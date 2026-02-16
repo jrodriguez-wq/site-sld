@@ -94,7 +94,7 @@ const Hero = () => {
         />
       </motion.div>
 
-      {/* Overlay mínimo: solo un poco de oscuro en bordes para que el texto se lea; el video se ve */}
+      {/* Minimal overlay for text readability; video remains visible */}
       <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,transparent_0%,rgba(9,0,64,0.08)_50%,rgba(9,0,64,0.28)_100%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-[#090040]/15 via-transparent to-[#090040]/35" />

@@ -125,7 +125,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                 onClick={onToggle}
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#090040]/85 backdrop-blur-xl border border-[#090040]/30 shadow-lg shadow-black/25 text-white hover:bg-[#090040] hover:border-[#D4AF37]/40 active:scale-95 transition-all touch-manipulation"
                 style={{ WebkitTapHighlightColor: "transparent" }}
-                aria-label="Cerrar menú"
+                aria-label="Close menu"
               >
                 <X className="h-6 w-6" />
               </motion.button>
@@ -142,7 +142,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                   prefetch
                   onClick={onItemClick}
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#090040] shadow-lg shadow-black/20 hover:bg-[#FFD700] active:scale-95 transition-transform touch-manipulation"
-                  aria-label="Contacto"
+                  aria-label="Contact"
                 >
                   <Phone className="h-5 w-5" />
                 </Link>
@@ -257,7 +257,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
               <a
                 href={CONTACT_INFO.phone.href}
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#090040] shadow-lg shadow-black/20 hover:bg-[#FFD700] active:scale-95 transition-transform touch-manipulation"
-                aria-label="Llamar ahora"
+                aria-label="Call now"
               >
                 <Phone className="h-5 w-5" />
               </a>
@@ -267,7 +267,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                 onClick={onToggle}
                 className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#090040]/85 backdrop-blur-xl border border-[#090040]/30 shadow-lg shadow-black/25 text-white hover:bg-[#090040] hover:border-[#D4AF37]/40 active:scale-95 transition-all duration-200 touch-manipulation"
                 style={{ WebkitTapHighlightColor: "transparent" }}
-                aria-label="Abrir menú de navegación"
+                aria-label="Open navigation menu"
                 aria-expanded={isOpen}
               >
                 <HomeIcon className="h-6 w-6" aria-hidden />

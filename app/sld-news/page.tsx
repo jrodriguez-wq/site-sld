@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Latest news, company updates, and press from Standard Land Development. Building affordable homes and creating opportunities for American families in Southwest Florida.",
 };
 
-/** Noticias y actualizaciones de la empresa (categorías news y company) */
+/** News and company updates (categories: news, company) */
 const newsCategories = ["news", "company"] as const;
 
 export default function SLDNewsPage() {
@@ -26,10 +26,10 @@ export default function SLDNewsPage() {
     <>
       <PageHero
         title="SLD News"
-        subtitle="Noticias y actualizaciones"
-        description="Últimas noticias, comunicados y novedades de Standard Land Development. Construyendo oportunidades para las familias en el suroeste de Florida."
+        subtitle="News & Updates"
+        description="Latest news, press releases, and updates from Standard Land Development. Building opportunities for families across Southwest Florida."
         backgroundImage="/recurses/foto-aerea.webp"
-        badge="Noticias"
+        badge="News"
       />
 
       <section className="py-16 sm:py-20 md:py-24 bg-white relative scroll-mt-28">
@@ -45,15 +45,15 @@ export default function SLDNewsPage() {
             {newsPosts.length === 0 ? (
               <div className="text-center py-16 sm:py-24">
                 <Newspaper className="w-16 h-16 text-slate-300 mx-auto mb-6" aria-hidden />
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">Próximamente</h2>
+                <h2 className="text-2xl font-bold text-slate-900 mb-2">Coming Soon</h2>
                 <p className="text-slate-600 max-w-md mx-auto mb-8">
-                  Estamos preparando las últimas noticias y comunicados. Mientras tanto, visita nuestro blog.
+                  We are preparing the latest news and press releases. In the meantime, visit our blog.
                 </p>
                 <Link
                   href="/blog"
                   className="inline-flex items-center gap-2 text-[#090040] font-semibold hover:underline"
                 >
-                  Ir al Blog
+                  Go to Blog
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -62,10 +62,10 @@ export default function SLDNewsPage() {
                 {featuredNews.length > 0 && (
                   <div className="mb-14">
                     <span className="inline-block text-[11px] sm:text-xs font-semibold tracking-[0.2em] uppercase text-[#D4AF37] mb-4">
-                      Destacado
+                      Featured
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 mb-6">
-                      Noticias destacadas
+                      Featured News
                     </h2>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                       {featuredNews.map((post) => (
@@ -77,7 +77,7 @@ export default function SLDNewsPage() {
 
                 <div>
                   <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 mb-6">
-                    Todas las noticias
+                    All News
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {restNews.map((post) => (
@@ -87,12 +87,12 @@ export default function SLDNewsPage() {
                 </div>
 
                 <div className="mt-14 pt-10 border-t border-slate-200 text-center">
-                  <p className="text-slate-600 mb-4">Más historias y artículos en nuestro blog.</p>
+                  <p className="text-slate-600 mb-4">More stories and articles on our blog.</p>
                   <Link
                     href="/blog"
                     className="inline-flex items-center gap-2 rounded-xl bg-[#090040] text-white px-6 py-3 font-semibold hover:bg-[#2d2c55] transition-colors"
                   >
-                    Ver Blog completo
+                    View Full Blog
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

@@ -13,23 +13,14 @@ interface FurnishedImage {
   modelName: string;
 }
 
-// Textos en inglés hardcodeados para evitar problemas de cache
-const FURNISHED_EN = {
+const FURNISHED_TEXTS = {
   title: "Furnished Homes",
   subtitle: "See how our models look when fully furnished",
   scheduleAppointment: "Schedule Appointment",
   viewModel: "View Model",
 } as const;
 
-// Textos en español hardcodeados como fallback
-const FURNISHED_ES = {
-  title: "Casas Amobladas",
-  subtitle: "Ve cómo se ven nuestros modelos cuando están completamente amoblados",
-  scheduleAppointment: "Agendar Cita",
-  viewModel: "Ver Modelo",
-} as const;
-
-// Nombres de modelos en inglés
+// Model names (English)
 const MODEL_NAMES_EN: Record<string, string> = {
   louisiana: "Louisiana",
   viana: "Viana",
@@ -41,15 +32,15 @@ const MODEL_NAMES_EN: Record<string, string> = {
 };
 
 export const FurnishedHomesSlider = () => {
-  const { t, language } = useTranslation();
-  const isEn = language === "en";
+  const { t } = useTranslation();
+  const isEn = true; // Site is English only
 
-  // Recopilar todas las imágenes amobladas de todos los modelos
+  // Collect all furnished images from all models
   const furnishedImages: FurnishedImage[] = useMemo(() => {
     const images: FurnishedImage[] = [];
     
     Object.entries(MODEL_AMO_IMAGES).forEach(([modelKey, imagePaths]) => {
-      // Obtener nombre del modelo
+      // Get model name
       const nameKey = `homeModels.models.${modelKey}.name`;
       const nameT = t(nameKey);
       const modelName = nameT !== nameKey 
@@ -68,24 +59,23 @@ export const FurnishedHomesSlider = () => {
     return images;
   }, [t, isEn]);
 
-  // Si no hay imágenes, no mostrar el slider
+  // If no images, don't render slider
   if (furnishedImages.length === 0) {
     return null;
   }
 
-  // Duplicar imágenes para efecto infinito suave
+  // Duplicate images for smooth infinite scroll
   const duplicatedImages = [...furnishedImages, ...furnishedImages, ...furnishedImages];
 
-  // Textos traducidos sin depender de cache
-  const title = isEn ? FURNISHED_EN.title : FURNISHED_ES.title;
-  const subtitle = isEn ? FURNISHED_EN.subtitle : FURNISHED_ES.subtitle;
-  const scheduleText = isEn ? FURNISHED_EN.scheduleAppointment : FURNISHED_ES.scheduleAppointment;
-  const viewModelText = isEn ? FURNISHED_EN.viewModel : FURNISHED_ES.viewModel;
+  const title = FURNISHED_TEXTS.title;
+  const subtitle = FURNISHED_TEXTS.subtitle;
+  const scheduleText = FURNISHED_TEXTS.scheduleAppointment;
+  const viewModelText = FURNISHED_TEXTS.viewModel;
 
   return (
     <section className="relative w-full py-8 sm:py-10 md:py-12 lg:py-16 bg-gradient-to-b from-background to-muted/20">
       <div className="container mx-auto px-3 sm:px-4 md:px-5 lg:px-6 xl:px-8 max-w-[1800px]">
-        {/* Header - Más compacto en móvil */}
+        {/* Header */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8">
           <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2" suppressHydrationWarning>
             {title}
@@ -95,9 +85,9 @@ export const FurnishedHomesSlider = () => {
           </p>
         </div>
 
-        {/* Carrusel Horizontal Infinito */}
+        {/* Horizontal infinite carousel */}
         <div className="relative w-full overflow-hidden">
-          {/* Gradient overlays para efecto fade */}
+          {/* Gradient overlays for fade effect */}
           <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-20 md:w-32 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none" />
 
@@ -107,7 +97,7 @@ export const FurnishedHomesSlider = () => {
                 key={`${item.modelKey}-${item.image}-${index}`}
                 className="group relative shrink-0 w-[280px] sm:w-[320px] md:w-[380px] lg:w-[420px] h-[200px] sm:h-[240px] md:h-[280px] lg:h-[320px] rounded-lg sm:rounded-xl overflow-hidden bg-muted/50 border border-border/50 hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
               >
-                {/* Imagen */}
+                {/* Image */}
                 <Image
                   src={item.image}
                   alt={`${item.modelName} - Furnished`}
@@ -121,16 +111,16 @@ export const FurnishedHomesSlider = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 
-                {/* Info Overlay - Solo visible en hover */}
+                {/* Info overlay - visible on hover */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-background/95 backdrop-blur-md border-t border-border/50">
                   <p className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">
-                    {isEn ? "Model" : "Modelo"}
+                    Model
                   </p>
                   <h3 className="text-sm sm:text-base md:text-lg font-bold text-foreground mb-2 sm:mb-3 line-clamp-1">
                     {item.modelName}
                   </h3>
                   
-                  {/* Action Buttons - Compactos */}
+                  {/* Action buttons */}
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Button
                       asChild
@@ -156,7 +146,7 @@ export const FurnishedHomesSlider = () => {
                   </div>
                 </div>
 
-                {/* Badge con nombre del modelo - Siempre visible */}
+                {/* Model name badge - always visible */}
                 <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-background/90 backdrop-blur-sm px-2 sm:px-3 py-1 rounded-md sm:rounded-lg border border-border/50">
                   <p className="text-[10px] sm:text-xs font-semibold text-foreground line-clamp-1">
                     {item.modelName}
@@ -167,7 +157,7 @@ export const FurnishedHomesSlider = () => {
           </div>
         </div>
 
-        {/* CTA Button - Centrado debajo del carrusel */}
+        {/* CTA below carousel */}
         <div className="text-center mt-6 sm:mt-8">
           <Button
             asChild
