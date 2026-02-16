@@ -57,6 +57,7 @@ const navItems: NavItem[] = [
     ],
   },
   { href: "/locations", label: "Locations", icon: MapPin },
+  { href: "/sld-news", label: "SLD News", icon: Newspaper },
   { href: "/blog", label: "Blog", icon: Newspaper },
 ];
 

@@ -1,10 +1,10 @@
 export const getDirectionsUrl = (address: string, city: string) =>
   `https://www.google.com/maps/dir//${encodeURIComponent(`${address}, ${city}`)}`;
 
-/** Main office — always first (Office 1). */
+/** Main office — Principal Place of Business (LaBelle). */
 const MAIN_OFFICE = {
   name: "LaBelle",
-  address: "45 Bridge St",
+  address: "45 N Bridge St",
   city: "LaBelle, FL 33935",
   lat: 26.7616,
   lng: -81.4382,

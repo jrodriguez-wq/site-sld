@@ -23,11 +23,13 @@ const footerColumns = [
     title: "Company",
     links: [
       { href: "/about", label: "About Us" },
+      { href: "/sld-news", label: "SLD News" },
       { href: "/locations", label: "Locations" },
       { href: "/business-model", label: "Our Mission" },
       { href: "/investment", label: "Cash Program" },
       { href: "/programs", label: "Rent to Own" },
       { href: "/contact", label: "Contact" },
+      { href: CONTACT_INFO.mjNewellHomesUrl, label: "M.J. Newell Homes", external: true },
     ],
   },
   {
@@ -46,12 +48,45 @@ const footerColumns = [
   },
 ];
 
-const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-];
+type SocialItem = {
+  icon: typeof Facebook | typeof Linkedin | typeof Instagram;
+  href: string;
+  label: string;
+  who: "SLD" | "CEO";
+};
+
+/** Redes sociales: agrupadas por SLD (empresa) y CEO (Michael J. Newell) */
+const getSocialByWho = () => {
+  const { social } = CONTACT_INFO as typeof CONTACT_INFO & {
+    social?: {
+      facebook?: string;
+      instagram?: string;
+      instagramMichael?: string;
+      linkedInCompany?: string;
+      linkedInMichael?: string;
+    };
+  };
+  const sld: SocialItem[] = [];
+  const ceo: SocialItem[] = [];
+  if (social?.facebook) {
+    sld.push({ icon: Facebook, href: social.facebook, label: "Facebook - Standard Land Development", who: "SLD" });
+  }
+  if (social?.instagram) {
+    sld.push({ icon: Instagram, href: social.instagram, label: "Instagram - Standard Land Development", who: "SLD" });
+  }
+  if (social?.linkedInCompany) {
+    sld.push({ icon: Linkedin, href: social.linkedInCompany, label: "LinkedIn - Standard Land Development", who: "SLD" });
+  }
+  if (social?.instagramMichael) {
+    ceo.push({ icon: Instagram, href: social.instagramMichael, label: "Instagram - Michael J. Newell, CEO", who: "CEO" });
+  }
+  if (social?.linkedInMichael) {
+    ceo.push({ icon: Linkedin, href: social.linkedInMichael, label: "LinkedIn - Michael J. Newell, CEO", who: "CEO" });
+  }
+  return { sld, ceo };
+};
+
+const { sld: socialSLD, ceo: socialCEO } = getSocialByWho();
 
 const Footer = () => {
   const footerRef = useRef<HTMLElement>(null);
@@ -127,22 +162,55 @@ const Footer = () => {
                   {CONTACT_INFO.address.street}, {CONTACT_INFO.address.city}, {CONTACT_INFO.address.state} {CONTACT_INFO.address.zip}
                 </a>
               </div>
-              <div className="flex items-center gap-3 mt-8">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 transition-all duration-300"
-                      aria-label={social.label}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </a>
-                  );
-                })}
+              <div className="flex flex-wrap items-start gap-6 mt-8">
+                {/* Redes de la empresa */}
+                {socialSLD.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40 mb-2">Company</p>
+                    <div className="flex items-center gap-2">
+                      {socialSLD.map((social) => {
+                        const Icon = social.icon;
+                        return (
+                          <a
+                            key={social.label}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={social.label}
+                            className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 transition-all duration-300"
+                            aria-label={social.label}
+                          >
+                            <Icon className="w-4 h-4" />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                {/* Redes del CEO */}
+                {socialCEO.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider text-white/40 mb-2">CEO</p>
+                    <div className="flex items-center gap-2">
+                      {socialCEO.map((social) => {
+                        const Icon = social.icon;
+                        return (
+                          <a
+                            key={social.label}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={social.label}
+                            className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:text-[#D4AF37] hover:border-[#D4AF37]/30 hover:bg-[#D4AF37]/10 transition-all duration-300"
+                            aria-label={social.label}
+                          >
+                            <Icon className="w-4 h-4" />
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-6 pt-6 border-t border-white/10">
                 <p className="text-xs font-semibold text-[#D4AF37] mb-2 uppercase tracking-wider">Our Impact</p>
@@ -162,18 +230,30 @@ const Footer = () => {
                       {column.title}
                     </h4>
                     <ul className="space-y-3">
-                      {column.links.map((link) => (
-                        <li key={link.href}>
-                          <Link
-                            href={link.href}
-                            prefetch
-                            className="text-white/50 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-2 group"
-                          >
-                            <ArrowRight className="w-3 h-3 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                            {link.label}
-                          </Link>
-                        </li>
-                      ))}
+                      {column.links.map((link) => {
+                        const isExternal = "external" in link && link.external;
+                        const className = "text-white/50 hover:text-[#D4AF37] transition-colors text-sm flex items-center gap-2 group";
+                        return (
+                          <li key={link.href + link.label}>
+                            {isExternal ? (
+                              <a
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={className}
+                              >
+                                <ArrowRight className="w-3 h-3 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                                {link.label}
+                              </a>
+                            ) : (
+                              <Link href={link.href} prefetch className={className}>
+                                <ArrowRight className="w-3 h-3 opacity-0 -ml-5 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                                {link.label}
+                              </Link>
+                            )}
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))}

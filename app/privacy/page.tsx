@@ -91,11 +91,11 @@ export default function PrivacyPage() {
                   If you have questions about this Privacy Policy, please contact us at:
                 </p>
                 <div className="mt-4 p-4 bg-slate-100 rounded-lg text-slate-800">
-                  <p className="font-semibold">Standard Land Development</p>
-                  <p>2721 Vista Parkway</p>
-                  <p>West Palm Beach, FL 33411</p>
-                  <p>Email: info@sld.com</p>
-                  <p>Phone: (123) 456-7890</p>
+                  <p className="font-semibold">Standard Land Development, LLC</p>
+                  <p>45 N Bridge St</p>
+                  <p>LaBelle, FL 33935</p>
+                  <p>Email: info@standardlanddevelopment.com</p>
+                  <p>Phone: (561) 418-2016</p>
                 </div>
               </section>
             </div>
