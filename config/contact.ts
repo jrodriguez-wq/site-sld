@@ -28,6 +28,10 @@ export const CONTACT_INFO = {
   },
   /** Calendar link for scheduling calls (used on investment page and in ads). Replace with your Calendly, etc. */
   scheduleCall: process.env.NEXT_PUBLIC_SCHEDULE_CALL_URL || "https://calendly.com",
+  /** Calendly inline widget URL for contact page (investors schedule a meeting). */
+  calendlyInlineUrl:
+    process.env.NEXT_PUBLIC_CALENDLY_INLINE_URL ||
+    "https://calendly.com/contact-standardlanddevelopment/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=001ada",
   domain: "standardlanddevelopment.com",
   siteUrl: "https://standardlanddevelopment.com",
 };

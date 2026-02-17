@@ -4,7 +4,10 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { CONTACT_INFO } from "@/config/contact";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle, FaCalendarAlt } from "react-icons/fa";
+import { CalendlyInlineWidget } from "@/components/ui/calendly-inline-widget";
+
+type ContactTab = "schedule" | "email";
 
 interface FormErrors {
   name?: string;
@@ -14,6 +17,7 @@ interface FormErrors {
 }
 
 const Contact = () => {
+  const [activeTab, setActiveTab] = useState<ContactTab>("schedule");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -96,7 +100,6 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // TODO: Replace with actual API endpoint or HubSpot integration
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -105,8 +108,13 @@ const Contact = () => {
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
-        throw new Error("Failed to send message. Please try again.");
+        const message =
+          typeof data?.error === "string"
+            ? data.error
+            : "Failed to send message. Please try again.";
+        throw new Error(message);
       }
 
       setIsSubmitted(true);
@@ -227,16 +235,98 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* Contact Form - touch-friendly inputs on mobile */}
+          {/* Schedule meeting / Contact by email - tabs */}
           <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100 shadow-sm">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1.5 sm:mb-2">
-              Send Us a Message
-            </h3>
-            <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 text-sm sm:text-base md:text-lg">
-              Fill out the form below and we&apos;ll get back to you as soon as possible
-            </p>
-            
-            {isSubmitted ? (
+            <div className="flex gap-2 mb-4 sm:mb-6" role="tablist" aria-label="Contact option">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === "schedule"}
+                aria-controls="contact-schedule-panel"
+                id="contact-tab-schedule"
+                tabIndex={activeTab === "schedule" ? 0 : -1}
+                onClick={() => setActiveTab("schedule")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveTab("schedule");
+                  }
+                  if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    document.getElementById("contact-tab-email")?.focus();
+                  }
+                }}
+                className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors min-h-[48px] touch-manipulation ${
+                  activeTab === "schedule"
+                    ? "bg-slate-900 text-white"
+                    : "bg-white text-gray-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-100"
+                }`}
+              >
+                <FaCalendarAlt className="h-4 w-4 shrink-0" aria-hidden />
+                Schedule a meeting
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === "email"}
+                aria-controls="contact-email-panel"
+                id="contact-tab-email"
+                tabIndex={activeTab === "email" ? 0 : -1}
+                onClick={() => setActiveTab("email")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActiveTab("email");
+                  }
+                  if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    document.getElementById("contact-tab-schedule")?.focus();
+                  }
+                }}
+                className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors min-h-[48px] touch-manipulation ${
+                  activeTab === "email"
+                    ? "bg-slate-900 text-white"
+                    : "bg-white text-gray-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-100"
+                }`}
+              >
+                <FaEnvelope className="h-4 w-4 shrink-0" aria-hidden />
+                Contact by email
+              </button>
+            </div>
+
+            {activeTab === "schedule" && (
+              <div
+                id="contact-schedule-panel"
+                role="tabpanel"
+                aria-labelledby="contact-tab-schedule"
+                className="mt-2"
+              >
+                <p className="text-gray-600 mb-4 text-sm sm:text-base">
+                  Schedule a 1-hour call with our team. For investors or a more personal conversation.
+                </p>
+                <CalendlyInlineWidget
+                  url={CONTACT_INFO.calendlyInlineUrl}
+                  minWidth={320}
+                  height={700}
+                  className="w-full rounded-xl overflow-hidden"
+                />
+              </div>
+            )}
+
+            {activeTab === "email" && (
+              <div
+                id="contact-email-panel"
+                role="tabpanel"
+                aria-labelledby="contact-tab-email"
+              >
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1.5 sm:mb-2">
+                  Send a message
+                </h3>
+                <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 text-sm sm:text-base md:text-lg">
+                  Fill out the form below and we&apos;ll get back to you as soon as possible.
+                </p>
+
+                {isSubmitted ? (
               <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in-0 zoom-in-95 duration-500">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-900 text-white">
                   <FaCheckCircle className="h-8 w-8 text-white" />
@@ -259,7 +349,7 @@ const Contact = () => {
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6" noValidate>
                 {submitError && (
                   <div className="rounded-xl bg-red-50 border-2 border-red-200 p-4 flex items-start gap-3 animate-in fade-in-0 slide-in-from-top-2 duration-300">
-                    <FaExclamationCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <FaExclamationCircle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-red-900 mb-1">Error</p>
                       <p className="text-sm text-red-700">{submitError}</p>
@@ -408,6 +498,8 @@ const Contact = () => {
                   )}
                 </Button>
               </form>
+            )}
+              </div>
             )}
           </div>
         </div>
