@@ -9,6 +9,8 @@ export const CONTACT_INFO = {
     href: "mailto:info@standardlanddevelopment.com",
     raw: "info@standardlanddevelopment.com",
   },
+  /** Where contact form submissions are sent (Resend "to"). */
+  contactFormTo: process.env.CONTACT_FORM_TO_EMAIL ?? "contact@standardlanddevelopment.com",
   address: {
     street: "45 N Bridge St",
     city: "LaBelle",

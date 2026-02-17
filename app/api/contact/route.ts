@@ -120,9 +120,11 @@ export async function POST(request: Request) {
   const { data } = validated;
   const html = buildHtmlEmail(data);
 
+  const toEmail = CONTACT_INFO.contactFormTo;
+
   const { data: sendData, error } = await resend.emails.send({
     from: FROM_EMAIL,
-    to: [CONTACT_INFO.email.raw],
+    to: [toEmail],
     replyTo: data.email,
     subject: `Contact form: ${data.name}`,
     html,
@@ -132,7 +134,7 @@ export async function POST(request: Request) {
     const errMessage = typeof error === "object" && error !== null && "message" in error
       ? String((error as { message?: unknown }).message)
       : String(error);
-    console.error("[Contact API] Resend error:", errMessage, "from:", FROM_EMAIL, "to:", CONTACT_INFO.email.raw, "raw:", JSON.stringify(error));
+    console.error("[Contact API] Resend error:", errMessage, "from:", FROM_EMAIL, "to:", toEmail, "raw:", JSON.stringify(error));
     return NextResponse.json(
       { error: "Failed to send message. Please try again or contact us directly." },
       { status: 500 }
