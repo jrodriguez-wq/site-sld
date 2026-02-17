@@ -16,7 +16,15 @@ interface ContactBody {
   message?: string;
 }
 
-function validateBody(body: unknown): { ok: true; data: ContactBody } | { ok: false; status: number; message: string } {
+/** Validated payload: name, email, message are required; phone is string (may be empty). */
+interface ValidatedContact {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
+function validateBody(body: unknown): { ok: true; data: ValidatedContact } | { ok: false; status: number; message: string } {
   if (!body || typeof body !== "object") {
     return { ok: false, status: 400, message: "Invalid request body." };
   }
@@ -52,7 +60,7 @@ function validateBody(body: unknown): { ok: true; data: ContactBody } | { ok: fa
   };
 }
 
-function buildHtmlEmail(data: ContactBody): string {
+function buildHtmlEmail(data: ValidatedContact): string {
   return `
 <!DOCTYPE html>
 <html>
