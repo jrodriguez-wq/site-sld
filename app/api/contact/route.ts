@@ -4,6 +4,7 @@ import { CONTACT_INFO } from "@/config/contact";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Must match your verified domain in Resend (e.g. contact.standardlanddevelopment.com → *@contact.standardlanddevelopment.com)
 const FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL ?? "Contact Form <onboarding@resend.dev>";
 
@@ -128,7 +129,10 @@ export async function POST(request: Request) {
   });
 
   if (error) {
-    console.error("Resend error:", error);
+    const errMessage = typeof error === "object" && error !== null && "message" in error
+      ? String((error as { message?: unknown }).message)
+      : String(error);
+    console.error("[Contact API] Resend error:", errMessage, "from:", FROM_EMAIL, "to:", CONTACT_INFO.email.raw, "raw:", JSON.stringify(error));
     return NextResponse.json(
       { error: "Failed to send message. Please try again or contact us directly." },
       { status: 500 }
