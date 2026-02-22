@@ -324,3 +324,26 @@ a:hover,
   color: #475569;
   font-style: italic;
 }
+
+/* Loading screen progress bar */
+@keyframes loading-bar {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-bar {
+  animation: loading-bar 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-bar {
+    animation: none;
+    transform: translateX(0);
+    width: 100%;
+  }
+}

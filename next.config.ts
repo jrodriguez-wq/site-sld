@@ -1,13 +1,54 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Imágenes: unoptimized para evitar límite de Vercel; WebP ya generado en local.
+  // Image optimization: use Next.js optimizer (Vercel/host). Set NEXT_IMAGE_UNOPTIMIZED=1 to disable if needed.
   images: {
-    unoptimized: true,
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    unoptimized: process.env.NEXT_IMAGE_UNOPTIMIZED === "1",
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
+    formats: ["image/avif", "image/webp"],
   },
-  // Tree-shake packages pesados para reducir bundle
+  // Long-lived cache for static assets so repeat visits don't re-download unchanged content
+  async headers() {
+    return [
+      {
+        source: "/SLD-video1.mp4",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/SLD-video2.MP4",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/houses/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/recurses/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/constructions/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/hero/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/modelos-optimized/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/logos/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      {
+        source: "/blog/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
+  },
   experimental: {
     optimizePackageImports: [
       "lucide-react",
@@ -19,7 +60,6 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-tabs",
     ],
   },
-  // Compresión
   compress: true,
 };
 

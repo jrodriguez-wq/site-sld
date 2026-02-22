@@ -65,6 +65,9 @@ const Hero = () => {
       variants={containerVariants}
       aria-label="Standard Land Development - Luxury Home Builder"
     >
+      {/* Preload hero video and poster for faster LCP */}
+      <link rel="preload" href="/SLD-video1.mp4" as="video" type="video/mp4" />
+      <link rel="preload" href="/recurses/casa.webp" as="image" fetchPriority="high" />
       {/* Video de fondo - siempre visible */}
       <motion.div
         className="absolute inset-0 z-0"
@@ -78,7 +81,7 @@ const Hero = () => {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           poster="/recurses/casa.webp"
           onLoadedData={() => setIsVideoLoaded(true)}
           onCanPlay={() => setIsVideoLoaded(true)}

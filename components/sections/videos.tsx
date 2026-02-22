@@ -91,6 +91,8 @@ const Videos = () => {
                       videoRefs.current[video.id] = el;
                     }}
                     src={video.src}
+                    poster={video.thumbnail}
+                    preload="auto"
                     controls
                     autoPlay
                     muted={muted}
