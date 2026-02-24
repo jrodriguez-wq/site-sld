@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ArrowRight, Bed, Bath, Square, Home } from "lucide-react";
 import { getModelData } from "@/lib/models/model-data";
 import { getModelImages, getModelMainImage } from "@/lib/models/model-images";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { Container } from "@/components/ui/container";
 
@@ -36,8 +37,8 @@ const ModelsShowcase = () => {
         try {
           const modelData = await getModelData(key);
           if (modelData) {
-            const images = getModelImages(key);
-            const mainImage = getModelMainImage(key);
+            const images = getModelImages(key).map(getCloudinaryImageUrl);
+            const mainImage = getCloudinaryImageUrl(getModelMainImage(key));
             loadedModels.push({
               key,
               name: modelData.name,

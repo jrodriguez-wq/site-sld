@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo, Suspense, lazy, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { getModelImages, getModelMainImage } from "@/lib/models/model-images";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import { getModelData } from "@/lib/models/model-data";
 import { extractPrice } from "@/lib/models/model-utils";
 import { ModelData, Community } from "@/types/model";
@@ -377,8 +378,8 @@ export default function ModelsPage() {
                   // Use base key directly (already unique, no community suffix)
                   const baseKey = model.key as keyof typeof MODEL_CONFIG;
                   const config = MODEL_CONFIG[baseKey];
-                  const modelImages = getModelImages(baseKey);
-                  const mainImage = getModelMainImage(baseKey);
+                  const modelImages = getModelImages(baseKey).map(getCloudinaryImageUrl);
+                  const mainImage = getCloudinaryImageUrl(getModelMainImage(baseKey));
                   // Auto carousel interval: 4 seconds (4000ms) - each card will cycle through images
                   const carouselInterval = 4000; // 4 seconds
                   const initialDelay = index * 80; // Stagger delay for animations

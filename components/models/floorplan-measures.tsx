@@ -34,41 +34,41 @@ export const FloorplanMeasures = ({
   return (
     <div
       className={cn(
-        "bg-background/95 backdrop-blur-md",
-        "rounded-lg sm:rounded-xl border-2 border-border/50",
+        "bg-white/95 backdrop-blur-md",
+        "rounded-lg sm:rounded-xl border-2 border-slate-200",
         "shadow-2xl",
         "overflow-hidden",
-        // Desktop: always absolute positioning (más abajo pero con espacio para chat)
+        // Desktop: always absolute positioning
         "md:absolute md:-bottom-4 md:right-4 md:z-20 md:w-[280px]",
         // Mobile: conditional positioning
-        isRelative 
-          ? "relative w-full" 
+        isRelative
+          ? "relative w-full"
           : "absolute bottom-2 right-2 z-20 w-[200px] sm:w-[240px]",
         className
       )}
     >
-      {/* Header */}
-      <div className="bg-primary text-primary-foreground px-4 py-2.5 sm:py-3 border-b border-primary/20">
+      {/* Header - navy, white text */}
+      <div className="bg-[#090040] text-white px-4 py-2.5 sm:py-3 border-b border-[#090040]/20">
         <h3 className="text-xs sm:text-sm font-bold text-center uppercase tracking-wide">
           Area Tabulation
         </h3>
       </div>
 
-      {/* Measures Table */}
-      <div className="divide-y divide-border/50">
+      {/* Measures Table - explicit light bg and dark text for visibility */}
+      <div className="divide-y divide-slate-200">
         {measuresList.map((measure, index) => (
           <div
             key={index}
             className={cn(
               "px-3 sm:px-4 py-2 sm:py-2.5",
               "flex items-center justify-between gap-2",
-              index % 2 === 0 ? "bg-background" : "bg-muted/30"
+              index % 2 === 0 ? "bg-white" : "bg-slate-50"
             )}
           >
-            <span className="text-xs sm:text-sm font-medium text-foreground/90 shrink-0">
+            <span className="text-xs sm:text-sm font-medium text-slate-700 shrink-0">
               {measure.label}:
             </span>
-            <span className="text-xs sm:text-sm font-bold text-foreground text-right whitespace-nowrap">
+            <span className="text-xs sm:text-sm font-bold text-slate-900 text-right whitespace-nowrap">
               {measure.value}
             </span>
           </div>
@@ -76,12 +76,12 @@ export const FloorplanMeasures = ({
 
         {/* Total Area - Featured */}
         {totalArea && (
-          <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-muted/60 border-t-2 border-primary/40">
+          <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-100 border-t-2 border-[#090040]/40">
             <div className="flex items-center justify-between gap-2">
-              <span className="text-xs sm:text-sm font-bold text-foreground">
+              <span className="text-xs sm:text-sm font-bold text-slate-900">
                 TOTAL AREA:
               </span>
-              <span className="text-xs sm:text-sm md:text-base font-black text-primary whitespace-nowrap">
+              <span className="text-xs sm:text-sm md:text-base font-black text-[#090040] whitespace-nowrap">
                 {totalArea}
               </span>
             </div>

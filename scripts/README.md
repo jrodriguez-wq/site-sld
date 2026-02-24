@@ -2,15 +2,24 @@
 
 ## Imágenes (`optimize-images.js`)
 
-Convierte imágenes JPG, PNG, GIF → WebP para reducir peso.
+Convierte JPG/PNG/GIF → WebP (formato óptimo para web) y re-optimiza WebP que pesen más de 300 KB para que carguen más rápido.
+
+**Ver qué está pesado (sin cambiar nada):**
 
 ```bash
-npm run optimize-images:dry    # Simular
-npm run optimize-images       # Convertir (mantiene originales)
-npm run optimize-images:delete # Convertir + eliminar originales
+npm run optimize-images:check
 ```
 
-- Requiere: `sharp` (dev dependency)
+**Optimizar todo (convertir raster → WebP + re-optimizar WebP pesados):**
+
+```bash
+npm run optimize-images           # Convierte y re-optimiza (mantiene originales raster)
+npm run optimize-images:delete   # Igual + elimina los JPG/PNG/GIF originales
+npm run optimize-images:dry      # Simular sin escribir
+```
+
+- Requiere: `sharp` (`npm install --save-dev sharp`)
+- Límites: ancho máx. 1920 px, calidad WebP 80, re-optimiza WebP > 300 KB
 
 ---
 

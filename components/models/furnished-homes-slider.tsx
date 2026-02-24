@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { MODEL_AMO_IMAGES } from "@/lib/models/model-images";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import { useTranslation } from "@/hooks/use-translation";
 
 interface FurnishedImage {
@@ -99,7 +100,7 @@ export const FurnishedHomesSlider = () => {
               >
                 {/* Image */}
                 <Image
-                  src={item.image}
+                  src={getCloudinaryImageUrl(item.image)}
                   alt={`${item.modelName} - Furnished`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"

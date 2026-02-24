@@ -13,6 +13,7 @@ import { Phone, ArrowRight } from "lucide-react";
 import { ModelData } from "@/types/model";
 import { cn } from "@/lib/utils";
 import { MODEL_FLOORPLANS, getModelInteriorImages, getModelExteriorImages, getModelAmoImages } from "@/lib/models/model-images";
+import { getCloudinaryImageUrl } from "@/lib/cloudinary";
 import { AnimatedSection } from "@/components/ui/animated-section";
 import { FloorplanMeasures } from "./floorplan-measures";
 
@@ -137,7 +138,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
             {images.length > 0 ? (
               <>
                 <Image
-                  src={images[currentImageIndex]}
+                  src={getCloudinaryImageUrl(images[currentImageIndex])}
                   alt={`${name} - Image ${currentImageIndex + 1}`}
                   fill
                   className="object-cover"
@@ -424,7 +425,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                         type="button"
                       >
                         <Image
-                          src={image}
+                          src={getCloudinaryImageUrl(image)}
                           alt={`${modelName} inside - ${index + 1}`}
                           fill
                           className="object-cover rounded-2xl"
@@ -457,7 +458,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                         type="button"
                       >
                         <Image
-                          src={image}
+                          src={getCloudinaryImageUrl(image)}
                           alt={`${modelName} exterior - ${index + 1}`}
                           fill
                           className="object-cover rounded-2xl"
@@ -493,7 +494,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                         type="button"
                       >
                         <Image
-                          src={image}
+                          src={getCloudinaryImageUrl(image)}
                           alt={`${modelName} furnished - ${index + 1}`}
                           fill
                           className="object-cover rounded-2xl"
@@ -531,8 +532,8 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 {(() => {
                   // Prioridad: 1) Imagen del JSON, 2) Plano optimizado del mapeo, 3) Mensaje de "próximamente"
                   const floorplanImage = sections?.floorplan?.image || MODEL_FLOORPLANS[modelData.key.toLowerCase()];
-                  
-                  if (floorplanImage) {
+                  const floorplanSrc = floorplanImage ? getCloudinaryImageUrl(floorplanImage) : null;
+                  if (floorplanImage && floorplanSrc) {
                     return (
                       <>
                         <Card className="border-2 border-gray-200 shadow-xl overflow-hidden bg-white">
@@ -542,7 +543,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                               <div className="relative w-full max-h-[60vh] sm:max-h-[70vh] md:max-h-none">
                                 <div className="relative w-full aspect-[4/3] sm:aspect-[3/2] lg:aspect-[4/3] min-h-[250px] sm:min-h-[300px] md:min-h-[400px] lg:min-h-[500px]">
                                   <Image
-                                    src={floorplanImage}
+                                    src={floorplanSrc}
                                     alt={`${modelName} Floorplan`}
                                     fill
                                     className="object-contain p-2 sm:p-3 md:p-4 lg:p-6 xl:p-8"
@@ -628,7 +629,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                               <div className="relative flex-1 w-full overflow-auto bg-white pt-20 pb-24">
                                 <div className="relative w-full min-h-full p-4 flex items-center justify-center">
                                   <Image
-                                    src={floorplanImage}
+                                    src={floorplanSrc}
                                     alt={`${modelName} Floorplan - Expanded`}
                                     width={1200}
                                     height={900}
@@ -795,7 +796,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
           {/* Main Image */}
           <div className="relative bg-gray-100 h-[75vh] sm:h-[80vh] flex items-center justify-center overflow-hidden pt-20 pb-24">
             <Image
-              src={(galleryImages.length > 0 ? galleryImages : images)[galleryImageIndex]}
+              src={getCloudinaryImageUrl((galleryImages.length > 0 ? galleryImages : images)[galleryImageIndex])}
               alt={`${modelName} - Image ${galleryImageIndex + 1} of ${galleryImages.length > 0 ? galleryImages.length : images.length}`}
               fill
               className="object-contain p-6 sm:p-8 md:p-10"
@@ -854,7 +855,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                     type="button"
                   >
                     <Image
-                      src={img}
+                      src={getCloudinaryImageUrl(img)}
                       alt={`Thumbnail ${index + 1}`}
                       fill
                       className="object-cover rounded-lg"

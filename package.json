@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "optimize-images": "node scripts/optimize-images.js",
+    "optimize-images:check": "node scripts/optimize-images.js --check",
     "optimize-images:dry": "node scripts/optimize-images.js --dry",
     "optimize-images:delete": "node scripts/optimize-images.js --delete",
     "optimize-videos": "node scripts/optimize-videos.js",
