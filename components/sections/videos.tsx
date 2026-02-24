@@ -26,12 +26,19 @@ const videos = [
 
 const Videos = () => {
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [bufferingVideoId, setBufferingVideoId] = useState<string | null>(null);
   const [muted, setMuted] = useState(true);
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
 
   const handlePlay = (videoId: string) => {
-    setPlayingVideo(playingVideo === videoId ? null : videoId);
+    const next = playingVideo === videoId ? null : videoId;
+    setPlayingVideo(next);
+    setBufferingVideoId(next ?? null);
   };
+
+  const handleCanPlay = (videoId: string) => setBufferingVideoId((id) => (id === videoId ? null : id));
+  const handleWaiting = (videoId: string) => setBufferingVideoId(videoId);
+  const handlePlaying = (videoId: string) => setBufferingVideoId((id) => (id === videoId ? null : id));
 
   const toggleFullscreen = (videoId: string) => {
     const video = videoRefs.current[videoId];
@@ -98,9 +105,22 @@ const Videos = () => {
                     muted={muted}
                     playsInline
                     className="w-full h-full object-contain"
+                    onCanPlay={() => handleCanPlay(video.id)}
+                    onWaiting={() => handleWaiting(video.id)}
+                    onPlaying={() => handlePlaying(video.id)}
                     onEnded={() => setPlayingVideo(null)}
                     title={video.title}
                   />
+                  {bufferingVideoId === video.id && (
+                    <div
+                      className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-black/60 backdrop-blur-sm"
+                      aria-live="polite"
+                      aria-label="Video loading"
+                    >
+                      <span className="h-8 w-8 shrink-0 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                      <span className="text-sm font-medium text-white">Loading video...</span>
+                    </div>
+                  )}
                   <div className="absolute top-2 right-2 sm:top-4 sm:right-4 flex gap-1.5 sm:gap-2 z-10">
                     <Button
                       variant="ghost"

@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/hero";
 import { LogosSlider } from "@/components/sections/logos-slider";
 import { Statistics } from "@/components/sections/statistics";
+import { PreloadVideos } from "@/components/preload-videos";
 import { LazySection } from "@/components/ui/lazy-section";
 
 // Below-fold: code-split + LazySection carga solo cuando entran en viewport
@@ -56,6 +57,7 @@ export const metadata = {
 export default function Home() {
   return (
     <>
+      <PreloadVideos />
       <Hero />
       <LogosSlider />
       <Statistics />

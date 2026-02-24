@@ -8,7 +8,8 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
     formats: ["image/avif", "image/webp"],
   },
-  // Long-lived cache for static assets so repeat visits don't re-download unchanged content
+  // Long-lived cache: videos (and other static assets) are cached 1 year. When the user
+  // navigates away and comes back, the browser uses the cached file and does not re-download.
   async headers() {
     return [
       {

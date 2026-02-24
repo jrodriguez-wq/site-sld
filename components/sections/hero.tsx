@@ -38,6 +38,7 @@ const Hero = () => {
   const reduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -86,15 +87,28 @@ const Hero = () => {
           onLoadedData={() => setIsVideoLoaded(true)}
           onCanPlay={() => setIsVideoLoaded(true)}
           onError={() => setIsVideoLoaded(true)}
+          onWaiting={() => setIsBuffering(true)}
+          onPlaying={() => setIsBuffering(false)}
+          onCanPlayThrough={() => setIsBuffering(false)}
           className="absolute inset-0 w-full h-full object-cover"
           aria-hidden="true"
         >
           <source src="/SLD-video1.mp4" type="video/mp4" />
         </video>
-        {/* Placeholder muy suave solo mientras carga - no tapa el video */}
+        {/* Placeholder mientras carga inicial */}
         <div
           className={`absolute inset-0 bg-[#090040]/30 transition-opacity duration-500 ${isVideoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"}`}
         />
+        {/* Buffering indicator cuando se detiene a mitad de reproducción */}
+        {isBuffering && isVideoLoaded && (
+          <div
+            className="absolute inset-0 z-[1] flex items-center justify-center bg-black/20"
+            aria-live="polite"
+            aria-label="Video loading"
+          >
+            <span className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          </div>
+        )}
       </motion.div>
 
       {/* Minimal overlay for text readability; video remains visible */}
