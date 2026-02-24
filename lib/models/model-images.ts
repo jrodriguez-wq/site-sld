@@ -12,7 +12,7 @@ export const MODEL_MAIN_IMAGES: Record<string, string> = {
   aurora: `/hero/aurora.webp`,
   langdon: `/hero/1w5a1505-e5.webp`,
   emelia: `/hero/1w5a0754-e4.webp`,
-  duplex: `/modelos-optimized/duplex/interior/duplex-interior-01.webp`,
+  duplex: `/modelos-optimized/duplex/exterior/duplex-exterior-01.webp`,
 };
 
 // Imágenes de interior para cada modelo
