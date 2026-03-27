@@ -5,6 +5,11 @@ import { Calendar, User, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { getBlogPostBySlug, blogPosts } from "@/data/blog-posts";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateArticleSchema, generateBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { CONTACT_INFO } from "@/config/contact";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -27,12 +32,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   return {
-    title: `${post.title} | SLD Blog`,
+    title: `${post.title} | Standard Land Development Blog`,
     description: post.excerpt,
+    alternates: { canonical: `${siteUrl}/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      images: post.image ? [post.image] : [],
+      url: `${siteUrl}/blog/${post.slug}`,
+      type: "article",
+      publishedTime: post.date,
+      authors: [post.author],
+      images: post.image
+        ? [{ url: post.image.startsWith("http") ? post.image : `${siteUrl}${post.image}`, width: 1200, height: 630, alt: post.title }]
+        : [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: post.title }],
     },
   };
 }
@@ -61,8 +73,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     });
   };
 
+  const schemas = [
+    generateArticleSchema(post),
+    generateBreadcrumbSchema([
+      { name: "Home", url: siteUrl },
+      { name: "Blog", url: `${siteUrl}/blog` },
+      { name: post.title, url: `${siteUrl}/blog/${post.slug}` },
+    ]),
+  ];
+
   return (
     <div className="min-h-screen bg-white text-slate-900" style={{ colorScheme: "light" }}>
+      <JsonLd data={schemas} />
       {/* Hero */}
       <header className="relative min-h-[320px] sm:min-h-[400px] md:min-h-[480px]">
         <div className="absolute inset-0 z-0">

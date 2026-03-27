@@ -6,14 +6,35 @@ import { TeamWorkSection } from "@/components/sections/team-work-section";
 import { Container } from "@/components/ui/container";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = {
-  title: "Commercial Spaces | Standard Land Development",
-  description: "Explore our commercial construction projects. We build retail spaces, commercial units, and business locations with efficiency and teamwork.",
+import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { CONTACT_INFO } from "@/config/contact";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
+
+export const metadata: Metadata = {
+  title: "Commercial Construction in Southwest Florida | Standard Land Development",
+  description:
+    "Standard Land Development builds retail spaces, commercial units, and business locations across Southwest Florida. Quality commercial construction with the SLD team's expertise in LaBelle, Lehigh Acres, and surrounding areas.",
+  alternates: { canonical: `${siteUrl}/commercial` },
+  openGraph: {
+    title: "Commercial Construction in Southwest Florida | Standard Land Development",
+    description: "Retail spaces, commercial units, and business locations. Quality construction in Southwest Florida.",
+    url: `${siteUrl}/commercial`,
+    images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "SLD Commercial Construction" }],
+  },
 };
 
 export default function CommercialPage() {
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Commercial Spaces", url: `${siteUrl}/commercial` },
+  ]);
+
   return (
     <>
+      <JsonLd data={breadcrumb} />
       <PageHero
         title="Commercial Spaces"
         subtitle="Our Commercial Projects"

@@ -48,10 +48,23 @@ const homeVideos = [
   },
 ];
 
-export const metadata = {
-  title: "Standard Land Development | Creating Home Ownership Opportunities",
+import type { Metadata } from "next";
+import { CONTACT_INFO } from "@/config/contact";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
+
+export const metadata: Metadata = {
+  title: "Affordable New Homes in Southwest Florida | Standard Land Development",
   description:
-    "Standard Land Development - Building affordable homes in Southwest Florida since 2016. Creating the opportunity of home ownership for American Families.",
+    "Standard Land Development builds affordable new homes in Southwest Florida since 2016. 2,875+ homes built. Rent to Own with $0 down. 22% annual return for investors. Founded by CEO Michael J. Newell.",
+  alternates: { canonical: siteUrl },
+  openGraph: {
+    title: "Affordable New Homes in Southwest Florida | Standard Land Development",
+    description:
+      "2,875+ homes built. Rent to Own with $0 down. 22% annual return for investors. Southwest Florida's trusted home builder.",
+    url: siteUrl,
+    images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "Standard Land Development — Affordable Homes" }],
+  },
 };
 
 export default function Home() {

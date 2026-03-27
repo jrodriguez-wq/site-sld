@@ -2,19 +2,36 @@ import { Metadata } from "next";
 import { PageHero } from "@/components/ui/page-hero";
 import { BlogCard } from "@/components/blog/blog-card";
 import { blogPosts, getFeaturedPosts } from "@/data/blog-posts";
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { CONTACT_INFO } from "@/config/contact";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
 export const metadata: Metadata = {
-  title: "Blog & News | Standard Land Development",
+  title: "Blog — Community Stories & News | Standard Land Development",
   description:
-    "Stay updated with the latest news, community impact stories, and educational content from Standard Land Development and Learn to Build.",
+    "Community impact stories, educational content, and company updates from Standard Land Development. Learn about our construction projects, relief efforts, and commitment to building homes for American families in Southwest Florida.",
+  alternates: { canonical: `${siteUrl}/blog` },
+  openGraph: {
+    title: "Blog — Community Stories & News | Standard Land Development",
+    description: "Community stories, educational content, and company updates from SLD.",
+    url: `${siteUrl}/blog`,
+    images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "SLD Blog" }],
+  },
 };
 
 export default function BlogPage() {
   const featuredPosts = getFeaturedPosts();
   const regularPosts = blogPosts.filter((post) => !post.featured);
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "Blog", url: `${siteUrl}/blog` },
+  ]);
 
   return (
     <>
+      <JsonLd data={breadcrumb} />
       <PageHero
         title="Blog & News"
         subtitle="Stories from Our Community"

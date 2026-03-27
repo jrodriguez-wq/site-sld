@@ -5,6 +5,13 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SEO_CONFIG } from "@/config/seo";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
+import { JsonLd } from "@/components/seo/json-ld";
+import {
+  generateOrganizationSchema,
+  generateLocalBusinessSchema,
+  generateWebSiteSchema,
+  generatePersonSchema,
+} from "@/lib/seo/structured-data";
 
 const fontSans = Plus_Jakarta_Sans({
   variable: "--font-geist-sans",
@@ -80,10 +87,11 @@ export const metadata: Metadata = {
     description: defaultDescription,
     images: [
       {
-        url: `${siteUrl}/logos/sld-azul.svg`,
+        // OG image must be JPG/WebP 1200x630 — SVG not supported by social crawlers
+        url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: siteName,
+        alt: "Standard Land Development — Affordable Homes in Southwest Florida",
       },
     ],
   },
@@ -91,7 +99,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Investment Opportunities in Southwest Florida`,
     description: defaultDescription,
-    images: [`${siteUrl}/logos/sld-azul.svg`],
+    images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
     index: true,
@@ -105,10 +113,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your verification codes here when available
-    // google: "your-google-verification-code",
-    // yandex: "your-yandex-verification-code",
-    // bing: "your-bing-verification-code",
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
   },
   alternates: {
     canonical: siteUrl,
@@ -124,12 +129,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const globalSchemas = [
+    generateOrganizationSchema(),
+    generateLocalBusinessSchema(),
+    generateWebSiteSchema(),
+    generatePersonSchema(),
+  ];
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation`}
         suppressHydrationWarning
       >
+        <JsonLd data={globalSchemas} />
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-1 pb-24 sm:pb-24 lg:pb-0 min-h-0">

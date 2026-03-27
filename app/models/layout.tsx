@@ -1,30 +1,29 @@
-import { generateMetadata } from "@/lib/seo/metadata";
-import { SEO_CONFIG } from "@/config/seo";
+import type { Metadata } from "next";
+import { CONTACT_INFO } from "@/config/contact";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
 
-export const metadata = generateMetadata({
-  title: "Home Models | New Construction Homes | M.J. Newell Homes",
-  description: "Browse our complete collection of new construction home models in LaBelle and Lehigh Acres, Florida. From 2 to 5 bedrooms, find your perfect home. Starting from $200,000. View floor plans, photos, and pricing.",
-  canonical: `${SEO_CONFIG.siteUrl}/models`,
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
+
+export const metadata: Metadata = {
+  title: "New Home Models in Southwest Florida — Standard Land Development",
+  description:
+    "Browse Standard Land Development's new construction home models in LaBelle and Lehigh Acres, Florida. 2–5 bedrooms. Starting from $200,000. Rent to Own available with $0 down. View floor plans and pricing.",
   keywords: [
-    ...getLocalKeywords().slice(0, 20),
-    ...getServiceKeywords().slice(0, 15),
-    "home models",
-    "new construction models",
-    "home floor plans",
-    "house models Florida",
-    "new home designs",
-    "home builder models",
-    "custom home models",
-    "affordable home models",
+    ...getLocalKeywords().slice(0, 15),
+    ...getServiceKeywords().slice(0, 10),
+    "home models Southwest Florida",
+    "new construction floor plans",
+    "affordable home models Florida",
+    "Standard Land Development models",
   ],
+  alternates: { canonical: `${siteUrl}/models` },
   openGraph: {
-    title: "Home Models | M.J. Newell Homes",
-    description: "Browse our complete collection of new construction home models in LaBelle and Lehigh Acres, Florida.",
-    url: `${SEO_CONFIG.siteUrl}/models`,
-    type: "website",
+    title: "New Home Models in Southwest Florida | Standard Land Development",
+    description: "2–5 bedrooms. Starting from $200,000. Rent to Own with $0 down. LaBelle & Lehigh Acres.",
+    url: `${siteUrl}/models`,
+    images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "SLD Home Models" }],
   },
-});
+};
 
 export default function ModelsLayout({
   children,

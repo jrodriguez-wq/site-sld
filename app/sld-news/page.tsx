@@ -6,16 +6,34 @@ import { blogPosts } from "@/data/blog-posts";
 import { Container } from "@/components/ui/container";
 import { ArrowRight, Newspaper } from "lucide-react";
 
+import { JsonLd } from "@/components/seo/json-ld";
+import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
+import { CONTACT_INFO } from "@/config/contact";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
+
 export const metadata: Metadata = {
-  title: "SLD News | Standard Land Development",
+  title: "SLD News — Press & Company Updates | Standard Land Development",
   description:
-    "Latest news, company updates, and press from Standard Land Development. Building affordable homes and creating opportunities for American families in Southwest Florida.",
+    "Latest press releases, news, and company updates from Standard Land Development. Building affordable homes in Southwest Florida since 2016. Community impact stories and milestone achievements.",
+  alternates: { canonical: `${siteUrl}/sld-news` },
+  openGraph: {
+    title: "SLD News — Press & Company Updates | Standard Land Development",
+    description: "Latest news and press from Standard Land Development. Building affordable homes in Southwest Florida since 2016.",
+    url: `${siteUrl}/sld-news`,
+    images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "SLD News" }],
+  },
 };
 
 /** News and company updates (categories: news, company) */
 const newsCategories = ["news", "company"] as const;
 
 export default function SLDNewsPage() {
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: "Home", url: siteUrl },
+    { name: "SLD News", url: `${siteUrl}/sld-news` },
+  ]);
+
   const newsPosts = blogPosts.filter((post) =>
     newsCategories.includes(post.category as "news" | "company")
   );
@@ -24,6 +42,7 @@ export default function SLDNewsPage() {
 
   return (
     <>
+      <JsonLd data={breadcrumb} />
       <PageHero
         title="SLD News"
         subtitle="News & Updates"
