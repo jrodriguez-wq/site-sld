@@ -55,6 +55,26 @@ const nextConfig: NextConfig = {
         source: "/blog/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
       },
+      // Next.js compiled JS/CSS bundles — safe forever (content hash in filename)
+      {
+        source: "/_next/static/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      // Optimized images from /_next/image
+      {
+        source: "/_next/image",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      // Favicon and manifest
+      {
+        source: "/favicon/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+      // HTML pages: serve cached instantly, revalidate in background
+      {
+        source: "/(.*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=60, stale-while-revalidate=86400" }],
+      },
     ];
   },
   experimental: {
@@ -67,8 +87,11 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-slider",
       "@radix-ui/react-tabs",
     ],
+    optimizeCss: true,
   },
   compress: true,
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

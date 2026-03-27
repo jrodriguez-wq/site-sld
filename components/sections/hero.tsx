@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const EASE_SMOOTH = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -39,19 +39,34 @@ const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [isBuffering, setIsBuffering] = useState(false);
-  
+
+  // Disable parallax on mobile & tablet — useScroll + useSpring creates a
+  // continuous RAF loop that keeps the main thread busy on every scroll event.
+  // On desktop (≥1024px) the visual payoff justifies the cost; on mobile it
+  // only hurts INP and causes the "Avoid non-composited animations" warning.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    setIsDesktop(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const enableParallax = isDesktop && !reduceMotion;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
-  
-  // Smooth spring-based parallax
-  const smoothProgress = useSpring(scrollYProgress, { 
-    stiffness: 100, 
-    damping: 30, 
-    restDelta: 0.001 
+
+  // Spring only used on desktop — still subscribes on mobile but transforms are disabled
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
   });
-  
+
   const videoY = useTransform(smoothProgress, [0, 1], ["0%", "20%"]);
   const videoScale = useTransform(smoothProgress, [0, 1], [1, 1.15]);
   const contentOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
@@ -73,8 +88,8 @@ const Hero = () => {
       <motion.div
         className="absolute inset-0 z-0"
         style={{
-          y: reduceMotion ? 0 : videoY,
-          scale: reduceMotion ? 1 : videoScale,
+          y: enableParallax ? videoY : 0,
+          scale: enableParallax ? videoScale : 1,
         }}
       >
         <video
@@ -127,11 +142,11 @@ const Hero = () => {
       />
 
       {/* Main Content with Parallax - fits one viewport */}
-      <motion.div 
+      <motion.div
         className="relative z-10 flex-1 flex flex-col min-h-0"
-        style={{ 
-          opacity: reduceMotion ? 1 : contentOpacity,
-          y: reduceMotion ? 0 : contentY 
+        style={{
+          opacity: enableParallax ? contentOpacity : 1,
+          y: enableParallax ? contentY : 0,
         }}
       >
         {/* Top Section - SLD Logo & Brand Mark */}
