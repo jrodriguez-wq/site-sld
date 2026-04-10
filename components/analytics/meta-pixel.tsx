@@ -1,11 +1,11 @@
 import Script from "next/script";
 
-const FB_PIXEL_ID = "788690857340123";
+const FB_PIXEL_ID = "2334086850432806";
 
 export function MetaPixel() {
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
+      <Script id="meta-pixel" strategy="beforeInteractive">
         {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
