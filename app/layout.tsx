@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/footer";
 import { SEO_CONFIG } from "@/config/seo";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
 import { JsonLd } from "@/components/seo/json-ld";
+import { MetaPixel } from "@/components/analytics/meta-pixel";
 import {
   generateOrganizationSchema,
   generateLocalBusinessSchema,
@@ -142,6 +143,7 @@ export default function RootLayout({
         className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation`}
         suppressHydrationWarning
       >
+        <MetaPixel />
         <JsonLd data={globalSchemas} />
         <div className="flex min-h-screen flex-col">
           <Header />
