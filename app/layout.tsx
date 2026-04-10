@@ -33,6 +33,8 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+
+
 const siteName = SEO_CONFIG.siteName;
 const siteUrl = SEO_CONFIG.siteUrl;
 const defaultDescription =
@@ -120,6 +122,7 @@ export const metadata: Metadata = {
     canonical: siteUrl,
   },
   other: {
+    "facebook-domain-verification": "52y0vaxl4stj4h9bpzby361n3bo68f",
     "msapplication-TileColor": "#090040",
     "theme-color": "#090040",
   },
