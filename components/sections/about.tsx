@@ -26,7 +26,7 @@ const teamMembers = [
     role: "CEO & Founder",
     company: "Standard Land Development & M.J. Newell Homes",
     image: "/michael-ceo.webp",
-    bio: "Michael J. Newell founded Standard Land Development in 2016 with a clear mission: to build affordable homes for American families. With over 13 years of experience in real estate and construction, he leads both SLD and M.J. Newell Homes, overseeing the development of more than 1,500 homes across Southwest Florida. His vision—that housing should never exceed 25% of a family's income—guides every decision and has earned recognition in national media.",
+    bio: "Michael J. Newell founded Standard Land Development in 2016 with a clear mission: to build affordable homes for American families. With over 13 years of experience in real estate and construction, he leads both SLD and M.J. Newell Homes, overseeing the development of 2,877 homes across Southwest Florida. His vision—that housing should never exceed 25% of a family's income—guides every decision and has earned recognition in national media.",
     stats: [
       { label: "17 Years", icon: Building2 },
       { label: "2,877 Homes", icon: Home },
@@ -109,12 +109,12 @@ const About = () => {
                 </p>
                 <p>
                   Today, we continue that mission with dedication, integrity, and a commitment
-                  to excellence—helping over 1,500 families achieve their dream of homeownership.
+                  to excellence—helping 2,877 families achieve their dream of homeownership.
                 </p>
               </div>
             </div>
             <div className="relative">
-              <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
+              <div className="relative aspect-4/3 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
                   src="/recurses/casas.webp"
                   alt="SLD housing development in Southwest Florida"
@@ -162,7 +162,7 @@ const About = () => {
                   key={member.key}
                   className="group relative bg-white/5 backdrop-blur-xl rounded-xl sm:rounded-2xl overflow-hidden border border-white/20 hover:border-white/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.99]"
                 >
-                  <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden">
+                  <div className="relative aspect-4/5 sm:aspect-3/4 overflow-hidden">
                     <Image
                       src={member.image}
                       alt={`${member.name} - ${member.role}`}
@@ -170,7 +170,7 @@ const About = () => {
                       className={`object-cover transition-transform duration-500 ease-out ${member.key === "nader" ? "object-cover object-[center_25%]" : "object-cover object-[center_25%] group-hover:scale-105"}`}
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090040]/90 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#090040]/90 via-transparent to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
                       <span className="text-[10px] sm:text-xs font-semibold text-white/90 uppercase tracking-wider">
                         {member.role}
@@ -256,7 +256,7 @@ const About = () => {
               </div>
             </div>
             <div className="relative">
-              <div className="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
+              <div className="relative aspect-4/3 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl border border-slate-100">
                 <Image
                   src="/recurses/foto-aerea.webp"
                   alt="Aerial view of SLD development"

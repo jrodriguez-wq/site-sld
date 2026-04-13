@@ -10,7 +10,7 @@ import {
   TrendingUp,
   MapPin,
   Newspaper,
-  Phone,
+  PhoneCall,
   X,
   ChevronDown,
 } from "lucide-react";
@@ -93,7 +93,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-black/30 backdrop-blur-md touch-none lg:hidden"
+            className="fixed inset-0 z-100 bg-black/30 backdrop-blur-md touch-none lg:hidden"
             onClick={() => {
               if (openSubmenu) setOpenSubmenu(null);
               else onToggle();
@@ -105,7 +105,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
 
 
       {/* Mobile Menu - vertical line going up, Contact above house */}
-      <div className="fixed bottom-8 right-6 left-6 flex justify-end z-[102] lg:hidden pb-[env(safe-area-inset-bottom,0px)]">
+      <div className="fixed bottom-8 right-6 left-6 flex justify-end z-102 lg:hidden pb-[env(safe-area-inset-bottom,0px)]">
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
@@ -144,7 +144,7 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
                   className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#090040] shadow-lg shadow-black/20 hover:bg-[#FFD700] active:scale-95 transition-transform touch-manipulation"
                   aria-label="Contact"
                 >
-                  <Phone className="h-5 w-5" />
+                  <PhoneCall className="h-5 w-5" />
                 </Link>
               </motion.div>
 
@@ -253,14 +253,18 @@ const RadialMenu = ({ isOpen, onToggle, onItemClick }: RadialMenuProps) => {
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="flex flex-col items-end gap-2"
             >
-              {/* Call - direct call button (outside menu) */}
-              <a
-                href={CONTACT_INFO.phone.href}
-                className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#090040] shadow-lg shadow-black/20 hover:bg-[#FFD700] active:scale-95 transition-transform touch-manipulation"
-                aria-label="Call now"
-              >
-                <Phone className="h-5 w-5" />
-              </a>
+              {/* Call contacts - direct call buttons (outside menu) */}
+              {CONTACT_INFO.contacts.map((contact) => (
+                <a
+                  key={contact.name}
+                  href={contact.href}
+                  className="flex h-14 min-w-[56px] px-3 shrink-0 items-center justify-center gap-1.5 rounded-full bg-[#D4AF37] text-[#090040] shadow-lg shadow-black/20 hover:bg-[#FFD700] active:scale-95 transition-transform touch-manipulation"
+                  aria-label={`Call ${contact.name}`}
+                >
+                  <PhoneCall className="h-4 w-4" />
+                  <span className="text-[10px] font-semibold uppercase tracking-wide">{contact.name}</span>
+                </a>
+              ))}
               {/* House - opens menu */}
               <button
                 type="button"

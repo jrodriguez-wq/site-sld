@@ -12,11 +12,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 export const metadata: Metadata = {
   title: "About Standard Land Development — Southwest Florida Home Builder Since 2016",
   description:
-    "Founded in 2016 by Michael J. Newell, Standard Land Development has built 2,875+ affordable homes across Southwest Florida. Learn our mission, vision, team, and commitment to creating the opportunity of home ownership for American families.",
+    "Founded in 2016 by Michael J. Newell, Standard Land Development has built 2,877 affordable homes across Southwest Florida. Learn our mission, vision, team, and commitment to creating the opportunity of home ownership for American families.",
   alternates: { canonical: `${siteUrl}/about` },
   openGraph: {
     title: "About Standard Land Development — Southwest Florida Home Builder Since 2016",
-    description: "2,875+ homes built since 2016. Founded by Michael J. Newell. Creating home ownership opportunities for American families in Southwest Florida.",
+    description: "2,877 homes built since 2016. Founded by Michael J. Newell. Creating home ownership opportunities for American families in Southwest Florida.",
     url: `${siteUrl}/about`,
     images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "SLD Team — Southwest Florida" }],
   },

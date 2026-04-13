@@ -10,11 +10,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 export const metadata: Metadata = {
   title: "Contact Standard Land Development — LaBelle, FL",
   description:
-    "Contact Standard Land Development in LaBelle, Florida. Reach us for investment opportunities, Rent to Own programs, or new home inquiries. Call (561) 418-2016 or email info@standardlanddevelopment.com.",
+    "Contact Standard Land Development in LaBelle, Florida. Reach us for investment opportunities, Rent to Own programs, or new home inquiries. Call Michael at (561) 818-4530 or Nader at (518) 536-4008, or email contact@standardlanddevelopment.com.",
   alternates: { canonical: `${siteUrl}/contact` },
   openGraph: {
     title: "Contact Standard Land Development — LaBelle, FL",
-    description: "Reach us for investment opportunities, Rent to Own programs, or new home inquiries. Call (561) 418-2016.",
+    description: "Reach us for investment opportunities, Rent to Own programs, or new home inquiries. Call Michael at (561) 818-4530 or Nader at (518) 536-4008.",
     url: `${siteUrl}/contact`,
     images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "Contact SLD" }],
   },

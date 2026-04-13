@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { Container } from "@/components/ui/container";
 import { CONTACT_INFO } from "@/config/contact";
 import {
-  Phone,
+  PhoneCall,
   Mail,
   MapPin,
   Facebook,
@@ -99,7 +99,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="relative border-t border-white/5 bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] text-white overflow-hidden"
+      className="relative border-t border-white/10 bg-linear-to-br from-[#070033] via-[#1e2454] to-[#070033] text-white overflow-hidden"
     >
       {/* Background texture - design system */}
       <div
@@ -128,23 +128,30 @@ const Footer = () => {
                   className="h-16 sm:h-20 w-auto transition-opacity group-hover:opacity-90"
                 />
               </Link>
-              <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-xs">
+              <p className="text-white/65 text-sm leading-relaxed mb-6 max-w-xs">
                 Creating the opportunity of home ownership for American Families. Building affordable homes in Southwest Florida since 2016.
               </p>
-              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 mb-6">
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 mb-6">
                 <p className="text-sm font-medium italic text-[#D4AF37] mb-1">
                   &quot;We Build so American Families can OWN the American Dream, NOT rent the American Dream&quot;
                 </p>
                 <p className="text-xs text-white/50">— Michael J. Newell, CEO</p>
               </div>
               <div className="space-y-3">
-                <a
-                  href={CONTACT_INFO.phone.href}
-                  className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm"
-                >
-                  <Phone className="w-4 h-4 shrink-0" />
-                  {CONTACT_INFO.phone.display}
-                </a>
+                <div className="space-y-2">
+                  {CONTACT_INFO.contacts.map((contact) => (
+                    <a
+                      key={contact.name}
+                      href={contact.href}
+                      className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm"
+                    >
+                      <PhoneCall className="w-4 h-4 shrink-0" />
+                      <span>
+                        <span className="text-white/80">{contact.name}:</span> {contact.display}
+                      </span>
+                    </a>
+                  ))}
+                </div>
                 <a
                   href={CONTACT_INFO.email.href}
                   className="flex items-center gap-3 text-white/60 hover:text-[#D4AF37] transition-colors text-sm break-all"
@@ -226,7 +233,7 @@ const Footer = () => {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
                 {footerColumns.map((column) => (
                   <div key={column.title}>
-                    <h4 className="text-white font-semibold text-sm tracking-wider uppercase mb-4">
+                    <h4 className="text-white font-semibold text-sm tracking-[0.14em] uppercase mb-4">
                       {column.title}
                     </h4>
                     <ul className="space-y-3">
@@ -290,7 +297,7 @@ const Footer = () => {
       </Container>
 
       {/* Decorative gradient line - design system */}
-      <div className="h-0.5 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
+      <div className="h-0.5 bg-linear-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
     </footer>
   );
 };

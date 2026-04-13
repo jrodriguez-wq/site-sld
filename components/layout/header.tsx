@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 import {
-  Phone,
+  PhoneCall,
   ChevronDown,
   Building,
   Store,
@@ -169,11 +169,11 @@ const Header = () => {
         <div
           className={cn(
             "rounded-2xl border transition-all duration-500 ease-in-out overflow-visible",
-            "bg-[#090040]/85 backdrop-blur-xl border-white/10 shadow-xl",
-            scrolled && "bg-[#090040]/92 shadow-2xl"
+            "bg-[#090040]/80 backdrop-blur-2xl border-white/20 shadow-2xl",
+            scrolled && "bg-[#090040]/95"
           )}
         >
-          <div className="relative w-full h-14 sm:h-16 md:h-[4.25rem]">
+          <div className="relative w-full h-14 sm:h-16 md:h-17">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 h-full overflow-visible">
               <div className="flex h-full items-center justify-center lg:justify-between">
                 {/* Desktop Navigation - center nav, right CTA */}
@@ -199,7 +199,7 @@ const Header = () => {
                             <button
                               onClick={() => handleClick(item.label)}
                               className={cn(
-                                "px-3 xl:px-4 py-2.5 text-sm font-medium transition-all duration-200 relative group whitespace-nowrap rounded-xl cursor-pointer",
+                                "px-3 xl:px-4 py-2.5 text-sm font-semibold transition-all duration-200 relative group whitespace-nowrap rounded-xl cursor-pointer tracking-[0.01em]",
                                 "text-white/80 hover:text-[#D4AF37] hover:bg-white/5",
                                 isOpen && "text-[#D4AF37] bg-white/5"
                               )}
@@ -230,7 +230,7 @@ const Header = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -6 }}
                                 transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-white/10 bg-[#090040]/95 backdrop-blur-xl shadow-xl overflow-hidden z-[9999]"
+                                className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[280px] rounded-2xl border border-white/10 bg-[#090040]/95 backdrop-blur-xl shadow-xl overflow-hidden z-9999"
                                 role="menu"
                                 onMouseEnter={handleDropdownMouseEnter}
                                 onMouseLeave={handleDropdownMouseLeave}
@@ -298,7 +298,7 @@ const Header = () => {
                           href={item.href || "#"}
                           prefetch
                           className={cn(
-                            "px-3 xl:px-4 py-2.5 text-sm font-medium transition-all duration-200 relative group whitespace-nowrap rounded-xl cursor-pointer",
+                            "px-3 xl:px-4 py-2.5 text-sm font-semibold transition-all duration-200 relative group whitespace-nowrap rounded-xl cursor-pointer tracking-[0.01em]",
                             "text-white/80 hover:text-[#D4AF37] hover:bg-white/5"
                           )}
                         >
@@ -315,9 +315,9 @@ const Header = () => {
                     href="/contact"
                     prefetch
                     onClick={handleLinkClick}
-                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200 whitespace-nowrap bg-[#D4AF37] text-[#090040] hover:bg-[#FFD700] shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-200 whitespace-nowrap bg-[#D4AF37] text-[#090040] hover:bg-[#FFD700] shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                   >
-                    <Phone className="h-4 w-4" aria-hidden />
+                    <PhoneCall className="h-4 w-4" aria-hidden />
                     Contact Us
                     <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>

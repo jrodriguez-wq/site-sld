@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/ui/page-hero";
+import { CONTACT_INFO } from "@/config/contact";
 
 export const metadata = {
   title: "Terms of Service | Standard Land Development",
@@ -105,8 +106,10 @@ export default function TermsPage() {
                   <p className="font-semibold">Standard Land Development, LLC</p>
                   <p>45 N Bridge St</p>
                   <p>LaBelle, FL 33935</p>
-                  <p>Email: info@standardlanddevelopment.com</p>
-                  <p>Phone: (561) 418-2016</p>
+                  <p>Email: {CONTACT_INFO.email.display}</p>
+                  {CONTACT_INFO.contacts.map((contact) => (
+                    <p key={contact.name}>Phone ({contact.name}): {contact.display}</p>
+                  ))}
                 </div>
               </section>
             </div>

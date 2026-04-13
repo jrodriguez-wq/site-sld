@@ -23,7 +23,7 @@ export const InvestmentIntro = () => (
           Investing in Affordable Housing Builds Community and Returns
         </h2>
         <p className="text-sm sm:text-base md:text-lg text-slate-600 leading-relaxed">
-          When you invest with Standard Land Development, you partner with a team that has built over 1,500 homes.
+          When you invest with Standard Land Development, you partner with a team that has built 2,877 homes.
           Real property-backed investments, transparent processes, and a track record of delivering on commitments.
         </p>
       </div>

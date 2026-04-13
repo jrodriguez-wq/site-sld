@@ -38,7 +38,7 @@ const playfair = Playfair_Display({
 const siteName = SEO_CONFIG.siteName;
 const siteUrl = SEO_CONFIG.siteUrl;
 const defaultDescription =
-  "Standard Land Development - Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. Over 2,875 homes built. 22% annual return to our lenders. Investment opportunities with 1st Position Lender Cash Program.";
+  "Standard Land Development - Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. 2,877 homes built. 22% annual return to our lenders. Investment opportunities with 1st Position Lender Cash Program.";
 
 const allKeywords = [
   "real estate investment",
@@ -143,7 +143,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation`}
+        className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation bg-background`}
         suppressHydrationWarning
       >
         <MetaPixel />

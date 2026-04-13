@@ -3,6 +3,7 @@ import { CONTACT_INFO } from "@/config/contact";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 const siteName = "Standard Land Development";
 const mjnUrl = CONTACT_INFO.mjNewellHomesUrl || "https://www.mjnewellhomes.com";
+const primaryContact = CONTACT_INFO.contacts[0] ?? CONTACT_INFO.phone;
 
 // ─── Organization ────────────────────────────────────────────────────────────
 export function generateOrganizationSchema() {
@@ -21,7 +22,7 @@ export function generateOrganizationSchema() {
     },
     image: `${siteUrl}/og-image.jpg`,
     description:
-      "Standard Land Development — Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. Over 2,875 homes built across Southwest Florida. Investment opportunities with 22% annual return.",
+      "Standard Land Development — Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. 2,877 homes built across Southwest Florida. Investment opportunities with 22% annual return.",
     foundingDate: "2016",
     numberOfEmployees: { "@type": "QuantitativeValue", value: 54 },
     address: {
@@ -32,16 +33,15 @@ export function generateOrganizationSchema() {
       postalCode: CONTACT_INFO.address.zip,
       addressCountry: "US",
     },
-    contactPoint: [
-      {
-        "@type": "ContactPoint",
-        telephone: CONTACT_INFO.phone.href,
-        contactType: "customer service",
-        email: CONTACT_INFO.email.raw,
-        areaServed: ["US-FL", "LaBelle", "Lehigh Acres", "Fort Myers", "Cape Coral", "Naples"],
-        availableLanguage: ["English"],
-      },
-    ],
+    contactPoint: CONTACT_INFO.contacts.map((contact) => ({
+      "@type": "ContactPoint",
+      telephone: contact.href,
+      contactType: "customer service",
+      areaServed: ["US-FL", "LaBelle", "Lehigh Acres", "Fort Myers", "Cape Coral", "Naples"],
+      availableLanguage: ["English"],
+      name: contact.name,
+      email: CONTACT_INFO.email.raw,
+    })),
     sameAs: [
       CONTACT_INFO.social.facebook,
       CONTACT_INFO.social.instagram,
@@ -66,7 +66,7 @@ export function generateLocalBusinessSchema() {
     "@id": `${siteUrl}/#localbusiness`,
     name: siteName,
     url: siteUrl,
-    telephone: CONTACT_INFO.phone.href,
+    telephone: primaryContact.href,
     email: CONTACT_INFO.email.raw,
     address: {
       "@type": "PostalAddress",
@@ -141,7 +141,7 @@ export function generatePersonSchema() {
       { "@type": "Organization", name: "M.J. Newell Homes", url: mjnUrl },
     ],
     description:
-      "Michael J. Newell is the Founder and CEO of Standard Land Development and M.J. Newell Homes. Since 2016, Michael has led the construction of over 2,875 homes across Southwest Florida, making affordable homeownership accessible to American families.",
+      "Michael J. Newell is the Founder and CEO of Standard Land Development and M.J. Newell Homes. Since 2016, Michael has led the construction of 2,877 homes across Southwest Florida, making affordable homeownership accessible to American families.",
     url: siteUrl,
     sameAs: [
       CONTACT_INFO.social.linkedInMichael,
@@ -182,7 +182,7 @@ export function generateInvestmentSchema() {
     "@type": "FinancialProduct",
     name: "1st Position Lender — Real Estate Investment Program",
     description:
-      "Earn up to 22% annual return secured by 1st position lien on real property. Minimum investment. Backed by Standard Land Development's track record of over 2,875 homes built in Southwest Florida.",
+      "Earn up to 22% annual return secured by 1st position lien on real property. Minimum investment. Backed by Standard Land Development's track record of 2,877 homes built in Southwest Florida.",
     provider: { "@id": `${siteUrl}/#organization` },
     feesAndCommissionsSpecification: "No hidden fees. Fixed annual return. Real property-backed.",
     annualPercentageRate: 22,

@@ -10,7 +10,7 @@ import { YouTubeVideo } from "@/components/ui/youtube-video";
 const stats = [
   {
     icon: Home,
-    value: "2,875",
+    value: "2,877",
     label: "Homes Built",
     description: "Homes constructed for families in need",
   },
@@ -35,7 +35,7 @@ const CharityNews = () => {
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-[#090040] via-[#2d2c55] to-[#090040] py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
+      className="relative overflow-hidden bg-linear-to-br from-[#090040] via-[#2d2c55] to-[#090040] py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
       aria-labelledby="charity-heading"
     >
       {/* Background pattern */}
@@ -62,7 +62,7 @@ const CharityNews = () => {
       <Container className="relative z-10">
         {/* Video */}
         <AnimatedSection className="mb-8 sm:mb-12 md:mb-16">
-          <div className="relative w-full max-w-6xl mx-auto aspect-video rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl lg:shadow-2xl border border-white/10 bg-gradient-to-br from-[#090040] to-[#2d2c55]">
+          <div className="relative w-full max-w-6xl mx-auto aspect-video rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-xl lg:shadow-2xl border border-white/10 bg-linear-to-br from-[#090040] to-[#2d2c55]">
             {isPlaying ? (
               <YouTubeVideo
                 url="https://www.youtube.com/embed/vNogIQG-uZM"
@@ -71,7 +71,7 @@ const CharityNews = () => {
               />
             ) : (
               <>
-                <div className="absolute inset-0 bg-gradient-to-br from-[#090040]/90 via-[#2d2c55]/85 to-[#090040]/90" />
+                <div className="absolute inset-0 bg-linear-to-br from-[#090040]/90 via-[#2d2c55]/85 to-[#090040]/90" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8">
                   <span className="inline-flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3 text-[10px] sm:text-xs font-semibold text-white/80 uppercase tracking-wider">
                     <Heart className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden />

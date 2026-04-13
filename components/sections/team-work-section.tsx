@@ -27,7 +27,7 @@ const teamValues = [
     icon: Award,
     title: "Proven Results",
     description:
-      "With over 1,500+ successful projects, our track record speaks for itself. We deliver on time, on budget, and beyond expectations.",
+      "With 2,877 successful projects, our track record speaks for itself. We deliver on time, on budget, and beyond expectations.",
   },
 ];
 

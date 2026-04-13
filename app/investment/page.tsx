@@ -10,7 +10,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 export const metadata: Metadata = {
   title: "Real Estate Investment — 22% Annual Return | Standard Land Development",
   description:
-    "Earn up to 22% annual return with 1st Position Lender program. Real property-backed investment secured by Southwest Florida real estate. Over 2,875 homes built. Schedule a call with Standard Land Development.",
+    "Earn up to 22% annual return with 1st Position Lender program. Real property-backed investment secured by Southwest Florida real estate. 2,877 homes built. Schedule a call with Standard Land Development.",
   alternates: { canonical: `${siteUrl}/investment` },
   openGraph: {
     title: "Real Estate Investment — 22% Annual Return | Standard Land Development",

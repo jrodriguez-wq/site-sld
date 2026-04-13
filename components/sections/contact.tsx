@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { CONTACT_INFO } from "@/config/contact";
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle, FaCalendarAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle, FaCalendarAlt } from "react-icons/fa";
 import { CalendlyInlineWidget } from "@/components/ui/calendly-inline-widget";
 
 type ContactTab = "schedule" | "email";
@@ -144,12 +144,12 @@ const Contact = () => {
       subContent: `${CONTACT_INFO.address.city}, ${CONTACT_INFO.address.state} ${CONTACT_INFO.address.zip}`,
       href: CONTACT_INFO.address.googleMaps,
     },
-    {
-      icon: FaPhone,
-      title: "Phone",
-      content: CONTACT_INFO.phone.display,
-      href: CONTACT_INFO.phone.href,
-    },
+    ...CONTACT_INFO.contacts.map((person) => ({
+      icon: FaPhoneAlt,
+      title: `Phone (${person.name})`,
+      content: person.display,
+      href: person.href,
+    })),
     {
       icon: FaEnvelope,
       title: "Email",
@@ -159,7 +159,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-white text-slate-900 relative scroll-mt-20 sm:scroll-mt-24">
+    <section id="contact" className="py-10 sm:py-16 md:py-20 lg:py-24 xl:py-28 bg-linear-to-b from-white to-slate-50 text-slate-900 relative scroll-mt-20 sm:scroll-mt-24">
       {/* Subtle Background */}
       <div className="absolute inset-0 opacity-[0.015]" aria-hidden="true">
         <div
@@ -183,7 +183,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="space-y-4 sm:space-y-6">
             <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100 shadow-sm">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-6">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-6 tracking-tight">
                 Contact Information
               </h3>
               <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base md:text-lg">
@@ -237,7 +237,7 @@ const Contact = () => {
 
           {/* Schedule meeting / Contact by email - tabs */}
           <div className="bg-slate-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-slate-100 shadow-sm">
-            <div className="flex gap-2 mb-4 sm:mb-6" role="tablist" aria-label="Contact option">
+            <div className="flex gap-2 mb-4 sm:mb-6 rounded-xl bg-white p-1 border border-slate-200" role="tablist" aria-label="Contact option">
               <button
                 type="button"
                 role="tab"
@@ -259,7 +259,7 @@ const Contact = () => {
                 className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors min-h-[48px] touch-manipulation ${
                   activeTab === "schedule"
                     ? "bg-slate-900 text-white"
-                    : "bg-white text-gray-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-100"
+                    : "bg-transparent text-gray-700 border-2 border-transparent hover:border-slate-200 hover:bg-slate-100"
                 }`}
               >
                 <FaCalendarAlt className="h-4 w-4 shrink-0" aria-hidden />
@@ -286,7 +286,7 @@ const Contact = () => {
                 className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors min-h-[48px] touch-manipulation ${
                   activeTab === "email"
                     ? "bg-slate-900 text-white"
-                    : "bg-white text-gray-700 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-100"
+                    : "bg-transparent text-gray-700 border-2 border-transparent hover:border-slate-200 hover:bg-slate-100"
                 }`}
               >
                 <FaEnvelope className="h-4 w-4 shrink-0" aria-hidden />
@@ -335,15 +335,19 @@ const Contact = () => {
                 <p className="text-gray-600 text-lg mb-4">
                   We&apos;ll get back to you soon.
                 </p>
-                <p className="text-sm text-gray-500">
-                  You can also reach us directly at{" "}
-                  <a
-                    href={CONTACT_INFO.phone.href}
-                    className="text-[#090040] hover:underline font-semibold"
-                  >
-                    {CONTACT_INFO.phone.display}
-                  </a>
-                </p>
+                <div className="text-sm text-gray-500 space-y-1">
+                  <p>You can also reach us directly at:</p>
+                  {CONTACT_INFO.contacts.map((contact) => (
+                    <p key={contact.name}>
+                      <a
+                        href={contact.href}
+                        className="text-[#090040] hover:underline font-semibold"
+                      >
+                        {contact.name}: {contact.display}
+                      </a>
+                    </p>
+                  ))}
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6" noValidate>
@@ -439,7 +443,7 @@ const Contact = () => {
                         ? "border-red-300 focus:border-red-500 focus:ring-red-500/20"
                         : "border-gray-200 focus:border-[#090040] focus:ring-[#090040]/20"
                     }`}
-                    placeholder={CONTACT_INFO.phone.display}
+                    placeholder={CONTACT_INFO.contacts[0]?.display ?? CONTACT_INFO.phone.display}
                   />
                   {errors.phone && (
                     <p id="phone-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">

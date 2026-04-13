@@ -1,13 +1,28 @@
 export const CONTACT_INFO = {
+  contacts: [
+    {
+      name: "Michael",
+      display: "(561) 818-4530",
+      href: "tel:+15618184530",
+      raw: "5618184530",
+    },
+    {
+      name: "Nader",
+      display: "(518) 536-4008",
+      href: "tel:+15185364008",
+      raw: "5185364008",
+    },
+  ],
   phone: {
-    display: "(561) 418-2016",
-    href: "tel:+15614182016",
-    raw: "5614182016",
+    // Backwards-compatible alias used by components that still expect a single phone.
+    display: "(561) 818-4530",
+    href: "tel:+15618184530",
+    raw: "5618184530",
   },
   email: {
-    display: "info@standardlanddevelopment.com",
-    href: "mailto:info@standardlanddevelopment.com",
-    raw: "info@standardlanddevelopment.com",
+    display: "contact@standardlanddevelopment.com",
+    href: "mailto:contact@standardlanddevelopment.com",
+    raw: "contact@standardlanddevelopment.com",
   },
   /** Where contact form submissions are sent (Resend "to"). */
   contactFormTo: process.env.CONTACT_FORM_TO_EMAIL ?? "contact@standardlanddevelopment.com",
