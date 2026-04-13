@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { CONTACT_INFO } from "@/config/contact";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle, FaCalendarAlt } from "react-icons/fa";
+import type { IconType } from "react-icons";
 import { CalendlyInlineWidget } from "@/components/ui/calendly-inline-widget";
 
 type ContactTab = "schedule" | "email";
@@ -14,6 +15,14 @@ interface FormErrors {
   email?: string;
   phone?: string;
   message?: string;
+}
+
+interface ContactInfoItem {
+  icon: IconType;
+  title: string;
+  content: string;
+  subContent?: string;
+  href: string;
 }
 
 const Contact = () => {
@@ -136,7 +145,7 @@ const Contact = () => {
     }
   };
 
-  const contactInfo = [
+  const contactInfo: ContactInfoItem[] = [
     {
       icon: FaMapMarkerAlt,
       title: "Location",
