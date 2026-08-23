@@ -64,7 +64,6 @@ interface ModelDisplayData {
   priceKey: string;
   price: string;
   priceNumber: number;
-  rtoPrice?: string;
   beds: string;
   bedsNumber: number;
   baths: string;
@@ -144,7 +143,6 @@ export default function ModelsPage() {
               key: `${model.key}-labelle`,
               price: modelData.price,
               priceNumber: extractPrice(modelData.price),
-              rtoPrice: modelData.rtoPrice,
               beds: modelData.bedrooms,
               bedsNumber: extractNumber(modelData.bedrooms),
               baths: modelData.bathrooms,
@@ -176,7 +174,6 @@ export default function ModelsPage() {
               key: `${model.key}-lehigh-acres`,
               price: modelData.price,
               priceNumber: extractPrice(modelData.price),
-              rtoPrice: modelData.rtoPrice,
               beds: modelData.bedrooms,
               bedsNumber: extractNumber(modelData.bedrooms),
               baths: modelData.bathrooms,
@@ -414,7 +411,6 @@ export default function ModelsPage() {
                         image={mainImage}
                         images={modelImages}
                         price={model.price}
-                        rtoPrice={model.rtoPrice}
                         beds={model.beds}
                         bedsLabel="Beds"
                         baths={model.baths}

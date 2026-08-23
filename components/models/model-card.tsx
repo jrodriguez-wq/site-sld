@@ -20,7 +20,6 @@ export interface ModelCardProps {
   image: string;
   images: string[];
   price: string;
-  rtoPrice?: string; // Precio de RTO (Rent to Own) mensual
   beds: string;
   bedsLabel: string;
   baths: string;
@@ -48,7 +47,6 @@ const ModelCardComponent = (props: ModelCardProps) => {
     image,
     images,
     price,
-    rtoPrice,
     beds,
     bedsLabel,
     baths,
@@ -70,7 +68,6 @@ const ModelCardComponent = (props: ModelCardProps) => {
   const displayViewMoreLabel = t("homeModels.viewMore");
   const displayModelLabel = modelLabel || t("homeModels.model");
   const displayPriceFromLabel = t("homeModels.priceFrom");
-  const displayRtoLabel = t("homeModels.rto");
   const displayFeaturesLabel = t("homeModels.features");
   const addToFavoritesLabel = t("homeModels.addToFavorites");
   const removeFromFavoritesLabel = t("homeModels.removeFromFavorites");
@@ -461,15 +458,10 @@ const ModelCardComponent = (props: ModelCardProps) => {
             {/* Price and CTA */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 sm:gap-8 pt-6 sm:pt-8 mt-auto border-t border-gray-200">
               <div className="flex-1 min-w-0">
-                <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wider font-semibold mb-2">Starting From</p>
+                <p className="text-xs sm:text-sm text-gray-500 uppercase tracking-wider font-semibold mb-2">Home price</p>
                 <p className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                   {price}
                 </p>
-                {rtoPrice && (
-                  <p className="text-sm sm:text-base text-gray-600 mt-3 font-medium">
-                    RTO: <span className="text-[#090040] font-bold">{rtoPrice}</span>
-                  </p>
-                )}
               </div>
               <Button
                 asChild
@@ -738,11 +730,6 @@ const ModelCardComponent = (props: ModelCardProps) => {
                     <p className="text-5xl font-bold bg-gradient-to-r from-[#090040] to-[#090040] bg-clip-text text-transparent">
                       {price}
                     </p>
-                    {rtoPrice && (
-                      <p className="text-base text-gray-600 mt-2 font-semibold" suppressHydrationWarning>
-                        {displayRtoLabel}: <span className="text-[#090040] font-bold">{rtoPrice}</span>
-                      </p>
-                    )}
                   </div>
                 </div>
 

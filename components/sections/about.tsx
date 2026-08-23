@@ -250,8 +250,7 @@ const About = () => {
                   <h3 className="text-lg sm:text-xl font-bold text-slate-900">Vision for 2026</h3>
                 </div>
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                  By 2026, M.J. Newell Homes continues to build quality homes and expand our Rent to Own
-                  program, helping more families achieve their dream of homeownership.
+                  By 2026, Standard Land Development continues to deliver new construction communities across Southwest Florida, with the same in-house land development and homebuilding process.
                 </p>
               </div>
             </div>

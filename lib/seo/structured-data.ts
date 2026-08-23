@@ -152,7 +152,6 @@ export function generatePersonSchema() {
       "Residential Construction",
       "Land Development",
       "Affordable Housing",
-      "Rent to Own Programs",
       "Southwest Florida Real Estate",
       "Construction Financing",
     ],

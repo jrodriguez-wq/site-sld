@@ -74,44 +74,26 @@
   --color-gold: 48 100% 50%;
 }
 
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-background: 250 50% 13%;
-    --color-foreground: 0 0% 98%;
-    --color-card: 241 32% 20%;
-    --color-card-foreground: 0 0% 98%;
-    --color-popover: 241 32% 20%;
-    --color-popover-foreground: 0 0% 98%;
-    --color-primary: 275 100% 62%;
-    --color-primary-foreground: 250 50% 13%;
-    --color-secondary: 245 47% 24%;
-    --color-secondary-foreground: 0 0% 98%;
-    --color-muted: 245 47% 20%;
-    --color-muted-foreground: 250 20% 70%;
-    --color-accent: 241 32% 24%;
-    --color-accent-foreground: 0 0% 100%;
-    --color-highlight: 48 100% 50%;
-    --color-highlight-foreground: 250 50% 13%;
-    --color-destructive: 0 62% 50%;
-    --color-destructive-foreground: 0 0% 100%;
-    --color-border: 245 30% 25%;
-    --color-input: 245 30% 25%;
-    --color-ring: 275 100% 62%;
-  }
-}
+/* Site is light-chrome marketing. Do not invert to purple via prefers-color-scheme. */
 
 html {
-  overflow-x: hidden;
   width: 100%;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
-  /* Hide main scrollbar so it doesn’t flash during entrance animations */
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  scroll-padding-top: var(--site-header-h);
+  --site-header-h: 4rem;
 }
 
-html::-webkit-scrollbar {
-  display: none;
+@media (min-width: 768px) {
+  html {
+    --site-header-h: 6.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    --site-header-h: 6.5rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

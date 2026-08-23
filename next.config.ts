@@ -92,6 +92,9 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
+  async redirects() {
+    return [{ source: "/programs", destination: "/models", permanent: true }];
+  },
 };
 
 export default nextConfig;

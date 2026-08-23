@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateInvestmentSchema, generateBreadcrumbSchema } from "@/lib/seo/structured-data";
 import { CONTACT_INFO } from "@/config/contact";
+import { SITE_IMAGES } from "@/config/site-images";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
@@ -37,7 +38,7 @@ export default function InvestmentPage() {
         title="Investment Program"
         subtitle="Earn Up to 22% Annual Return"
         description="Real property-backed. Schedule a call to learn how."
-        backgroundImage="/houses/4090/principal.webp"
+        backgroundImage={SITE_IMAGES.kitchen}
         badge="Investment Opportunity"
       />
       <InvestmentTeaser />

@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
 import { CONTACT_INFO } from "@/config/contact";
+import { SITE_IMAGES } from "@/config/site-images";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
@@ -33,7 +34,7 @@ export default function LocationsPage() {
         title="Our Locations"
         subtitle="Building Across South Florida"
         description="Explore our development locations in South Florida. We develop projects in Palm Beach, Broward, Hendry, Glades, Collier and Lee counties."
-        backgroundImage="/houses/3711/principal.webp"
+        backgroundImage={SITE_IMAGES.aerial}
         badge="Where We Build"
       />
       <div id="locations" className="scroll-mt-28">

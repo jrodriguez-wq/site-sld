@@ -29,9 +29,9 @@ const stats = [
   },
   {
     icon: Star,
-    displayValue: "Pioneers",
-    label: "Rent to Own",
-    description: "Pioneers in the Rent to Own program",
+    displayValue: "2016",
+    label: "Established",
+    description: "Land development and homebuilding from LaBelle, Florida",
     accent: "#D4AF37",
   },
 ];

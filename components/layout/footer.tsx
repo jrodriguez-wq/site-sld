@@ -12,7 +12,6 @@ import {
   MapPin,
   Facebook,
   Linkedin,
-  Twitter,
   Instagram,
   ArrowRight,
   ChevronUp,
@@ -23,27 +22,31 @@ const footerColumns = [
     title: "Company",
     links: [
       { href: "/about", label: "About Us" },
-      { href: "/sld-news", label: "SLD News" },
-      { href: "/locations", label: "Locations" },
-      { href: "/business-model", label: "Our Mission" },
-      { href: "/investment", label: "Cash Program" },
-      { href: "/programs", label: "Rent to Own" },
-      { href: "/contact", label: "Contact" },
+      { href: "/models", label: "Floor plans" },
+      { href: "/locations", label: "Communities" },
+      { href: "/commercial", label: "Commercial" },
+      { href: "/contact", label: "Schedule a visit" },
+      { href: "/help", label: "Help" },
       { href: CONTACT_INFO.mjNewellHomesUrl, label: "M.J. Newell Homes", external: true },
     ],
   },
   {
-    title: "Programs",
+    title: "Resources",
     links: [
-      { href: "/investment", label: "1st Position Lender" },
-      { href: "/programs", label: "Rent to Own Program" },
+      { href: "/sld-news", label: "Company news" },
+      { href: "/blog", label: "Stories" },
+      { href: "/investment", label: "Cash program" },
+      { href: "/business-model", label: "Our mission" },
     ],
   },
   {
     title: "Legal",
     links: [
       { href: "/privacy", label: "Privacy Policy" },
-      { href: "/terms", label: "Terms of Service" },
+      { href: "/cookies", label: "Cookie Policy" },
+      { href: "/terms", label: "Terms of Use" },
+      { href: "/accessibility", label: "Accessibility" },
+      { href: "/help", label: "Help" },
     ],
   },
 ];
@@ -272,17 +275,12 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="py-5 sm:py-6 border-t border-white/5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/40 text-xs text-center sm:text-left">
+            <p className="text-white/55 text-xs text-center sm:text-left max-w-xl leading-relaxed">
+              We are pledged to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
+            </p>
+            <p className="text-white/35 text-[11px] text-center sm:text-right">
               © {currentYear} Standard Land Development. All rights reserved.
             </p>
-            <div className="flex items-center gap-6 text-xs">
-              <Link href="/privacy" prefetch className="text-white/40 hover:text-white/70 transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" prefetch className="text-white/40 hover:text-white/70 transition-colors">
-                Terms of Service
-              </Link>
-            </div>
             <button
               type="button"
               onClick={scrollToTop}

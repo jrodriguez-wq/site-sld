@@ -1,11 +1,24 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Script from "next/script";
+import { getStoredConsent, onConsentChange } from "@/lib/consent/cookie-consent";
 
 const FB_PIXEL_ID = "2334086850432806";
 
 export function MetaPixel() {
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    setAllowed(getStoredConsent() === "accepted");
+    return onConsentChange((status) => setAllowed(status === "accepted"));
+  }, []);
+
+  if (!allowed) return null;
+
   return (
     <>
-      <Script id="meta-pixel" strategy="beforeInteractive">
+      <Script id="meta-pixel" strategy="afterInteractive">
         {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

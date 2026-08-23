@@ -1,121 +1,58 @@
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
+import { LegalPage } from "@/components/legal/legal-page";
 import { CONTACT_INFO } from "@/config/contact";
 
 export const metadata = {
-  title: "Terms of Service | Standard Land Development",
-  description: "Terms of Service for Standard Land Development - Read our terms and conditions.",
+  title: "Terms of Use | Standard Land Development",
+  description: "Terms for using the Standard Land Development website.",
 };
 
 export default function TermsPage() {
   return (
-    <>
-      <PageHero
-        title="Terms of Service"
-        description="Read our terms and conditions to understand the terms of use for our services and website."
-        backgroundImage="/houses/3711/principal.webp"
-        badge="Legal Information"
-      />
-      <div className="bg-white py-16 sm:py-20 md:py-24">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <div className="mb-8">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-slate-900">
-                Terms of Service
-              </h1>
-              <p className="text-slate-600 text-lg">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            </div>
-
-            <div className="prose prose-lg prose-slate max-w-none space-y-8 text-slate-700 prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700">
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">1. Agreement to Terms</h2>
-                <p>
-                  By accessing and using the Standard Land Development website, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our website.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">2. Use License</h2>
-                <p className="mb-4">Permission is granted to temporarily access the materials on Standard Land Development&apos;s website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Modify or copy the materials</li>
-                  <li>Use the materials for any commercial purpose or for any public display</li>
-                  <li>Attempt to reverse engineer any software contained on the website</li>
-                  <li>Remove any copyright or other proprietary notations from the materials</li>
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">3. Investment Programs</h2>
-                <p>
-                  All investment opportunities presented on this website are subject to applicable securities laws and regulations. Past performance does not guarantee future results. All investments carry risk, and you should consult with a qualified financial advisor before making any investment decisions.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">4. Disclaimer</h2>
-                <p className="mb-4">The materials on Standard Land Development&apos;s website are provided on an &apos;as is&apos; basis. Standard Land Development makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation:</p>
-                <ul className="list-disc pl-6 space-y-2">
-                  <li>Implied warranties or conditions of merchantability</li>
-                  <li>Fitness for a particular purpose</li>
-                  <li>Non-infringement of intellectual property or other violation of rights</li>
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">5. Limitations</h2>
-                <p>
-                  In no event shall Standard Land Development or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Standard Land Development&apos;s website.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">6. Accuracy of Materials</h2>
-                <p>
-                  The materials appearing on Standard Land Development&apos;s website could include technical, typographical, or photographic errors. Standard Land Development does not warrant that any of the materials on its website are accurate, complete, or current.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">7. Links</h2>
-                <p>
-                  Standard Land Development has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by Standard Land Development.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">8. Modifications</h2>
-                <p>
-                  Standard Land Development may revise these terms of service at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">9. Governing Law</h2>
-                <p>
-                  These terms and conditions are governed by and construed in accordance with the laws of the State of Florida and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">10. Contact Information</h2>
-                <p>
-                  If you have any questions about these Terms of Service, please contact us:
-                </p>
-                <div className="mt-4 p-4 bg-slate-100 rounded-lg text-slate-800">
-                  <p className="font-semibold">Standard Land Development, LLC</p>
-                  <p>45 N Bridge St</p>
-                  <p>LaBelle, FL 33935</p>
-                  <p>Email: {CONTACT_INFO.email.display}</p>
-                  {CONTACT_INFO.contacts.map((contact) => (
-                    <p key={contact.name}>Phone ({contact.name}): {contact.display}</p>
-                  ))}
-                </div>
-              </section>
-            </div>
-          </div>
-        </Container>
-      </div>
-    </>
+    <LegalPage title="Terms of Use" description="Rules for using this website. Not a construction contract.">
+      <section>
+        <h2>1. Agreement</h2>
+        <p>
+          By using standardlanddevelopment.com you agree to these terms. If you do not agree, leave the site. A visit, model tour, or purchase is governed by separate written agreements, not this page.
+        </p>
+      </section>
+      <section>
+        <h2>2. What this site is</h2>
+        <p>
+          Marketing for Standard Land Development, LLC, a Florida land developer and homebuilder. Floor-plan photos are model photography unless we label a street address. Prices, specs, and availability change.
+        </p>
+      </section>
+      <section>
+        <h2>3. No investment offer on this page</h2>
+        <p>
+          Nothing here is an offer to sell securities. Any lender or cash program is described on dedicated pages and remains subject to documents and law. Past results do not predict future results.
+        </p>
+      </section>
+      <section>
+        <h2>4. License</h2>
+        <p>You may view pages for personal, non-commercial use. You may not scrape, copy our photography for other businesses, or reverse-engineer the site.</p>
+      </section>
+      <section>
+        <h2>5. Disclaimer</h2>
+        <p>The site is provided &quot;as is.&quot; We do not warrant that content is error-free. Photos, maps, and copy may lag the field.</p>
+      </section>
+      <section>
+        <h2>6. Limitation of liability</h2>
+        <p>
+          To the fullest extent allowed by Florida law, SLD is not liable for damages arising from use of this website. This does not limit liability that the law does not allow us to limit.
+        </p>
+      </section>
+      <section>
+        <h2>7. Fair Housing</h2>
+        <p>
+          We are pledged to the letter and spirit of U.S. policy for equal housing opportunity. We do not discriminate because of race, color, religion, sex, handicap, familial status, or national origin.
+        </p>
+      </section>
+      <section>
+        <h2>8. Contact</h2>
+        <p>
+          {CONTACT_INFO.address.full} · {CONTACT_INFO.email.display}
+        </p>
+      </section>
+    </LegalPage>
   );
 }

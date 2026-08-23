@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Hero } from "@/components/sections/hero";
+import { BusinessLines } from "@/components/sections/business-lines";
 import { LogosSlider } from "@/components/sections/logos-slider";
 import { Statistics } from "@/components/sections/statistics";
 import { PreloadVideos } from "@/components/preload-videos";
@@ -8,9 +9,6 @@ import { LazySection } from "@/components/ui/lazy-section";
 // Below-fold: code-split + LazySection carga solo cuando entran en viewport
 const BeforeAfterSlider = dynamic(
   () => import("@/components/image-display/before-after-slider").then((m) => m.BeforeAfterSlider)
-);
-const ImageCompare = dynamic(
-  () => import("@/components/image-display/image-compare").then((m) => m.ImageCompare)
 );
 const ModelsShowcase = dynamic(
   () => import("@/components/sections/models-showcase").then((m) => m.ModelsShowcase)
@@ -56,12 +54,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 export const metadata: Metadata = {
   title: "Affordable New Homes in Southwest Florida | Standard Land Development",
   description:
-    "Standard Land Development builds affordable new homes in Southwest Florida since 2016. 2,877 homes built. Rent to Own with $0 down. 22% annual return for investors. Founded by CEO Michael J. Newell.",
+    "Standard Land Development builds new homes in Southwest Florida. 2,877 homes delivered since 2016. Floor plans, communities, and commercial construction from LaBelle, Florida.",
   alternates: { canonical: siteUrl },
   openGraph: {
     title: "Affordable New Homes in Southwest Florida | Standard Land Development",
     description:
-      "2,877 homes built. Rent to Own with $0 down. 22% annual return for investors. Southwest Florida's trusted home builder.",
+      "2,877 homes delivered since 2016. Floor plans and communities in Southwest Florida.",
     url: siteUrl,
     images: [{ url: `${siteUrl}/og-image.jpg`, width: 1200, height: 630, alt: "Standard Land Development — Affordable Homes" }],
   },
@@ -69,9 +67,10 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="bg-linear-to-b from-white via-slate-50/40 to-white">
+    <div className="bg-white">
       <PreloadVideos />
       <Hero />
+      <BusinessLines />
       <LogosSlider />
       <Statistics />
       <LazySection fallback={<SectionSkeleton />}>
@@ -86,10 +85,10 @@ export default function Home() {
           alt: "Completed community - finished homes and landscaping",
           label: "After",
         }}
-        eyebrow="Transformation"
-        headline="See The"
-        highlightedText="Difference"
-        description="From groundbreaking to move-in ready. Drag the slider to compare our community before and after development."
+        eyebrow="Construction"
+        headline="From dirt"
+        highlightedText="to street"
+        description="One comparison: groundbreaking versus a finished SLD street. Models live on a separate page from any street address."
         theme="dark"
       />
       </LazySection>
@@ -105,29 +104,6 @@ export default function Home() {
         layout="side-by-side"
         theme="dark"
         showBlurBackground
-      />
-      </LazySection>
-
-      <LazySection fallback={<SectionSkeleton />}>
-        <ImageCompare
-        leftImage={{
-          src: "/constructions/Ca2.webp",
-          alt: "SLD construction site - house under construction with team and equipment",
-          label: "In Progress",
-        }}
-        rightImage={{
-          src: "/constructions/ComunidadC.webp",
-          alt: "Completed community - finished homes and landscaping",
-          label: "Completed",
-        }}
-        eyebrow="Our Work"
-        headline="From Site"
-        highlightedText="To Community"
-        description="Active construction with the SLD team and equipment, to the finished community our families call home."
-        ctaText="View Models"
-        ctaHref="/models"
-        dividerAngle={12}
-        interactive
       />
       </LazySection>
 

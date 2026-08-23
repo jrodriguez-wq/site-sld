@@ -22,7 +22,6 @@ export const getModelData = async (
         return {
           ...baseData,
           price: pricing.price,
-          rtoPrice: pricing.rtoPrice,
           sqft: pricing.sqft,
           bedrooms: pricing.bedrooms,
           bathrooms: pricing.bathrooms,

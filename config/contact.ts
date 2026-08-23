@@ -48,7 +48,19 @@ export const CONTACT_INFO = {
   /** Calendly inline widget URL for contact page (investors schedule a meeting). */
   calendlyInlineUrl:
     process.env.NEXT_PUBLIC_CALENDLY_INLINE_URL ||
-    "https://calendly.com/contact-standardlanddevelopment/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=001ada",
+    "https://calendly.com/contact-standardlanddevelopment/30min?hide_event_type_details=1&hide_gdpr_banner=1&primary_color=090040",
   domain: "standardlanddevelopment.com",
   siteUrl: "https://standardlanddevelopment.com",
 };
+
+/** True when the URL is a Calendly event (user/event), not the marketing homepage. */
+export function isCalendlyEventUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.replace(/^www\./, "");
+    if (host !== "calendly.com") return false;
+    return parsed.pathname.split("/").filter(Boolean).length >= 2;
+  } catch {
+    return false;
+  }
+}

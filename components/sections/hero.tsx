@@ -2,304 +2,145 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play, ChevronDown } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { ArrowRight } from "lucide-react";
+import { useRef, useState } from "react";
+import { SITE_IMAGES } from "@/config/site-images";
 
 const EASE_SMOOTH = [0.25, 0.46, 0.45, 0.94] as const;
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.12 },
-  },
-};
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 14 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: EASE_SMOOTH },
-  },
-};
-
-const lineRevealVariants = {
-  hidden: { scaleX: 0, originX: 0 },
-  visible: {
-    scaleX: 1,
-    transition: { duration: 0.4, ease: EASE_SMOOTH, delay: 0.1 },
-  },
+const fadeUp = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE_SMOOTH } },
 };
 
 const Hero = () => {
   const reduceMotion = useReducedMotion();
   const containerRef = useRef<HTMLElement>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const [isBuffering, setIsBuffering] = useState(false);
-
-  // Disable parallax on mobile & tablet — useScroll + useSpring creates a
-  // continuous RAF loop that keeps the main thread busy on every scroll event.
-  // On desktop (≥1024px) the visual payoff justifies the cost; on mobile it
-  // only hurts INP and causes the "Avoid non-composited animations" warning.
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  const enableParallax = isDesktop && !reduceMotion;
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  // Spring only used on desktop — still subscribes on mobile but transforms are disabled
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const videoY = useTransform(smoothProgress, [0, 1], ["0%", "20%"]);
-  const videoScale = useTransform(smoothProgress, [0, 1], [1, 1.15]);
-  const contentOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
-  const contentY = useTransform(smoothProgress, [0, 0.3], ["0%", "-10%"]);
 
   return (
     <motion.section
       ref={containerRef}
-      className="relative overflow-hidden h-svh min-h-dvh max-h-svh flex flex-col bg-[#090040]"
-      initial="visible"
+      className="relative overflow-hidden flex flex-col bg-[#090040] h-[calc(100dvh-var(--site-header-h))] max-h-[calc(100svh-var(--site-header-h))]"
+      initial={reduceMotion ? "visible" : "hidden"}
       animate="visible"
-      variants={containerVariants}
-      aria-label="Standard Land Development - Luxury Home Builder"
+      variants={{
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.08 } },
+      }}
+      aria-label="Standard Land Development — Southwest Florida home builder"
     >
-      {/* Preload hero video and poster for faster LCP */}
-      <link rel="preload" href="/SLD-video1.mp4" as="video" type="video/mp4" />
-      <link rel="preload" href="/recurses/casa.webp" as="image" fetchPriority="high" />
-      {/* Video de fondo - siempre visible */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{
-          y: enableParallax ? videoY : 0,
-          scale: enableParallax ? videoScale : 1,
-        }}
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          poster="/recurses/casa.webp"
-          onLoadedData={() => setIsVideoLoaded(true)}
-          onCanPlay={() => setIsVideoLoaded(true)}
-          onError={() => setIsVideoLoaded(true)}
-          onWaiting={() => setIsBuffering(true)}
-          onPlaying={() => setIsBuffering(false)}
-          onCanPlayThrough={() => setIsBuffering(false)}
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        >
-          <source src="/SLD-video1.mp4" type="video/mp4" />
-        </video>
-        {/* Placeholder mientras carga inicial */}
-        <div
-          className={`absolute inset-0 bg-[#090040]/30 transition-opacity duration-500 ${isVideoLoaded ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={SITE_IMAGES.homeHero}
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
         />
-        {/* Buffering indicator cuando se detiene a mitad de reproducción */}
-        {isBuffering && isVideoLoaded && (
-          <div
-            className="absolute inset-0 z-[1] flex items-center justify-center bg-black/20"
-            aria-live="polite"
-            aria-label="Video loading"
-          >
-            <span className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
-          </div>
-        )}
-      </motion.div>
-
-      {/* Minimal overlay for text readability; video remains visible */}
-      <div className="absolute inset-0 z-[1] pointer-events-none" aria-hidden="true">
+      </div>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={SITE_IMAGES.finishedHome}
+        onLoadedData={() => setIsVideoLoaded(true)}
+        onCanPlay={() => setIsVideoLoaded(true)}
+        onError={() => setIsVideoLoaded(true)}
+        className={`absolute inset-0 z-[1] w-full h-full object-cover object-center transition-opacity duration-500 ${
+          isVideoLoaded ? "opacity-100" : "opacity-0"
+        }`}
+        aria-hidden="true"
+      >
+        <source src="/SLD-video1.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 z-[2] pointer-events-none" aria-hidden>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,transparent_0%,rgba(9,0,64,0.08)_50%,rgba(9,0,64,0.28)_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#090040]/15 via-transparent to-[#090040]/35" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#090040]/20 via-transparent to-[#090040]/45" />
       </div>
 
-      {/* Film Grain Texture */}
-      <div 
-        className="absolute inset-0 z-[2] opacity-[0.015] pointer-events-none mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Main Content with Parallax - fits one viewport */}
-      <motion.div
-        className="relative z-10 flex-1 flex flex-col min-h-0"
-        style={{
-          opacity: enableParallax ? contentOpacity : 1,
-          y: enableParallax ? contentY : 0,
-        }}
-      >
-        {/* Top Section - SLD Logo & Brand Mark */}
-        <div className="pt-16 sm:pt-20 md:pt-24 lg:pt-28 flex flex-col items-center justify-center px-4 sm:px-6 shrink-0">
-          <motion.div
-            variants={fadeUpVariants}
-            className="flex flex-col items-center gap-3 sm:gap-4"
-          >
-            <Link
-              href="/"
-              className="block transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
-              aria-label="Standard Land Development - Home"
-            >
-              <Image
-                src="/logos/sld-blanco.svg"
-                alt="Standard Land Development"
-                width={240}
-                height={96}
-                className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto max-w-[85vw]"
-                priority
-                fetchPriority="high"
-              />
-            </Link>
-            <motion.div
-              variants={lineRevealVariants}
-              className="w-12 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/70 to-transparent"
-            />
-            <span className="text-[10px] sm:text-xs font-semibold tracking-[0.3em] sm:tracking-[0.35em] uppercase text-white/90">
-              Est. 2016 · Southwest Florida
-            </span>
-          </motion.div>
-        </div>
-
-        {/* Center Content - mobile-friendly layout */}
-        <div className="flex-1 flex flex-col items-center justify-center min-h-0 px-4 sm:px-6 md:px-8 lg:px-12 py-4 sm:py-6 md:py-10 lg:py-16">
-          <div className="max-w-5xl mx-auto text-center w-full">
-            
-            {/* Main Headline - larger on mobile for impact */}
-            <motion.h1
-              variants={fadeUpVariants}
-              className="relative mb-3 sm:mb-4"
-            >
-              <span
-                className="block text-[clamp(2rem,8vw,5rem)] sm:text-[clamp(2.5rem,9vw,6rem)] font-semibold text-white leading-[0.95] tracking-[-0.02em] drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                style={{ fontFamily: "var(--font-serif, 'Playfair Display', Georgia, serif)" }}
-              >
-                Build Your Legacy
-              </span>
-            </motion.h1>
-
-            {/* Decorative Divider */}
-            <motion.div 
-              variants={fadeUpVariants}
-              className="flex items-center justify-center gap-3 sm:gap-4 my-4 sm:my-6 md:my-8"
-            >
-              <div className="w-12 sm:w-16 h-px bg-gradient-to-r from-transparent to-white/20" />
-              <div className="w-1.5 h-1.5 rotate-45 border border-[#D4AF37]/60" />
-              <div className="w-12 sm:w-16 h-px bg-gradient-to-l from-transparent to-white/20" />
-            </motion.div>
-
-            {/* Supporting Copy - readable on mobile */}
-            <motion.p
-              variants={fadeUpVariants}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/85 max-w-xl mx-auto leading-relaxed font-medium tracking-wide px-1 drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]"
-            >
-              Over 2,877 families have transformed their dreams into
-              <span className="text-white font-semibold"> addresses</span>.
-              Your story begins here.
-            </motion.p>
-
-            {/* CTA Group - touch-friendly min-h 48px on mobile */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 md:mt-10 px-2 sm:px-0"
-            >
-              <Button
-                size="lg"
-                className="group relative w-full sm:w-auto overflow-hidden bg-[#D4AF37] hover:bg-[#FFD700] text-[#090040] font-semibold rounded-xl px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase transition-all duration-300 min-h-[52px] touch-manipulation active:scale-[0.98]"
-                asChild
-              >
-                <Link
-                  href="/contact"
-                  prefetch
-                  className="flex items-center justify-center gap-3 min-h-[52px] touch-manipulation"
-                >
-                  <span className="relative z-10">Become a Lender</span>
-                  <ArrowRight className="relative z-10 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="group w-full sm:w-auto border-2 border-white/30 text-white hover:border-[#D4AF37]/60 font-medium rounded-xl px-8 sm:px-10 py-5 sm:py-7 text-sm tracking-wider uppercase bg-[#090040]/70 backdrop-blur-md transition-all duration-300 min-h-[52px] touch-manipulation active:scale-[0.98]"
-                asChild
-              >
-                <Link
-                  href="/models"
-                  prefetch
-                  className="flex items-center justify-center gap-3 min-h-[52px] touch-manipulation"
-                >
-                  <Play className="h-4 w-4 fill-current" />
-                  <span>View Models</span>
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom Stats Bar - mobile-friendly */}
-        <div className="mt-auto shrink-0">
-          <motion.div
-            variants={fadeUpVariants}
-            className="border-t border-white/5"
-          >
-            <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-2 divide-x divide-white/5">
-                <div className="group px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 lg:py-8 text-center transition-colors duration-300 hover:bg-white/5 active:bg-white/5 touch-manipulation min-h-[72px] sm:min-h-0 flex flex-col items-center justify-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
-                    2,877
-                  </div>
-                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/75 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold">
-                    Homes Delivered
-                  </div>
-                </div>
-                <div className="group px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 lg:py-8 text-center transition-colors duration-300 hover:bg-white/5 active:bg-white/5 touch-manipulation min-h-[72px] sm:min-h-0 flex flex-col items-center justify-center">
-                  <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold font-numeric tabular-nums text-white tracking-tight">
-                    100%
-                  </div>
-                  <div className="mt-0.5 sm:mt-1 text-[9px] sm:text-[10px] md:text-xs text-white/75 tracking-[0.15em] sm:tracking-[0.2em] uppercase font-semibold">
-                    Client Satisfaction
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Scroll Indicator - Minimal */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.35 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 hidden lg:flex flex-col items-center"
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ChevronDown className="w-5 h-5 text-white/30" />
+      <div className="relative z-10 flex-1 min-h-0 flex flex-col justify-between px-4 sm:px-6 lg:px-10 py-4 sm:py-5 md:py-6">
+        <motion.div variants={fadeUp} className="flex flex-col items-center shrink-0">
+          <Image
+            src="/logos/sld-blanco.svg"
+            alt="Standard Land Development"
+            width={200}
+            height={64}
+            className="h-9 sm:h-11 md:h-12 w-auto max-w-[70vw]"
+            priority
+          />
+          <p className="mt-2 text-[10px] sm:text-xs font-semibold tracking-[0.22em] uppercase text-white/80">
+            Est. 2016 · Southwest Florida
+          </p>
         </motion.div>
-      </motion.div>
+
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center py-2">
+          <motion.h1
+            variants={fadeUp}
+            className="text-[clamp(1.75rem,6.5vw,3.75rem)] font-semibold text-white leading-[1.05] tracking-tight max-w-4xl"
+            style={{ fontFamily: "var(--font-serif, 'Playfair Display', Georgia, serif)" }}
+          >
+            Homes built in Florida
+          </motion.h1>
+          <motion.p
+            variants={fadeUp}
+            className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-white/85 max-w-xl leading-snug"
+          >
+            2,877 homes delivered since 2016. Land development and construction from LaBelle.
+          </motion.p>
+          <motion.div
+            variants={fadeUp}
+            className="mt-4 sm:mt-6 flex flex-row flex-wrap items-center justify-center gap-2 sm:gap-3"
+          >
+            <Button
+              size="lg"
+              className="bg-[#D4AF37] hover:bg-[#e4c04a] text-[#090040] font-semibold rounded-lg px-5 sm:px-8 min-h-11 text-xs sm:text-sm tracking-wide uppercase"
+              asChild
+            >
+              <Link href="/contact" prefetch className="inline-flex items-center gap-2">
+                Schedule a visit
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border border-white/40 text-white hover:border-[#D4AF37] bg-[#090040]/50 rounded-lg px-5 sm:px-8 min-h-11 text-xs sm:text-sm tracking-wide uppercase"
+              asChild
+            >
+              <Link href="/models" prefetch>
+                View floor plans
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        <motion.div variants={fadeUp} className="shrink-0 border-t border-white/15">
+          <div className="grid grid-cols-2 divide-x divide-white/15 max-w-3xl mx-auto">
+            <div className="py-3 sm:py-4 text-center">
+              <p className="text-lg sm:text-2xl md:text-3xl font-semibold font-numeric tabular-nums text-white">
+                2,877
+              </p>
+              <p className="mt-0.5 text-[10px] sm:text-xs uppercase tracking-[0.14em] text-white/70 font-semibold">
+                Homes delivered
+              </p>
+            </div>
+            <div className="py-3 sm:py-4 text-center">
+              <p className="text-lg sm:text-2xl md:text-3xl font-semibold font-numeric tabular-nums text-white">
+                2016
+              </p>
+              <p className="mt-0.5 text-[10px] sm:text-xs uppercase tracking-[0.14em] text-white/70 font-semibold">
+                Building since
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </motion.section>
   );
 };

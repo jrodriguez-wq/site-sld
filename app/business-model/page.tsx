@@ -4,6 +4,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
 import { CONTACT_INFO } from "@/config/contact";
+import { SITE_IMAGES } from "@/config/site-images";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
@@ -33,7 +34,7 @@ export default function BusinessModelPage() {
         title="Our Mission"
         subtitle="Building Affordable Homes for American Families"
         description="We develop high-demand urban projects across South Florida. Real property-backed, community-focused."
-        backgroundImage="/houses/713/principal.webp"
+        backgroundImage={SITE_IMAGES.homeHero}
         badge="Our Mission"
       />
       <div id="business-model" className="scroll-mt-20 sm:scroll-mt-24">

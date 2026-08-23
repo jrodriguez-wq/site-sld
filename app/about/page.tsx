@@ -6,6 +6,7 @@ import { LogosSlider } from "@/components/sections/logos-slider";
 import { JsonLd } from "@/components/seo/json-ld";
 import { generateBreadcrumbSchema } from "@/lib/seo/structured-data";
 import { CONTACT_INFO } from "@/config/contact";
+import { SITE_IMAGES } from "@/config/site-images";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || CONTACT_INFO.siteUrl;
 
@@ -35,7 +36,7 @@ export default function AboutPage() {
         title="About Us"
         subtitle="Creating the opportunity of home ownership for American Families"
         description="Learn about Standard Land Development, our mission, vision, and core values. Founded in 2016 by CEO Michael J. Newell."
-        backgroundImage="/houses/4090/principal.webp"
+        backgroundImage={SITE_IMAGES.interiors}
         badge="Our Story"
       />
       <div id="about" className="scroll-mt-20 sm:scroll-mt-24">

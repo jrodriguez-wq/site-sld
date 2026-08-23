@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { CONTACT_INFO } from "@/config/contact";
+import { CONTACT_INFO, isCalendlyEventUrl } from "@/config/contact";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaCheckCircle, FaPaperPlane, FaExclamationCircle, FaCalendarAlt } from "react-icons/fa";
 import type { IconType } from "react-icons";
 import { CalendlyInlineWidget } from "@/components/ui/calendly-inline-widget";
@@ -311,14 +311,27 @@ const Contact = () => {
                 className="mt-2"
               >
                 <p className="text-gray-600 mb-4 text-sm sm:text-base">
-                  Schedule a 1-hour call with our team. For investors or a more personal conversation.
+                  Schedule a call with our team in LaBelle. Use the calendar, or email us if you prefer a written note.
                 </p>
-                <CalendlyInlineWidget
-                  url={CONTACT_INFO.calendlyInlineUrl}
-                  minWidth={320}
-                  height={700}
-                  className="w-full rounded-xl overflow-hidden"
-                />
+                {isCalendlyEventUrl(CONTACT_INFO.calendlyInlineUrl) ? (
+                  <CalendlyInlineWidget
+                    url={CONTACT_INFO.calendlyInlineUrl}
+                    minWidth={320}
+                    height={700}
+                    className="w-full rounded-xl overflow-hidden"
+                  />
+                ) : (
+                  <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-600">
+                    <p className="font-semibold text-slate-900 mb-2">Online scheduling is not connected yet.</p>
+                    <p>
+                      Call {CONTACT_INFO.contacts[0]?.display} or email{" "}
+                      <a className="underline text-[#090040]" href={CONTACT_INFO.email.href}>
+                        {CONTACT_INFO.email.display}
+                      </a>
+                      .
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
@@ -393,12 +406,14 @@ const Contact = () => {
                     }`}
                     placeholder="Your full name"
                   />
-                  {errors.name && (
-                    <p id="name-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
-                      <FaExclamationCircle className="h-3.5 w-3.5" />
-                      {errors.name}
-                    </p>
-                  )}
+                  <p id="name-error" className="mt-1 min-h-5 text-sm text-red-600 flex items-center gap-1.5">
+                    {errors.name ? (
+                      <>
+                        <FaExclamationCircle className="h-3.5 w-3.5" />
+                        {errors.name}
+                      </>
+                    ) : null}
+                  </p>
                 </div>
 
                 <div>
@@ -424,12 +439,14 @@ const Contact = () => {
                     }`}
                     placeholder="your.email@example.com"
                   />
-                  {errors.email && (
-                    <p id="email-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
-                      <FaExclamationCircle className="h-3.5 w-3.5" />
-                      {errors.email}
-                    </p>
-                  )}
+                  <p id="email-error" className="mt-1 min-h-5 text-sm text-red-600 flex items-center gap-1.5">
+                    {errors.email ? (
+                      <>
+                        <FaExclamationCircle className="h-3.5 w-3.5" />
+                        {errors.email}
+                      </>
+                    ) : null}
+                  </p>
                 </div>
 
                 <div>
@@ -454,12 +471,14 @@ const Contact = () => {
                     }`}
                     placeholder={CONTACT_INFO.contacts[0]?.display ?? CONTACT_INFO.phone.display}
                   />
-                  {errors.phone && (
-                    <p id="phone-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
-                      <FaExclamationCircle className="h-3.5 w-3.5" />
-                      {errors.phone}
-                    </p>
-                  )}
+                  <p id="phone-error" className="mt-1 min-h-5 text-sm text-red-600 flex items-center gap-1.5">
+                    {errors.phone ? (
+                      <>
+                        <FaExclamationCircle className="h-3.5 w-3.5" />
+                        {errors.phone}
+                      </>
+                    ) : null}
+                  </p>
                 </div>
 
                 <div>
@@ -485,12 +504,14 @@ const Contact = () => {
                     }`}
                     placeholder="Tell us about your project or inquiry..."
                   />
-                  {errors.message && (
-                    <p id="message-error" className="mt-1.5 text-sm text-red-600 flex items-center gap-1.5">
-                      <FaExclamationCircle className="h-3.5 w-3.5" />
-                      {errors.message}
-                    </p>
-                  )}
+                  <p id="message-error" className="mt-1 min-h-5 text-sm text-red-600 flex items-center gap-1.5">
+                    {errors.message ? (
+                      <>
+                        <FaExclamationCircle className="h-3.5 w-3.5" />
+                        {errors.message}
+                      </>
+                    ) : null}
+                  </p>
                 </div>
 
                 <Button

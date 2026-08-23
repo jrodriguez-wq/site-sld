@@ -31,7 +31,7 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
   const thumbnailRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const thumbnailContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const { name, sqft, bedrooms, bathrooms, garage, price, rtoPrice, description, youtubeUrl, images, sections } = modelData;
+  const { name, sqft, bedrooms, bathrooms, garage, price, description, youtubeUrl, images, sections } = modelData;
   
   // Use model name directly
   const modelName = name;
@@ -242,19 +242,8 @@ export const ModelPageContent = ({ modelData }: ModelPageContentProps) => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 pt-0 space-y-4">
-                {/* RTO Price Section */}
-                {rtoPrice && (
-                  <div className="pt-4 border-t border-gray-200">
-                    <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">
-                      Rent to Own Program
-                    </p>
-                    <p className="text-2xl md:text-3xl font-bold text-[#090040]">
-                      {rtoPrice}
-                    </p>
-                  </div>
-                )}
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  Contact us for financing options
+                  Contact us for current pricing and a model tour in LaBelle.
                 </p>
               </CardContent>
             </Card>

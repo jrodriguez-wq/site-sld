@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Geist_Mono, Playfair_Display } from "next/font/googl
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { CookieConsentBanner } from "@/components/consent/cookie-consent-banner";
 import { SEO_CONFIG } from "@/config/seo";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -150,11 +151,12 @@ export default function RootLayout({
         <JsonLd data={globalSchemas} />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 pb-24 sm:pb-24 lg:pb-0 min-h-0">
+          <main className="flex-1 min-h-0">
             {children}
           </main>
           <Footer />
         </div>
+        <CookieConsentBanner />
       </body>
     </html>
   );
