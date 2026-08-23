@@ -36,41 +36,6 @@ const stats = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.08 },
-  },
-};
-
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.35, ease: EASE_SMOOTH },
-  },
-};
-
-const statCardVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.06 + i * 0.06, duration: 0.4, ease: EASE_SMOOTH },
-  }),
-};
-
-const imageRevealVariants = {
-  hidden: { opacity: 0, scale: 1.05 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: EASE_SMOOTH },
-  },
-};
-
 const fadeInOnMount = {
   hidden: { opacity: 0 },
   visible: {

@@ -10,13 +10,6 @@ const FROM_EMAIL =
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-interface ContactBody {
-  name?: string;
-  email?: string;
-  phone?: string;
-  message?: string;
-}
-
 /** Validated payload: name, email, message are required; phone is string (may be empty). */
 interface ValidatedContact {
   name: string;

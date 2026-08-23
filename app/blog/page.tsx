@@ -23,7 +23,6 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   const featuredPosts = getFeaturedPosts();
-  const regularPosts = blogPosts.filter((post) => !post.featured);
   const breadcrumb = generateBreadcrumbSchema([
     { name: "Home", url: siteUrl },
     { name: "Blog", url: `${siteUrl}/blog` },

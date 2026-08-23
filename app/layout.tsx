@@ -3,11 +3,10 @@ import { Plus_Jakarta_Sans, Geist_Mono, Playfair_Display } from "next/font/googl
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { CookieConsentBanner } from "@/components/consent/cookie-consent-banner";
 import { SEO_CONFIG } from "@/config/seo";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
 import { JsonLd } from "@/components/seo/json-ld";
-import { MetaPixel } from "@/components/analytics/meta-pixel";
+import { ConsentRuntime } from "@/components/consent/consent-runtime";
 import {
   generateOrganizationSchema,
   generateLocalBusinessSchema,
@@ -147,7 +146,7 @@ export default function RootLayout({
         className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation bg-background`}
         suppressHydrationWarning
       >
-        <MetaPixel />
+        <ConsentRuntime />
         <JsonLd data={globalSchemas} />
         <div className="flex min-h-screen flex-col">
           <Header />
@@ -156,7 +155,6 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
-        <CookieConsentBanner />
       </body>
     </html>
   );

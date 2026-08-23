@@ -43,9 +43,10 @@ export const CommercialGallery = ({ variant = "full" }: CommercialGalleryProps) 
     return selectedCategory === "commercial" ? commercialImages : residentialImages;
   }, [selectedCategory]);
 
-  useEffect(() => {
+  const selectCategory = (category: "commercial" | "residential") => {
+    setSelectedCategory(category);
     setSelectedImage(null);
-  }, [selectedCategory]);
+  };
 
   const openModal = (index: number) => {
     setSelectedImage(index);
@@ -126,7 +127,7 @@ export const CommercialGallery = ({ variant = "full" }: CommercialGalleryProps) 
             <div className="flex justify-center mb-12">
               <div className="inline-flex rounded-2xl bg-white/10 backdrop-blur-sm p-2 border-2 border-white/20 shadow-lg">
                 <button
-                  onClick={() => setSelectedCategory("commercial")}
+                  onClick={() => selectCategory("commercial")}
                   className={`px-6 py-3 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 flex items-center gap-2 cursor-pointer ${
                     selectedCategory === "commercial"
                       ? "bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white shadow-lg"
@@ -140,7 +141,7 @@ export const CommercialGallery = ({ variant = "full" }: CommercialGalleryProps) 
                   </span>
                 </button>
                 <button
-                  onClick={() => setSelectedCategory("residential")}
+                  onClick={() => selectCategory("residential")}
                   className={`px-6 py-3 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 flex items-center gap-2 cursor-pointer ${
                     selectedCategory === "residential"
                       ? "bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-white shadow-lg"

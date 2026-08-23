@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { MapPin, Route, Building2, ArrowRight } from "lucide-react";
-import { Container } from "@/components/ui/container";
 import { OFFICES } from "@/data/offices";
 
 const SECTION_CLASSES = {

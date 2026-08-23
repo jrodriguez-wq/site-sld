@@ -7,10 +7,11 @@ import { getStoredConsent, onConsentChange } from "@/lib/consent/cookie-consent"
 const FB_PIXEL_ID = "2334086850432806";
 
 export function MetaPixel() {
-  const [allowed, setAllowed] = useState(false);
+  const [allowed, setAllowed] = useState(
+    () => getStoredConsent() === "accepted"
+  );
 
   useEffect(() => {
-    setAllowed(getStoredConsent() === "accepted");
     return onConsentChange((status) => setAllowed(status === "accepted"));
   }, []);
 
@@ -33,6 +34,8 @@ fbq('track', 'PageView');
         `}
       </Script>
       <noscript>
+        {/* Meta Pixel fallback requires a 1×1 tracking pixel, not next/image. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           height={1}
           width={1}

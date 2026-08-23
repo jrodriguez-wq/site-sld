@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Cookie } from "lucide-react";
 import { getStoredConsent, setStoredConsent } from "@/lib/consent/cookie-consent";
 
 export function CookieConsentBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (getStoredConsent() === null) setVisible(true);
-  }, []);
+  const [visible, setVisible] = useState(() => getStoredConsent() === null);
 
   const handleChoice = (accepted: boolean) => {
     setStoredConsent(accepted ? "accepted" : "declined");

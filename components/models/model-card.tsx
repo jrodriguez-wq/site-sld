@@ -56,23 +56,13 @@ const ModelCardComponent = (props: ModelCardProps) => {
     badges,
     satisfiedFamilies,
     viewDetailsLabel,
-    viewPhotosLabel,
-    modelLabel,
     carouselDelay = 4000,
     initialDelay = 0,
     community,
   } = props;
 
-  // Usar traducciones dinámicas con fallback a props si están disponibles
-  const displayViewDetailsLabel = viewDetailsLabel || t("homeModels.viewMoreDetails");
-  const displayViewMoreLabel = t("homeModels.viewMore");
-  const displayModelLabel = modelLabel || t("homeModels.model");
   const displayPriceFromLabel = t("homeModels.priceFrom");
   const displayFeaturesLabel = t("homeModels.features");
-  const addToFavoritesLabel = t("homeModels.addToFavorites");
-  const removeFromFavoritesLabel = t("homeModels.removeFromFavorites");
-  const shareLabel = t("homeModels.share");
-  const linkCopiedLabel = t("homeModels.linkCopied") || "Link copied!";
   const shareModelLabel = t("homeModels.shareModel") || `Share ${name}`;
   
   // Community labels
@@ -81,8 +71,6 @@ const ModelCardComponent = (props: ModelCardProps) => {
       ? t("communities.labelle.name")
       : t("communities.lehighAcres.name")
     : null;
-  const viewPhotosCountLabel = (count: number) => 
-    t("homeModels.viewPhotosCount").replace("{count}", count.toString());
   const closeGalleryLabel = t("homeModels.closeGallery");
   const previousImageLabel = t("homeModels.previousImage");
   const nextImageLabel = t("homeModels.nextImage");
@@ -201,7 +189,7 @@ const ModelCardComponent = (props: ModelCardProps) => {
       copyTimeoutRef.current = setTimeout(() => {
         setIsLinkCopied(false);
       }, 3000);
-    } catch (error) {
+    } catch {
       // Si falla clipboard API, usar método alternativo
       const textArea = document.createElement("textarea");
       textArea.value = fullModelUrl;

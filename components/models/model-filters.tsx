@@ -4,7 +4,6 @@ import { useState, memo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Filter, DollarSign, Bed, Bath, Square, RotateCcw, ChevronDown } from "lucide-react";
-import { useTranslation } from "@/hooks/use-translation";
 import { cn } from "@/lib/utils";
 
 export interface FilterState {
@@ -22,7 +21,6 @@ interface ModelFiltersProps {
 }
 
 const ModelFiltersComponent = ({ filters, onFiltersChange, maxPrice, maxSqft }: ModelFiltersProps) => {
-  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const handlePriceChange = useCallback((value: number[]) => {

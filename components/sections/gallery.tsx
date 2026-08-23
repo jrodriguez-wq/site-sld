@@ -59,7 +59,7 @@ const Gallery = () => {
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6">
               <span className="bg-gradient-to-r from-[#090040] via-[#2d2c55] to-[#090040] bg-clip-text text-transparent">
-                Homes We've Built
+                Homes We&apos;ve Built
               </span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 font-medium max-w-2xl mx-auto">

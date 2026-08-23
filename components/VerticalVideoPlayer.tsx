@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { Play, Pause, Volume2, VolumeX, Maximize2, RotateCcw } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, RotateCcw } from "lucide-react";
 
 // Types
 interface VerticalVideo {
