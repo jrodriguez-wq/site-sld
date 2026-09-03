@@ -7,6 +7,8 @@ import { SEO_CONFIG } from "@/config/seo";
 import { getLocalKeywords, getServiceKeywords } from "@/config/keywords";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ConsentRuntime } from "@/components/consent/consent-runtime";
+import { UnderConstruction } from "@/components/under-construction";
+import { SITE_UNDER_CONSTRUCTION } from "@/config/site-mode";
 import {
   generateOrganizationSchema,
   generateLocalBusinessSchema,
@@ -33,10 +35,12 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-
-
 const siteName = SEO_CONFIG.siteName;
 const siteUrl = SEO_CONFIG.siteUrl;
+
+const constructionDescription =
+  "Standard Land Development is rebuilding its website. Please check back soon.";
+
 const defaultDescription =
   "Standard Land Development - Creating the opportunity of home ownership for American Families. Founded in 2016 by CEO Michael J. Newell. 2,877 homes built. 22% annual return to our lenders. Investment opportunities with 1st Position Lender Cash Program.";
 
@@ -53,86 +57,131 @@ const allKeywords = [
   ...getServiceKeywords(),
 ];
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: `${siteName} | Investment Opportunities in Southwest Florida`,
-    template: `%s | ${siteName}`,
-  },
-  description: defaultDescription,
-  keywords: allKeywords,
-  authors: [{ name: "Standard Land Development" }],
-  creator: "Standard Land Development",
-  publisher: "Standard Land Development",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  icons: {
-    icon: [
-      { url: "/favicon/SLD16X16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon/SLD16X16.svg", type: "image/svg+xml" },
-    ],
-    apple: [{ url: "/favicon/SLD16X16.svg", type: "image/svg+xml" }],
-  },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: siteName,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteUrl,
-    siteName: siteName,
-    title: `${siteName} | Investment Opportunities in Southwest Florida`,
-    description: defaultDescription,
-    images: [
-      {
-        // OG image must be JPG/WebP 1200x630 — SVG not supported by social crawlers
-        url: `${siteUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "Standard Land Development — Affordable Homes in Southwest Florida",
+export const metadata: Metadata = SITE_UNDER_CONSTRUCTION
+  ? {
+      metadataBase: new URL(siteUrl),
+      title: {
+        default: `Website Under Construction | ${siteName}`,
+        template: `%s | ${siteName}`,
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteName} | Investment Opportunities in Southwest Florida`,
-    description: defaultDescription,
-    images: [`${siteUrl}/og-image.jpg`],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
-  },
-  alternates: {
-    canonical: siteUrl,
-  },
-  other: {
-    "facebook-domain-verification": "52y0vaxl4stj4h9bpzby361n3bo68f",
-    "msapplication-TileColor": "#090040",
-    "theme-color": "#090040",
-  },
-};
+      description: constructionDescription,
+      robots: {
+        index: false,
+        follow: false,
+        googleBot: { index: false, follow: false },
+      },
+      icons: {
+        icon: [
+          { url: "/favicon/SLD16X16.png", sizes: "16x16", type: "image/png" },
+          { url: "/favicon/SLD16X16.svg", type: "image/svg+xml" },
+        ],
+        apple: [{ url: "/favicon/SLD16X16.svg", type: "image/svg+xml" }],
+      },
+      openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: siteUrl,
+        siteName: siteName,
+        title: `Website Under Construction | ${siteName}`,
+        description: constructionDescription,
+      },
+      other: {
+        "theme-color": "#090040",
+      },
+    }
+  : {
+      metadataBase: new URL(siteUrl),
+      title: {
+        default: `${siteName} | Investment Opportunities in Southwest Florida`,
+        template: `%s | ${siteName}`,
+      },
+      description: defaultDescription,
+      keywords: allKeywords,
+      authors: [{ name: "Standard Land Development" }],
+      creator: "Standard Land Development",
+      publisher: "Standard Land Development",
+      formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+      },
+      icons: {
+        icon: [
+          { url: "/favicon/SLD16X16.png", sizes: "16x16", type: "image/png" },
+          { url: "/favicon/SLD16X16.svg", type: "image/svg+xml" },
+        ],
+        apple: [{ url: "/favicon/SLD16X16.svg", type: "image/svg+xml" }],
+      },
+      appleWebApp: {
+        capable: true,
+        statusBarStyle: "default",
+        title: siteName,
+      },
+      openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: siteUrl,
+        siteName: siteName,
+        title: `${siteName} | Investment Opportunities in Southwest Florida`,
+        description: defaultDescription,
+        images: [
+          {
+            url: `${siteUrl}/og-image.jpg`,
+            width: 1200,
+            height: 630,
+            alt: "Standard Land Development — Affordable Homes in Southwest Florida",
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${siteName} | Investment Opportunities in Southwest Florida`,
+        description: defaultDescription,
+        images: [`${siteUrl}/og-image.jpg`],
+      },
+      robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-video-preview": -1,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+        },
+      },
+      verification: {
+        google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION,
+      },
+      alternates: {
+        canonical: siteUrl,
+      },
+      other: {
+        "facebook-domain-verification": "52y0vaxl4stj4h9bpzby361n3bo68f",
+        "msapplication-TileColor": "#090040",
+        "theme-color": "#090040",
+      },
+    };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  if (SITE_UNDER_CONSTRUCTION) {
+    // Ignore route children entirely — no contact, models, blog, or schema can leak.
+    return (
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${fontSans.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased min-h-screen touch-manipulation bg-[#090040]`}
+          suppressHydrationWarning
+        >
+          <UnderConstruction />
+        </body>
+      </html>
+    );
+  }
+
   const globalSchemas = [
     generateOrganizationSchema(),
     generateLocalBusinessSchema(),
@@ -150,9 +199,7 @@ export default function RootLayout({
         <JsonLd data={globalSchemas} />
         <div className="flex min-h-screen flex-col">
           <Header />
-          <main className="flex-1 min-h-0">
-            {children}
-          </main>
+          <main className="flex-1 min-h-0">{children}</main>
           <Footer />
         </div>
       </body>

@@ -1,10 +1,25 @@
 import Image from "next/image";
+import { SITE_UNDER_CONSTRUCTION } from "@/config/site-mode";
 
 /**
- * Global loading UI. Shown during route transitions and while segment data loads.
- * Branded, minimal, no client JS required.
+ * Global loading UI. Under construction: minimal navy screen (no brand claims).
  */
 export default function Loading() {
+  if (SITE_UNDER_CONSTRUCTION) {
+    return (
+      <div
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#090040]"
+        role="status"
+        aria-live="polite"
+        aria-label="Loading"
+      >
+        <div className="h-1 w-24 overflow-hidden rounded-full bg-white/20" aria-hidden>
+          <div className="loading-bar h-full w-1/2 rounded-full bg-white" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-[#090040] text-white"
